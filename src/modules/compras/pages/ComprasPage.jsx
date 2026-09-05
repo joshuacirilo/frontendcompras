@@ -1,31 +1,37 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import ComprasTable from "../components/ComprasTable";
 import MesMayorFacturacion from "../components/MesMayorFacturacion";
 import ResumenCompras from "../components/ResumenCompras";
 import TicketPromedio from "../components/TicketPromedio";
 import VentasPorAnio from "../components/VentasPorAnio";
 import VentasPorMes from "../components/VentasPorMes";
-import { getComprasData } from "../services/comprasService";
-
-const visualStates = [
-  ["normal", "Datos disponibles"],
-  ["loading", "Loading"],
-  ["empty", "Sin informacion"],
-  ["error", "Error"],
-];
+import { getComprasData, getComprasMockData } from "../services/comprasService";
 
 function ComprasPage({ onBackToDashboard }) {
-  const data = useMemo(() => getComprasData(), []);
-  const [viewMode, setViewMode] = useState("normal");
+  const [data, setData] = useState(() => getComprasMockData());
+  const [viewMode, setViewMode] = useState("loading");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  function handleApplyFilters(event) {
-    event.preventDefault();
+  async function loadCompras(params) {
     setViewMode("loading");
-    window.setTimeout(() => setViewMode("normal"), 500);
+    setErrorMessage("");
+
+    try {
+      const nextData = await getComprasData(params);
+      setData(nextData);
+      setViewMode(nextData.purchases.length ? "normal" : "empty");
+    } catch (error) {
+      setErrorMessage(error.message);
+      setViewMode("error");
+    }
   }
 
+  useEffect(() => {
+    loadCompras();
+  }, []);
+
   function handleResetFilters() {
-    setViewMode("normal");
+    loadCompras();
   }
 
   return (
@@ -50,10 +56,6 @@ function ComprasPage({ onBackToDashboard }) {
             </p>
           </div>
           <div className="compras-header-actions">
-            <button type="button">
-              <span className="material-symbols-outlined" aria-hidden="true">tune</span>
-              Configurar Filtros
-            </button>
             <button className="primary" type="button">
               <span className="material-symbols-outlined" aria-hidden="true">receipt</span>
               Nueva Compra
@@ -61,60 +63,6 @@ function ComprasPage({ onBackToDashboard }) {
           </div>
         </div>
       </header>
-
-      <form className="compras-filter-panel" onSubmit={handleApplyFilters}>
-        <div className="compras-filter-top">
-          <div>
-            <span className="material-symbols-outlined" aria-hidden="true">filter_alt</span>
-            Parametros de Auditoria y Filtros Avanzados
-          </div>
-          <button type="button" onClick={handleResetFilters}>
-            <span className="material-symbols-outlined" aria-hidden="true">restart_alt</span>
-            Restablecer
-          </button>
-        </div>
-        <div className="compras-filter-grid">
-          <label>
-            Fecha inicial
-            <input type="date" defaultValue="2024-02-16" />
-          </label>
-          <label>
-            Fecha final
-            <input type="date" defaultValue="2024-03-17" />
-          </label>
-          <label>
-            Cliente
-            <select defaultValue={data.filters.clientes[0]}>
-              {data.filters.clientes.map((item) => <option key={item}>{item}</option>)}
-            </select>
-          </label>
-          <label>
-            Producto
-            <select defaultValue={data.filters.productos[0]}>
-              {data.filters.productos.map((item) => <option key={item}>{item}</option>)}
-            </select>
-          </label>
-          <label>
-            Categoria
-            <select defaultValue={data.filters.categorias[0]}>
-              {data.filters.categorias.map((item) => <option key={item}>{item}</option>)}
-            </select>
-          </label>
-        </div>
-      </form>
-
-      <div className="compras-view-switcher" aria-label="Seleccionar estado visual de compras">
-        {visualStates.map(([mode, label]) => (
-          <button
-            className={viewMode === mode ? "is-active" : ""}
-            key={mode}
-            onClick={() => setViewMode(mode)}
-            type="button"
-          >
-            {label}
-          </button>
-        ))}
-      </div>
 
       {viewMode === "normal" ? (
         <>
@@ -124,8 +72,8 @@ function ComprasPage({ onBackToDashboard }) {
             <VentasPorAnio data={data.yearlySales} />
             <MesMayorFacturacion peakMonth={data.peakMonth} peakHours={data.peakHours} />
           </div>
-          <TicketPromedio />
-          <ComprasTable purchases={data.purchases} total="12,540" />
+          <TicketPromedio summary={data.ticketAverageSummary} />
+          <ComprasTable purchases={data.purchases} total={data.kpis[0].value} />
         </>
       ) : (
         <section className={`compras-state-panel ${viewMode}`}>
@@ -136,15 +84,15 @@ function ComprasPage({ onBackToDashboard }) {
             {viewMode === "loading"
               ? "Cargando compras"
               : viewMode === "empty"
-                ? "Sin informacion para los filtros"
+                ? "Sin informacion disponible"
                 : "Error al sincronizar compras"}
           </h3>
           <p>
             {viewMode === "loading"
               ? "Preparando indicadores, graficas y registro maestro de transacciones."
               : viewMode === "empty"
-                ? "No hay transacciones disponibles para el rango, cliente, producto o categoria seleccionados."
-                : "No fue posible consultar los datos temporales del modulo. Reintenta la consulta."}
+                ? "La API no devolvio transacciones disponibles para mostrar."
+                : errorMessage || "No fue posible consultar la API de compras. Reintenta la consulta."}
           </p>
           <button type="button" onClick={handleResetFilters}>Restablecer vista</button>
         </section>

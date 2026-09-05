@@ -1,3 +1,5 @@
+import { apiRequest } from "../../../services/apiService";
+
 const categoriasData = {
   filters: {
     fechas: [
@@ -166,6 +168,14 @@ const categoriasData = {
     },
   ],
 };
+
+export function getCategorias(params) {
+  return apiRequest("/api/categorias", { params });
+}
+
+export function getCategoriaById(idCategoria) {
+  return apiRequest(`/api/categorias/${idCategoria}`);
+}
 
 export function getCategoriasData() {
   return categoriasData;

@@ -13,12 +13,6 @@ function ComprasTable({ purchases, total }) {
           <span>{total} Compras</span>
         </div>
         <div className="compras-table-actions">
-          <label className="compras-search" aria-label="Buscar compra">
-            <span className="material-symbols-outlined" aria-hidden="true">
-              search
-            </span>
-            <input type="search" placeholder="ID Compra, cliente o autorizacion..." />
-          </label>
           <button type="button">
             <span className="material-symbols-outlined" aria-hidden="true">
               table_view
@@ -89,7 +83,7 @@ function ComprasTable({ purchases, total }) {
             ) : (
               <tr>
                 <td className="empty-table-cell" colSpan="7">
-                  No hay compras para los parametros seleccionados.
+                  No hay compras disponibles para mostrar.
                 </td>
               </tr>
             )}

@@ -1,39 +1,52 @@
-import { useMemo, useState } from "react";
-import ClientesConComprasKpi from "../components/ClientesConComprasKpi";
-import ComprasPorCategoriaChart from "../components/ComprasPorCategoriaChart";
-import CreditoDebitoChart from "../components/CreditoDebitoChart";
-import DashboardFilters from "../components/DashboardFilters";
-import ModuleAccessCard from "../components/ModuleAccessCard";
-import MontoTotalVendidoKpi from "../components/MontoTotalVendidoKpi";
+import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../../../config/apiConfig";
+import EndpointCard from "../components/EndpointCard";
 import StatePanel from "../components/StatePanel";
-import TarjetasPorMarcaChart from "../components/TarjetasPorMarcaChart";
-import TicketPromedioKpi from "../components/TicketPromedioKpi";
-import TopClientesChart from "../components/TopClientesChart";
-import TopProductosChart from "../components/TopProductosChart";
-import TotalComprasKpi from "../components/TotalComprasKpi";
-import VentasPorMesChart from "../components/VentasPorMesChart";
-import { getDashboardData } from "../services/dashboardService";
+import { dashboardEndpointCards, getDashboardEndpointCards } from "../services/dashboardEndpoints";
 import "../styles/dashboard.css";
 
-const viewModes = [
-  ["normal", "Normal"],
-  ["loading", "Skeleton"],
-  ["empty", "Sin Datos"],
-  ["error", "Error Sync"],
-];
-
 function DashboardPage() {
-  const data = useMemo(() => getDashboardData(), []);
-  const [viewMode, setViewMode] = useState("normal");
+  const [cards, setCards] = useState(() =>
+    dashboardEndpointCards.map((card) => ({
+      ...card,
+      count: "-",
+      detail: "Consulta pendiente",
+      sample: "Esperando respuesta del endpoint",
+      status: "loading",
+    })),
+  );
+  const [viewMode, setViewMode] = useState("loading");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  function handleApplyFilters(event) {
-    event.preventDefault();
+  async function loadDashboard() {
     setViewMode("loading");
-    window.setTimeout(() => setViewMode("normal"), 500);
+    setErrorMessage("");
+    setCards((currentCards) =>
+      currentCards.map((card) => ({
+        ...card,
+        count: "-",
+        detail: "Consulta pendiente",
+        sample: "Esperando respuesta del endpoint",
+        status: "loading",
+      })),
+    );
+
+    try {
+      const nextCards = await getDashboardEndpointCards();
+      setCards(nextCards);
+      setViewMode(nextCards.some((card) => card.status === "available") ? "normal" : "empty");
+    } catch (error) {
+      setErrorMessage(error.message);
+      setViewMode("error");
+    }
   }
 
+  useEffect(() => {
+    loadDashboard();
+  }, []);
+
   function handleResetFilters() {
-    setViewMode("normal");
+    loadDashboard();
   }
 
   return (
@@ -41,81 +54,40 @@ function DashboardPage() {
       <section className="page-heading">
         <div>
           <div className="eyebrow-row">
-            <span>Modulo Analitico</span>
+            <span>Endpoints API</span>
             <i aria-hidden="true" />
-            <span>Q1 2024 Auditado</span>
+            <span>Datos verificados por respuesta</span>
           </div>
           <h1>Dashboard General</h1>
           <p>
-            Resumen general del comportamiento de compras y principales indicadores de desempeno
-            comercial.
+            Panel de endpoints disponibles. Cada card muestra solamente informacion que devuelve
+            la API.
           </p>
-        </div>
-        <div className="view-switcher" aria-label="Seleccionar estado visual">
-          <span className="material-symbols-outlined" aria-hidden="true">
-            tune
-          </span>
-          <strong>Modo Vista:</strong>
-          {viewModes.map(([mode, label]) => (
-            <button
-              className={viewMode === mode ? "is-active" : ""}
-              key={mode}
-              onClick={() => setViewMode(mode)}
-              type="button"
-            >
-              {label}
-            </button>
-          ))}
+          <code className="api-base-chip">{API_BASE_URL}</code>
         </div>
       </section>
 
-      <DashboardFilters
-        filters={data.filters}
-        onApply={handleApplyFilters}
-        onReset={handleResetFilters}
-      />
-
-      {viewMode === "normal" ? (
+      {viewMode === "normal" || viewMode === "empty" ? (
         <div className="dashboard-content">
-          <section className="kpi-grid">
-            <TotalComprasKpi data={data.kpis.totalCompras} />
-            <ClientesConComprasKpi data={data.kpis.clientesConCompras} />
-            <MontoTotalVendidoKpi data={data.kpis.montoTotalVendido} />
-            <TicketPromedioKpi data={data.kpis.ticketPromedio} />
-          </section>
-
-          <section className="report-explorer">
+          <section className="endpoint-board">
             <div className="section-title-row">
               <h2>
                 <span className="material-symbols-outlined" aria-hidden="true">
-                  explore
+                  api
                 </span>
-                Explorar Reportes Especializados
+                Endpoints documentados
               </h2>
-              <span>5 areas analiticas consolidadas</span>
+              <span>{cards.length} consultas</span>
             </div>
-            <div className="module-grid">
-              {data.modules.map((module) => (
-                <ModuleAccessCard key={module.name} module={module} />
+            <div className="endpoint-grid">
+              {cards.map((card) => (
+                <EndpointCard key={card.id} card={card} />
               ))}
             </div>
           </section>
-
-          <VentasPorMesChart data={data.monthlySales} />
-
-          <section className="charts-two-columns">
-            <TopClientesChart data={data.topClients} />
-            <TopProductosChart data={data.topProducts} />
-          </section>
-
-          <section className="charts-three-columns">
-            <ComprasPorCategoriaChart data={data.categoryShare} />
-            <TarjetasPorMarcaChart data={data.cardBrands} />
-            <CreditoDebitoChart data={data.paymentTypes} />
-          </section>
         </div>
       ) : (
-        <StatePanel type={viewMode} onReset={handleResetFilters} />
+        <StatePanel type={viewMode} message={errorMessage} onReset={handleResetFilters} />
       )}
     </div>
   );

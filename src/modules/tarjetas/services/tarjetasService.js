@@ -1,3 +1,5 @@
+import { apiRequest } from "../../../services/apiService";
+
 const tarjetasData = {
   filters: {
     fechas: ["Mes actual (Oct 2024)", "Trimestre movil (Q3-Q4)", "Anio completo 2024", "Personalizado"],
@@ -106,6 +108,34 @@ const tarjetasData = {
     ["Amex **** 0094", "American Express", "Credito", "Operadora de Hoteles Maya", "18"],
   ],
 };
+
+export function getTarjetas(params) {
+  return apiRequest("/api/tarjetas", { params });
+}
+
+export function getTarjetaById(idTarjeta) {
+  return apiRequest(`/api/tarjetas/${idTarjeta}`);
+}
+
+export function getMarcas(params) {
+  return apiRequest("/api/marcas", { params });
+}
+
+export function getMarcaById(idMarca) {
+  return apiRequest(`/api/marcas/${idMarca}`);
+}
+
+export function getTarjetasMasUtilizadas(params) {
+  return apiRequest("/api/tarjetas/mas-utilizadas", { params });
+}
+
+export function getTarjetasCreditoVsDebito(params) {
+  return apiRequest("/api/tarjetas/credito-vs-debito", { params });
+}
+
+export function getTarjetasPorMarca(params) {
+  return apiRequest("/api/tarjetas/por-marca", { params });
+}
 
 export function getTarjetasData() {
   return tarjetasData;

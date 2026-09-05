@@ -1,3 +1,5 @@
+import { apiRequest } from "../../../services/apiService";
+
 const productosData = {
   filters: {
     fechas: ["1 Mar 2024 - 31 Mar 2024", "Ultimos 30 dias", "Q1 2024", "YTD 2024"],
@@ -94,6 +96,26 @@ const productosData = {
     ["SKU-00902", "Te Verde Jazmin 20s", "Bebidas & Cafe", "Q 34.50", "0", "Q 0.00", "210 u", "Sin Venta", "none"],
   ],
 };
+
+export function getProductos(params) {
+  return apiRequest("/api/productos", { params });
+}
+
+export function getProductoById(idProducto) {
+  return apiRequest(`/api/productos/${idProducto}`);
+}
+
+export function getTopProductos(params) {
+  return apiRequest("/api/productos/top10", { params });
+}
+
+export function getProductosSinVentas(params) {
+  return apiRequest("/api/productos/sin-ventas", { params });
+}
+
+export function getProductosPorCategoria(params) {
+  return apiRequest("/api/productos/por-categoria", { params });
+}
 
 export function getProductosData() {
   return productosData;

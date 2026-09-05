@@ -1,17 +1,10 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import ClientesPorGenero from "../components/ClientesPorGenero";
 import ClientesSinCompras from "../components/ClientesSinCompras";
 import ClientesTable from "../components/ClientesTable";
 import TopClientesPorCompras from "../components/TopClientesPorCompras";
 import TopClientesPorMonto from "../components/TopClientesPorMonto";
-import { getClientesData } from "../services/clientesService";
-
-const viewModes = [
-  ["normal", "Datos disponibles"],
-  ["loading", "Loading"],
-  ["empty", "Sin datos"],
-  ["error", "Error"],
-];
+import { getClientesData, getClientesMockData } from "../services/clientesService";
 
 function ClientesKpiCard({ kpi }) {
   return (
@@ -34,10 +27,10 @@ function ClientesKpiCard({ kpi }) {
   );
 }
 
-function ClientesStatePanel({ type, onReset }) {
+function ClientesStatePanel({ message, type, onReset }) {
   const content = {
     loading: ["hourglass_top", "Cargando clientes", "Preparando KPIs, graficas y directorio maestro de clientes."],
-    empty: ["folder_off", "Sin datos para los filtros", "No hay clientes disponibles para el rango de fecha o cliente seleccionado."],
+    empty: ["folder_off", "Sin datos disponibles", "La API no devolvio clientes disponibles para mostrar."],
     error: ["sync_problem", "Error al sincronizar clientes", "No fue posible consultar los datos temporales del modulo. Reintenta la consulta."],
   }[type];
 
@@ -45,24 +38,37 @@ function ClientesStatePanel({ type, onReset }) {
     <section className={`clientes-state-panel ${type}`}>
       <span className="material-symbols-outlined" aria-hidden="true">{content[0]}</span>
       <h2>{content[1]}</h2>
-      <p>{content[2]}</p>
+      <p>{message || content[2]}</p>
       <button type="button" onClick={onReset}>Restablecer vista</button>
     </section>
   );
 }
 
 function ClientesPage({ onBackToDashboard }) {
-  const data = useMemo(() => getClientesData(), []);
-  const [viewMode, setViewMode] = useState("normal");
+  const [data, setData] = useState(() => getClientesMockData());
+  const [viewMode, setViewMode] = useState("loading");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  function handleApplyFilters(event) {
-    event.preventDefault();
+  async function loadClientes(params) {
     setViewMode("loading");
-    window.setTimeout(() => setViewMode("normal"), 500);
+    setErrorMessage("");
+
+    try {
+      const nextData = await getClientesData(params);
+      setData(nextData);
+      setViewMode(nextData.clients.length ? "normal" : "empty");
+    } catch (error) {
+      setErrorMessage(error.message);
+      setViewMode("error");
+    }
   }
 
+  useEffect(() => {
+    loadClientes();
+  }, []);
+
   function handleResetFilters() {
-    setViewMode("normal");
+    loadClientes();
   }
 
   return (
@@ -101,56 +107,6 @@ function ClientesPage({ onBackToDashboard }) {
         </div>
       </header>
 
-      <form className="clientes-filter-bar" onSubmit={handleApplyFilters}>
-        <div className="clientes-filter-group">
-          <label>
-            <span className="material-symbols-outlined" aria-hidden="true">date_range</span>
-            <small>Rango Fechas</small>
-            <select defaultValue={data.filters.fechas[0]}>{data.filters.fechas.map((item) => <option key={item}>{item}</option>)}</select>
-          </label>
-          <label>
-            <span className="material-symbols-outlined" aria-hidden="true">group</span>
-            <small>Cliente</small>
-            <select defaultValue={data.filters.clientes[0]}>{data.filters.clientes.map((item) => <option key={item}>{item}</option>)}</select>
-          </label>
-          <label>
-            <span className="material-symbols-outlined" aria-hidden="true">military_tech</span>
-            <small>Segmento</small>
-            <select defaultValue={data.filters.segmentos[0]}>{data.filters.segmentos.map((item) => <option key={item}>{item}</option>)}</select>
-          </label>
-          <label>
-            <span className="material-symbols-outlined" aria-hidden="true">payments</span>
-            <small>Rango de Consumo</small>
-            <select defaultValue={data.filters.consumos[0]}>{data.filters.consumos.map((item) => <option key={item}>{item}</option>)}</select>
-          </label>
-          <label>
-            <span className="material-symbols-outlined" aria-hidden="true">wc</span>
-            <small>Genero</small>
-            <select defaultValue={data.filters.generos[0]}>{data.filters.generos.map((item) => <option key={item}>{item}</option>)}</select>
-          </label>
-          <label>
-            <span className="material-symbols-outlined" aria-hidden="true">toggle_on</span>
-            <small>Estado</small>
-            <select defaultValue={data.filters.estados[0]}>{data.filters.estados.map((item) => <option key={item}>{item}</option>)}</select>
-          </label>
-        </div>
-        <div className="clientes-filter-actions">
-          <button type="button" onClick={handleResetFilters}>Limpiar</button>
-          <button className="apply" type="submit">
-            <span className="material-symbols-outlined" aria-hidden="true">filter_list</span>
-            Aplicar
-          </button>
-        </div>
-      </form>
-
-      <div className="clientes-view-switcher" aria-label="Seleccionar estado visual de clientes">
-        {viewModes.map(([mode, label]) => (
-          <button className={viewMode === mode ? "is-active" : ""} key={mode} onClick={() => setViewMode(mode)} type="button">
-            {label}
-          </button>
-        ))}
-      </div>
-
       {viewMode === "normal" ? (
         <>
           <section className="clientes-kpi-grid">
@@ -170,7 +126,7 @@ function ClientesPage({ onBackToDashboard }) {
           <ClientesTable clients={data.clients} />
         </>
       ) : (
-        <ClientesStatePanel type={viewMode} onReset={handleResetFilters} />
+        <ClientesStatePanel type={viewMode} message={errorMessage} onReset={handleResetFilters} />
       )}
     </div>
   );

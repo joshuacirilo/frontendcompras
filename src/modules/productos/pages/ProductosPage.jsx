@@ -7,13 +7,6 @@ import TopProductosMasVendidos from "../components/TopProductosMasVendidos";
 import { getProductosData } from "../services/productosService";
 import "../../dashboard/styles/dashboard.css";
 
-const viewModes = [
-  ["normal", "Datos disponibles"],
-  ["loading", "Loading"],
-  ["empty", "Sin resultados"],
-  ["error", "Error"],
-];
-
 function ProductosKpiCard({ kpi }) {
   return (
     <article className={`productos-kpi-card ${kpi.tone}`}>
@@ -33,56 +26,10 @@ function ProductosKpiCard({ kpi }) {
   );
 }
 
-function ProductosFilters({ filters, onApply, onReset }) {
-  return (
-    <form className="productos-filter-bar" onSubmit={onApply}>
-      <div className="productos-filter-group">
-        <label>
-          <span className="material-symbols-outlined" aria-hidden="true">date_range</span>
-          <select defaultValue={filters.fechas[0]} aria-label="Fecha">
-            {filters.fechas.map((item) => <option key={item}>{item}</option>)}
-          </select>
-        </label>
-        <label>
-          <span className="material-symbols-outlined" aria-hidden="true">inventory_2</span>
-          <select defaultValue={filters.productos[0]} aria-label="Producto">
-            {filters.productos.map((item) => <option key={item}>{item}</option>)}
-          </select>
-        </label>
-        <label>
-          <span className="material-symbols-outlined" aria-hidden="true">category</span>
-          <select defaultValue={filters.categorias[0]} aria-label="Categoria">
-            {filters.categorias.map((item) => <option key={item}>{item}</option>)}
-          </select>
-        </label>
-        <label>
-          <span className="material-symbols-outlined" aria-hidden="true">payments</span>
-          <select defaultValue={filters.precios[0]} aria-label="Rango de precio">
-            {filters.precios.map((item) => <option key={item}>{item}</option>)}
-          </select>
-        </label>
-        <label>
-          <span className="material-symbols-outlined" aria-hidden="true">sync_alt</span>
-          <select defaultValue={filters.rotacion[0]} aria-label="Rotacion">
-            {filters.rotacion.map((item) => <option key={item}>{item}</option>)}
-          </select>
-        </label>
-      </div>
-      <div className="productos-filter-actions">
-        <button type="button" onClick={onReset} title="Restablecer filtros" aria-label="Restablecer filtros">
-          <span className="material-symbols-outlined" aria-hidden="true">restart_alt</span>
-        </button>
-        <i aria-hidden="true" />
-        <span>Filtro: 1,240 SKUs</span>
-      </div>
-    </form>
-  );
-}
-
 function ProductosStatePanel({ type, onReset }) {
   const content = {
     loading: ["hourglass_top", "Cargando productos", "Preparando KPIs, graficas y catalogo maestro de productos."],
-    empty: ["folder_off", "Sin resultados para los filtros", "No hay productos disponibles para la fecha, producto o categoria seleccionada."],
+    empty: ["folder_off", "Sin resultados disponibles", "La API no devolvio productos disponibles para mostrar."],
     error: ["sync_problem", "Error al sincronizar productos", "No fue posible consultar los datos temporales del modulo. Reintenta la consulta."],
   }[type];
 
@@ -99,12 +46,6 @@ function ProductosStatePanel({ type, onReset }) {
 function ProductosPage({ onBackToDashboard }) {
   const data = useMemo(() => getProductosData(), []);
   const [viewMode, setViewMode] = useState("normal");
-
-  function handleApplyFilters(event) {
-    event.preventDefault();
-    setViewMode("loading");
-    window.setTimeout(() => setViewMode("normal"), 500);
-  }
 
   function handleResetFilters() {
     setViewMode("normal");
@@ -139,16 +80,6 @@ function ProductosPage({ onBackToDashboard }) {
           </button>
         </div>
       </header>
-
-      <ProductosFilters filters={data.filters} onApply={handleApplyFilters} onReset={handleResetFilters} />
-
-      <div className="productos-view-switcher" aria-label="Seleccionar estado visual de productos">
-        {viewModes.map(([mode, label]) => (
-          <button className={viewMode === mode ? "is-active" : ""} key={mode} onClick={() => setViewMode(mode)} type="button">
-            {label}
-          </button>
-        ))}
-      </div>
 
       {viewMode === "normal" ? (
         <>

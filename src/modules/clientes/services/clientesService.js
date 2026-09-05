@@ -1,3 +1,5 @@
+import { apiRequest, getListPayload } from "../../../services/apiService";
+
 const clientesData = {
   filters: {
     fechas: ["Ultimos 30 dias", "Trimestre Actual (Q2)", "Ano Fiscal 2024", "Personalizado"],
@@ -98,6 +100,155 @@ const clientesData = {
   ],
 };
 
-export function getClientesData() {
+const currencyFormatter = new Intl.NumberFormat("es-GT", {
+  currency: "GTQ",
+  style: "currency",
+});
+
+function firstValue(record, keys, fallback = "") {
+  for (const key of keys) {
+    if (record?.[key] !== undefined && record?.[key] !== null) {
+      return record[key];
+    }
+  }
+
+  return fallback;
+}
+
+function initialsFromName(name) {
+  return String(name)
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+
+function formatCurrency(value) {
+  const number = Number(value || 0);
+
+  return currencyFormatter.format(number).replace("GTQ", "Q").trim();
+}
+
+function normalizeClient(record) {
+  const name = firstValue(record, ["nombre", "nombre_cliente", "cliente", "name"], "Cliente sin nombre");
+  const email = firstValue(record, ["email", "correo", "correo_cliente"], "sin-correo@local");
+  const nit = firstValue(record, ["nit", "dpi", "identificador", "id_cliente"], "N/D");
+  const gender = firstValue(record, ["genero", "sexo", "segmento"], "N/D");
+  const total = firstValue(record, ["total_compras", "monto_total", "total", "total_comprado"], 0);
+  const frequency = firstValue(record, ["frecuencia", "cantidad_compras", "pedidos", "compras"], 0);
+  const lastPurchase = firstValue(record, ["ultima_compra", "fecha_ultima_compra"], "Sin compras");
+  const status = Number(total) > 0 || Number(frequency) > 0 ? "Activo" : "Inactivo";
+
+  return [
+    initialsFromName(name),
+    name,
+    email,
+    String(nit),
+    String(gender),
+    formatCurrency(total),
+    `${frequency} pedidos`,
+    String(lastPurchase),
+    status,
+  ];
+}
+
+function normalizeTopByAmount(record) {
+  return [
+    firstValue(record, ["nombre", "nombre_cliente", "cliente", "name"], "Cliente"),
+    Number(firstValue(record, ["monto_total", "total_compras", "total", "total_comprado"], 0)),
+  ];
+}
+
+function normalizeTopByPurchases(record) {
+  return [
+    firstValue(record, ["nombre", "nombre_cliente", "cliente", "name"], "Cliente"),
+    Number(firstValue(record, ["cantidad_compras", "compras", "pedidos", "frecuencia"], 0)),
+  ];
+}
+
+function normalizeInactiveClient(record) {
+  const name = firstValue(record, ["nombre", "nombre_cliente", "cliente", "name"], "Cliente sin nombre");
+
+  return [
+    String(firstValue(record, ["id_cliente", "id", "nit", "dpi"], "N/D")),
+    name,
+    String(firstValue(record, ["genero", "sexo", "segmento"], "N/D")),
+    "Inactivo",
+  ];
+}
+
+export function getClientes(params) {
+  return apiRequest("/api/clientes", { params });
+}
+
+export function getClienteById(idCliente) {
+  return apiRequest(`/api/clientes/${idCliente}`);
+}
+
+export function getTopClientes(params) {
+  return apiRequest("/api/clientes/top10", { params });
+}
+
+export function getClientesSinCompras(params) {
+  return apiRequest("/api/clientes/sin-compras", { params });
+}
+
+export function getClienteMayorConsumo() {
+  return apiRequest("/api/clientes/mayor-consumo");
+}
+
+export async function getClientesData(params = {}) {
+  const [clientesPayload, topPayload, inactivePayload, mayorConsumo] = await Promise.all([
+    getClientes({ limit: 50, offset: 0, ...params }),
+    getTopClientes({ limit: 10 }),
+    getClientesSinCompras({ limit: 50 }),
+    getClienteMayorConsumo(),
+  ]);
+
+  const clients = getListPayload(clientesPayload).map(normalizeClient);
+  const topRecords = getListPayload(topPayload);
+  const inactiveClients = getListPayload(inactivePayload).map(normalizeInactiveClient);
+  const topByAmount = topRecords.map(normalizeTopByAmount);
+  const topByPurchases = topRecords.map(normalizeTopByPurchases);
+  const topClient = Array.isArray(mayorConsumo) ? mayorConsumo[0] : mayorConsumo;
+  const topClientName = firstValue(topClient, ["nombre", "nombre_cliente", "cliente", "name"], "N/D");
+  const topClientAmount = firstValue(topClient, ["monto_total", "total_compras", "total", "total_comprado"], 0);
+
+  return {
+    ...clientesData,
+    clients: clients.length ? clients : clientesData.clients,
+    inactiveClients: inactiveClients.length ? inactiveClients : clientesData.inactiveClients,
+    topByAmount: topByAmount.length ? topByAmount : clientesData.topByAmount,
+    topByPurchases: topByPurchases.length ? topByPurchases : clientesData.topByPurchases,
+    kpis: clientesData.kpis.map((kpi) => {
+      if (kpi.label === "Total de Clientes") {
+        return { ...kpi, value: String(clients.length || clientesData.clients.length) };
+      }
+
+      if (kpi.label === "Clientes con Compras") {
+        const active = clients.filter((client) => client[8] === "Activo").length;
+        return { ...kpi, value: String(active || 0) };
+      }
+
+      if (kpi.label === "Clientes sin Compras") {
+        return { ...kpi, value: String(inactiveClients.length || 0) };
+      }
+
+      if (kpi.label === "Mayor Consumo") {
+        return {
+          ...kpi,
+          value: formatCurrency(topClientAmount),
+          trend: topClientName,
+        };
+      }
+
+      return kpi;
+    }),
+  };
+}
+
+export function getClientesMockData() {
   return clientesData;
 }

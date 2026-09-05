@@ -7,13 +7,6 @@ import TopClientesPorTipoTarjeta from "../components/TopClientesPorTipoTarjeta";
 import { getTarjetasData } from "../services/tarjetasService";
 import "../styles/tarjetas.css";
 
-const viewModes = [
-  ["normal", "Datos disponibles"],
-  ["loading", "Loading"],
-  ["empty", "Sin informacion"],
-  ["error", "Error"],
-];
-
 function TarjetasKpiCard({ kpi }) {
   return (
     <article className={kpi.highlighted ? "tarjetas-kpi-card is-highlighted" : "tarjetas-kpi-card"}>
@@ -36,65 +29,10 @@ function TarjetasKpiCard({ kpi }) {
   );
 }
 
-function TarjetasFilters({ filters, onApply, onReset }) {
-  return (
-    <form className="tarjetas-filter-panel" onSubmit={onApply}>
-      <div className="tarjetas-filter-grid">
-        <label>
-          <span>Periodo fiscal</span>
-          <div>
-            <span className="material-symbols-outlined" aria-hidden="true">calendar_month</span>
-            <select defaultValue={filters.fechas[0]}>
-              {filters.fechas.map((item) => <option key={item}>{item}</option>)}
-            </select>
-          </div>
-        </label>
-        <label>
-          <span>Cliente</span>
-          <div>
-            <span className="material-symbols-outlined" aria-hidden="true">group</span>
-            <select defaultValue={filters.clientes[0]}>
-              {filters.clientes.map((item) => <option key={item}>{item}</option>)}
-            </select>
-          </div>
-        </label>
-        <label>
-          <span>Marca emisora</span>
-          <div>
-            <span className="material-symbols-outlined" aria-hidden="true">domain</span>
-            <select defaultValue={filters.marcas[0]}>
-              {filters.marcas.map((item) => <option key={item}>{item}</option>)}
-            </select>
-          </div>
-        </label>
-        <label>
-          <span>Tipo de plastico</span>
-          <div>
-            <span className="material-symbols-outlined" aria-hidden="true">credit_card_clock</span>
-            <select defaultValue={filters.tipos[0]}>
-              {filters.tipos.map((item) => <option key={item}>{item}</option>)}
-            </select>
-          </div>
-        </label>
-      </div>
-      <div className="tarjetas-filter-actions">
-        <button type="button" onClick={onReset}>
-          <span className="material-symbols-outlined" aria-hidden="true">restart_alt</span>
-          Restablecer
-        </button>
-        <button className="primary" type="submit">
-          <span className="material-symbols-outlined" aria-hidden="true">filter_list</span>
-          Aplicar
-        </button>
-      </div>
-    </form>
-  );
-}
-
 function TarjetasStatePanel({ type, onReset }) {
   const content = {
     loading: ["hourglass_top", "Cargando tarjetas", "Preparando KPIs, graficas y tabla de medios de pago."],
-    empty: ["folder_off", "Sin informacion para los filtros", "No hay tarjetas disponibles para la fecha, cliente, marca o tipo seleccionado."],
+    empty: ["folder_off", "Sin informacion disponible", "La API no devolvio tarjetas disponibles para mostrar."],
     error: ["sync_problem", "Error al sincronizar tarjetas", "No fue posible consultar los datos temporales del modulo. Reintenta la consulta."],
   }[type];
 
@@ -111,12 +49,6 @@ function TarjetasStatePanel({ type, onReset }) {
 function TarjetasPage({ onBackToDashboard }) {
   const data = useMemo(() => getTarjetasData(), []);
   const [viewMode, setViewMode] = useState("normal");
-
-  function handleApplyFilters(event) {
-    event.preventDefault();
-    setViewMode("loading");
-    window.setTimeout(() => setViewMode("normal"), 500);
-  }
 
   function handleResetFilters() {
     setViewMode("normal");
@@ -156,16 +88,6 @@ function TarjetasPage({ onBackToDashboard }) {
           </div>
         </div>
       </header>
-
-      <TarjetasFilters filters={data.filters} onApply={handleApplyFilters} onReset={handleResetFilters} />
-
-      <div className="tarjetas-view-switcher" aria-label="Seleccionar estado visual de tarjetas">
-        {viewModes.map(([mode, label]) => (
-          <button className={viewMode === mode ? "is-active" : ""} key={mode} onClick={() => setViewMode(mode)} type="button">
-            {label}
-          </button>
-        ))}
-      </div>
 
       {viewMode === "normal" ? (
         <>

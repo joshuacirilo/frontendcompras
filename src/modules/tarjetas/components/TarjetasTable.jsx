@@ -7,14 +7,6 @@ function TarjetasTable({ rows, simpleRows }) {
           <p>Auditoria detallada por combinacion de marca, tipo de plastico y desempeno operativo POS.</p>
         </div>
         <div className="tarjetas-table-actions">
-          <label className="tarjetas-search">
-            <span className="material-symbols-outlined" aria-hidden="true">search</span>
-            <input type="search" placeholder="Buscar por ultimos 4 digitos o titular..." />
-          </label>
-          <button type="button">
-            <span className="material-symbols-outlined" aria-hidden="true">filter_list</span>
-            Filtro
-          </button>
           <button className="primary" type="button">
             <span className="material-symbols-outlined" aria-hidden="true">download</span>
             CSV Data

@@ -1,6 +1,24 @@
-function ModuleAccessCard({ module }) {
+const pageByModuleName = {
+  Categorias: "categorias",
+  Clientes: "clientes",
+  Compras: "compras",
+  Productos: "productos",
+  Tarjetas: "tarjetas",
+};
+
+function ModuleAccessCard({ module, onNavigate }) {
+  const page = pageByModuleName[module.name];
+
   return (
-    <a className="module-card" href="#">
+    <a
+      className="module-card"
+      href={`#${page || ""}`}
+      onClick={(event) => {
+        if (!page) return;
+        event.preventDefault();
+        onNavigate?.(page);
+      }}
+    >
       <div className="module-card-body">
         <div className="module-card-top">
           <div className="module-icon">

@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import CategoriaMasConsumida from "../components/CategoriaMasConsumida";
 import CategoriaMenosConsumida from "../components/CategoriaMenosConsumida";
-import CategoriasFilters from "../components/CategoriasFilters";
 import CategoriasKpiCard from "../components/CategoriasKpiCard";
 import CategoriasStatePanel from "../components/CategoriasStatePanel";
 import CategoriasTable from "../components/CategoriasTable";
@@ -11,22 +10,9 @@ import { getCategoriasData } from "../services/categoriasService";
 import "../../dashboard/styles/dashboard.css";
 import "../styles/categorias.css";
 
-const viewModes = [
-  ["normal", "Datos disponibles"],
-  ["loading", "Loading"],
-  ["empty", "Sin datos"],
-  ["error", "Error"],
-];
-
 function CategoriasPage({ onBackToDashboard }) {
   const data = useMemo(() => getCategoriasData(), []);
   const [viewMode, setViewMode] = useState("normal");
-
-  function handleApplyFilters(event) {
-    event.preventDefault();
-    setViewMode("loading");
-    window.setTimeout(() => setViewMode("normal"), 500);
-  }
 
   function handleResetFilters() {
     setViewMode("normal");
@@ -61,16 +47,6 @@ function CategoriasPage({ onBackToDashboard }) {
           </button>
         </div>
       </header>
-
-      <CategoriasFilters filters={data.filters} onApply={handleApplyFilters} onReset={handleResetFilters} />
-
-      <div className="categorias-view-switcher" aria-label="Seleccionar estado visual de categorias">
-        {viewModes.map(([mode, label]) => (
-          <button className={viewMode === mode ? "is-active" : ""} key={mode} onClick={() => setViewMode(mode)} type="button">
-            {label}
-          </button>
-        ))}
-      </div>
 
       {viewMode === "normal" ? (
         <>

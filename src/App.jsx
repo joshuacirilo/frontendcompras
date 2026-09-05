@@ -23,7 +23,7 @@ function App() {
       ) : activePage === "tarjetas" ? (
         <TarjetasPage onBackToDashboard={() => setActivePage("dashboard")} />
       ) : (
-        <DashboardPage />
+        <DashboardPage onNavigate={setActivePage} />
       )}
     </DashboardLayout>
   );

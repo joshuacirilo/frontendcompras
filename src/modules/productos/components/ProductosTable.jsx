@@ -10,19 +10,6 @@ function ProductosTable({ products, total }) {
     <section className="productos-table-panel">
       <div className="productos-table-header">
         <div className="productos-table-controls">
-          <label className="productos-search" aria-label="Filtrar productos">
-            <span className="material-symbols-outlined" aria-hidden="true">search</span>
-            <input type="text" placeholder="Filtrar por SKU, nombre o categoria..." />
-          </label>
-          <label className="productos-row-selector">
-            <span>Mostrar:</span>
-            <select defaultValue="25">
-              <option value="10">10 filas</option>
-              <option value="25">25 filas</option>
-              <option value="50">50 filas</option>
-              <option value="100">100 filas</option>
-            </select>
-          </label>
         </div>
         <div className="productos-table-actions">
           <button type="button">

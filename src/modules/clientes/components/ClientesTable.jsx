@@ -7,15 +7,6 @@ function ClientesTable({ clients }) {
           <span>Listado consolidado de cuentas, frecuencia transaccional y saldos acumulados</span>
         </div>
         <div className="clientes-table-actions">
-          <label className="clientes-search">
-            <span className="material-symbols-outlined" aria-hidden="true">search</span>
-            <input type="search" placeholder="Buscar por nombre, NIT o DPI..." aria-label="Buscar cliente" />
-          </label>
-          <div className="clientes-tabs" aria-label="Filtrar por estado">
-            <button className="is-active" type="button">Todos (4,380)</button>
-            <button type="button">Activos (3,420)</button>
-            <button type="button">Inactivos (960)</button>
-          </div>
           <button className="clientes-refresh" type="button" aria-label="Refrescar datos">
             <span className="material-symbols-outlined" aria-hidden="true">refresh</span>
           </button>

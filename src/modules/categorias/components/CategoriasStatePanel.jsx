@@ -1,7 +1,7 @@
 function CategoriasStatePanel({ type, onReset }) {
   const content = {
     loading: ["hourglass_top", "Cargando categorias", "Preparando KPIs, participacion porcentual y matriz de desempeno."],
-    empty: ["folder_off", "Sin datos para los filtros", "No hay categorias disponibles para la fecha o categoria seleccionada."],
+    empty: ["folder_off", "Sin datos disponibles", "La API no devolvio categorias disponibles para mostrar."],
     error: ["sync_problem", "Error al sincronizar categorias", "No fue posible consultar los datos temporales del modulo. Reintenta la consulta."],
   }[type];
 
