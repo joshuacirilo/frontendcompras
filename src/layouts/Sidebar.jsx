@@ -15,7 +15,6 @@ function Sidebar({ activePage = "dashboard", onNavigate }) {
           <div className="brand-mark">DBA</div>
           <div>
             <strong>DBA COMPRAS</strong>
-            <span>Analytics v2.4</span>
           </div>
         </div>
 
@@ -46,27 +45,7 @@ function Sidebar({ activePage = "dashboard", onNavigate }) {
         </nav>
       </div>
 
-      <div className="sidebar-footer">
-        <div className="sync-card">
-          <span className="sync-dot" aria-hidden="true" />
-          <div>
-            <strong>Sync BD Activa</strong>
-            <span>Latencia: 18ms</span>
-          </div>
-          <span className="material-symbols-outlined" aria-hidden="true">
-            cloud_done
-          </span>
-        </div>
-        <div className="sidebar-collapse-row">
-          <button type="button">
-            <span className="material-symbols-outlined" aria-hidden="true">
-              keyboard_double_arrow_left
-            </span>
-            Plegar menu
-          </button>
-          <span>DBA v1.0</span>
-        </div>
-      </div>
+      <div className="sidebar-footer" />
     </aside>
   );
 }

@@ -69,7 +69,7 @@ function DashboardPage() {
                 <span className="material-symbols-outlined" aria-hidden="true">
                   api
                 </span>
-                Endpoints documentados
+                Resumen general
               </h2>
               <span>{cards.length} consultas</span>
             </div>
