@@ -1,6 +1,6 @@
 const navigationItems = [
   { label: "Dashboard General", icon: "bar_chart", page: "dashboard" },
-  { label: "Clientes", icon: "group" },
+  { label: "Clientes", icon: "group", page: "clientes" },
   { label: "Productos", icon: "inventory_2" },
   { label: "Categorias", icon: "layers" },
   { label: "Compras", icon: "receipt_long", page: "compras" },

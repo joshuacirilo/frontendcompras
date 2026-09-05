@@ -165,6 +165,23 @@ Se instalaron skills locales para agentes en:
 
 Estas carpetas están ignoradas en `.gitignore` para no subirse al repositorio.
 
+## Contexto Para Agentes IA
+
+Antes de continuar el trabajo, cualquier agente debe revisar este README y el grafo del proyecto generado en:
+
+```text
+graphify-out/
+  graph.json
+  GRAPH_REPORT.md
+  graph.html
+```
+
+El grafo resume relaciones entre archivos, componentes, servicios, estilos, imports y comunidades funcionales del frontend. Debe usarse como mapa de contexto para responder preguntas de arquitectura, ubicar dependencias y decidir el alcance de cambios futuros.
+
+Si `graphify-out/graph.json` existe y la tarea es una pregunta sobre el codigo o arquitectura, consultar primero el grafo antes de reconstruir contexto desde cero.
+
+Nota: el grafo actual fue generado con analisis estatico local mediante `scripts/generate-project-graph.mjs`, porque el entorno no tenia disponible un Python funcional ni el CLI oficial de `graphifyy`. Si mas adelante se instala `graphifyy`, puede regenerarse el grafo con la skill `.codex/skills/graphify`.
+
 ## Verificación Realizada
 
 El build fue ejecutado correctamente:
@@ -188,3 +205,4 @@ Antes de continuar:
 3. Revisar `src/modules/dashboard/styles/dashboard.css`.
 4. Mantener las restricciones tecnológicas salvo nueva instrucción del usuario.
 5. No modificar módulos ajenos al alcance solicitado.
+

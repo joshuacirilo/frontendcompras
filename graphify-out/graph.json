@@ -1,0 +1,2075 @@
+{
+  "nodes": [
+    {
+      "id": "file:index.html",
+      "label": "index.html",
+      "type": "file",
+      "source_file": "index.html",
+      "source_location": "index.html",
+      "confidence": "EXTRACTED",
+      "community_name": "Project Root"
+    },
+    {
+      "id": "file:package-lock.json",
+      "label": "package-lock.json",
+      "type": "file",
+      "source_file": "package-lock.json",
+      "source_location": "package-lock.json",
+      "confidence": "EXTRACTED",
+      "community_name": "Project Root"
+    },
+    {
+      "id": "file:package.json",
+      "label": "package.json",
+      "type": "file",
+      "source_file": "package.json",
+      "source_location": "package.json",
+      "confidence": "EXTRACTED",
+      "community_name": "Project Root"
+    },
+    {
+      "id": "file:README.md",
+      "label": "README.md",
+      "type": "file",
+      "source_file": "README.md",
+      "source_location": "README.md",
+      "confidence": "EXTRACTED",
+      "community_name": "Documentation"
+    },
+    {
+      "id": "file:src/App.jsx",
+      "label": "App.jsx",
+      "type": "file",
+      "source_file": "src/App.jsx",
+      "source_location": "src/App.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Project Root"
+    },
+    {
+      "id": "file:src/layouts/DashboardLayout.jsx",
+      "label": "DashboardLayout.jsx",
+      "type": "file",
+      "source_file": "src/layouts/DashboardLayout.jsx",
+      "source_location": "src/layouts/DashboardLayout.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Application Layout"
+    },
+    {
+      "id": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "label": "DashboardPage.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "source_location": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "label": "ClientesPage.jsx",
+      "type": "file",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "source_location": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "label": "ComprasPage.jsx",
+      "type": "file",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "source_location": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "package:react",
+      "label": "react",
+      "type": "package",
+      "source_file": "react",
+      "source_location": "react",
+      "confidence": "EXTRACTED",
+      "community_name": "External Packages"
+    },
+    {
+      "id": "symbol:src/App.jsx#App",
+      "label": "App",
+      "type": "component",
+      "source_file": "src/App.jsx",
+      "source_location": "src/App.jsx#App",
+      "confidence": "EXTRACTED",
+      "community_name": "Project Root"
+    },
+    {
+      "id": "file:src/components/feedback/EmptyState.jsx",
+      "label": "EmptyState.jsx",
+      "type": "file",
+      "source_file": "src/components/feedback/EmptyState.jsx",
+      "source_location": "src/components/feedback/EmptyState.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/feedback/ErrorMessage.jsx",
+      "label": "ErrorMessage.jsx",
+      "type": "file",
+      "source_file": "src/components/feedback/ErrorMessage.jsx",
+      "source_location": "src/components/feedback/ErrorMessage.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/feedback/Loading.jsx",
+      "label": "Loading.jsx",
+      "type": "file",
+      "source_file": "src/components/feedback/Loading.jsx",
+      "source_location": "src/components/feedback/Loading.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/filters/CategoryFilter.jsx",
+      "label": "CategoryFilter.jsx",
+      "type": "file",
+      "source_file": "src/components/filters/CategoryFilter.jsx",
+      "source_location": "src/components/filters/CategoryFilter.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/filters/ClientFilter.jsx",
+      "label": "ClientFilter.jsx",
+      "type": "file",
+      "source_file": "src/components/filters/ClientFilter.jsx",
+      "source_location": "src/components/filters/ClientFilter.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/filters/DashboardFilters.jsx",
+      "label": "DashboardFilters.jsx",
+      "type": "file",
+      "source_file": "src/components/filters/DashboardFilters.jsx",
+      "source_location": "src/components/filters/DashboardFilters.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/filters/DateFilter.jsx",
+      "label": "DateFilter.jsx",
+      "type": "file",
+      "source_file": "src/components/filters/DateFilter.jsx",
+      "source_location": "src/components/filters/DateFilter.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/filters/ProductFilter.jsx",
+      "label": "ProductFilter.jsx",
+      "type": "file",
+      "source_file": "src/components/filters/ProductFilter.jsx",
+      "source_location": "src/components/filters/ProductFilter.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/ui/Badge.jsx",
+      "label": "Badge.jsx",
+      "type": "file",
+      "source_file": "src/components/ui/Badge.jsx",
+      "source_location": "src/components/ui/Badge.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/ui/Button.jsx",
+      "label": "Button.jsx",
+      "type": "file",
+      "source_file": "src/components/ui/Button.jsx",
+      "source_location": "src/components/ui/Button.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/ui/Card.jsx",
+      "label": "Card.jsx",
+      "type": "file",
+      "source_file": "src/components/ui/Card.jsx",
+      "source_location": "src/components/ui/Card.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/ui/Input.jsx",
+      "label": "Input.jsx",
+      "type": "file",
+      "source_file": "src/components/ui/Input.jsx",
+      "source_location": "src/components/ui/Input.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/ui/Modal.jsx",
+      "label": "Modal.jsx",
+      "type": "file",
+      "source_file": "src/components/ui/Modal.jsx",
+      "source_location": "src/components/ui/Modal.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/ui/Select.jsx",
+      "label": "Select.jsx",
+      "type": "file",
+      "source_file": "src/components/ui/Select.jsx",
+      "source_location": "src/components/ui/Select.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/ui/Spinner.jsx",
+      "label": "Spinner.jsx",
+      "type": "file",
+      "source_file": "src/components/ui/Spinner.jsx",
+      "source_location": "src/components/ui/Spinner.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/components/ui/Table.jsx",
+      "label": "Table.jsx",
+      "type": "file",
+      "source_file": "src/components/ui/Table.jsx",
+      "source_location": "src/components/ui/Table.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Components"
+    },
+    {
+      "id": "file:src/constants/chartConfig.js",
+      "label": "chartConfig.js",
+      "type": "file",
+      "source_file": "src/constants/chartConfig.js",
+      "source_location": "src/constants/chartConfig.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Constants"
+    },
+    {
+      "id": "file:src/constants/general.js",
+      "label": "general.js",
+      "type": "file",
+      "source_file": "src/constants/general.js",
+      "source_location": "src/constants/general.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Constants"
+    },
+    {
+      "id": "file:src/constants/modules.js",
+      "label": "modules.js",
+      "type": "file",
+      "source_file": "src/constants/modules.js",
+      "source_location": "src/constants/modules.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Constants"
+    },
+    {
+      "id": "file:src/constants/routes.js",
+      "label": "routes.js",
+      "type": "file",
+      "source_file": "src/constants/routes.js",
+      "source_location": "src/constants/routes.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Constants"
+    },
+    {
+      "id": "file:src/hooks/useDashboard.js",
+      "label": "useDashboard.js",
+      "type": "file",
+      "source_file": "src/hooks/useDashboard.js",
+      "source_location": "src/hooks/useDashboard.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Hooks"
+    },
+    {
+      "id": "file:src/hooks/useData.js",
+      "label": "useData.js",
+      "type": "file",
+      "source_file": "src/hooks/useData.js",
+      "source_location": "src/hooks/useData.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Hooks"
+    },
+    {
+      "id": "file:src/hooks/useFilters.js",
+      "label": "useFilters.js",
+      "type": "file",
+      "source_file": "src/hooks/useFilters.js",
+      "source_location": "src/hooks/useFilters.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Hooks"
+    },
+    {
+      "id": "file:src/hooks/useLoadingState.js",
+      "label": "useLoadingState.js",
+      "type": "file",
+      "source_file": "src/hooks/useLoadingState.js",
+      "source_location": "src/hooks/useLoadingState.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Hooks"
+    },
+    {
+      "id": "file:src/layouts/Header.jsx",
+      "label": "Header.jsx",
+      "type": "file",
+      "source_file": "src/layouts/Header.jsx",
+      "source_location": "src/layouts/Header.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Application Layout"
+    },
+    {
+      "id": "file:src/layouts/MainContent.jsx",
+      "label": "MainContent.jsx",
+      "type": "file",
+      "source_file": "src/layouts/MainContent.jsx",
+      "source_location": "src/layouts/MainContent.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Application Layout"
+    },
+    {
+      "id": "file:src/layouts/Sidebar.jsx",
+      "label": "Sidebar.jsx",
+      "type": "file",
+      "source_file": "src/layouts/Sidebar.jsx",
+      "source_location": "src/layouts/Sidebar.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Application Layout"
+    },
+    {
+      "id": "symbol:src/layouts/DashboardLayout.jsx#DashboardLayout",
+      "label": "DashboardLayout",
+      "type": "component",
+      "source_file": "src/layouts/DashboardLayout.jsx",
+      "source_location": "src/layouts/DashboardLayout.jsx#DashboardLayout",
+      "confidence": "EXTRACTED",
+      "community_name": "Application Layout"
+    },
+    {
+      "id": "symbol:src/layouts/Header.jsx#Header",
+      "label": "Header",
+      "type": "component",
+      "source_file": "src/layouts/Header.jsx",
+      "source_location": "src/layouts/Header.jsx#Header",
+      "confidence": "EXTRACTED",
+      "community_name": "Application Layout"
+    },
+    {
+      "id": "symbol:src/layouts/MainContent.jsx#MainContent",
+      "label": "MainContent",
+      "type": "component",
+      "source_file": "src/layouts/MainContent.jsx",
+      "source_location": "src/layouts/MainContent.jsx#MainContent",
+      "confidence": "EXTRACTED",
+      "community_name": "Application Layout"
+    },
+    {
+      "id": "symbol:src/layouts/Sidebar.jsx#Sidebar",
+      "label": "Sidebar",
+      "type": "component",
+      "source_file": "src/layouts/Sidebar.jsx",
+      "source_location": "src/layouts/Sidebar.jsx#Sidebar",
+      "confidence": "EXTRACTED",
+      "community_name": "Application Layout"
+    },
+    {
+      "id": "file:src/main.jsx",
+      "label": "main.jsx",
+      "type": "file",
+      "source_file": "src/main.jsx",
+      "source_location": "src/main.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Project Root"
+    },
+    {
+      "id": "package:react-dom/client",
+      "label": "client",
+      "type": "package",
+      "source_file": "react-dom/client",
+      "source_location": "react-dom/client",
+      "confidence": "EXTRACTED",
+      "community_name": "External Packages"
+    },
+    {
+      "id": "file:src/modules/categorias/components/CategoriaMasConsumida.jsx",
+      "label": "CategoriaMasConsumida.jsx",
+      "type": "file",
+      "source_file": "src/modules/categorias/components/CategoriaMasConsumida.jsx",
+      "source_location": "src/modules/categorias/components/CategoriaMasConsumida.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Categorias Module"
+    },
+    {
+      "id": "file:src/modules/categorias/components/CategoriaMenosConsumida.jsx",
+      "label": "CategoriaMenosConsumida.jsx",
+      "type": "file",
+      "source_file": "src/modules/categorias/components/CategoriaMenosConsumida.jsx",
+      "source_location": "src/modules/categorias/components/CategoriaMenosConsumida.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Categorias Module"
+    },
+    {
+      "id": "file:src/modules/categorias/components/ParticipacionPorCategoria.jsx",
+      "label": "ParticipacionPorCategoria.jsx",
+      "type": "file",
+      "source_file": "src/modules/categorias/components/ParticipacionPorCategoria.jsx",
+      "source_location": "src/modules/categorias/components/ParticipacionPorCategoria.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Categorias Module"
+    },
+    {
+      "id": "file:src/modules/categorias/pages/CategoriasPage.jsx",
+      "label": "CategoriasPage.jsx",
+      "type": "file",
+      "source_file": "src/modules/categorias/pages/CategoriasPage.jsx",
+      "source_location": "src/modules/categorias/pages/CategoriasPage.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Categorias Module"
+    },
+    {
+      "id": "file:src/modules/categorias/services/categoriasService.js",
+      "label": "categoriasService.js",
+      "type": "file",
+      "source_file": "src/modules/categorias/services/categoriasService.js",
+      "source_location": "src/modules/categorias/services/categoriasService.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Categorias Module"
+    },
+    {
+      "id": "file:src/modules/clientes/components/ClientesPorGenero.jsx",
+      "label": "ClientesPorGenero.jsx",
+      "type": "file",
+      "source_file": "src/modules/clientes/components/ClientesPorGenero.jsx",
+      "source_location": "src/modules/clientes/components/ClientesPorGenero.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "label": "ChartCanvas.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/ChartCanvas.jsx",
+      "source_location": "src/modules/dashboard/components/ChartCanvas.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/components/ClientesPorGenero.jsx#ClientesPorGenero",
+      "label": "ClientesPorGenero",
+      "type": "component",
+      "source_file": "src/modules/clientes/components/ClientesPorGenero.jsx",
+      "source_location": "src/modules/clientes/components/ClientesPorGenero.jsx#ClientesPorGenero",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "file:src/modules/clientes/components/ClientesSinCompras.jsx",
+      "label": "ClientesSinCompras.jsx",
+      "type": "file",
+      "source_file": "src/modules/clientes/components/ClientesSinCompras.jsx",
+      "source_location": "src/modules/clientes/components/ClientesSinCompras.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/components/ClientesSinCompras.jsx#ClientesSinCompras",
+      "label": "ClientesSinCompras",
+      "type": "component",
+      "source_file": "src/modules/clientes/components/ClientesSinCompras.jsx",
+      "source_location": "src/modules/clientes/components/ClientesSinCompras.jsx#ClientesSinCompras",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "file:src/modules/clientes/components/ClientesTable.jsx",
+      "label": "ClientesTable.jsx",
+      "type": "file",
+      "source_file": "src/modules/clientes/components/ClientesTable.jsx",
+      "source_location": "src/modules/clientes/components/ClientesTable.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/components/ClientesTable.jsx#ClientesTable",
+      "label": "ClientesTable",
+      "type": "component",
+      "source_file": "src/modules/clientes/components/ClientesTable.jsx",
+      "source_location": "src/modules/clientes/components/ClientesTable.jsx#ClientesTable",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "file:src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "label": "TopClientesPorCompras.jsx",
+      "type": "file",
+      "source_file": "src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "source_location": "src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/components/TopClientesPorCompras.jsx#TopClientesPorCompras",
+      "label": "TopClientesPorCompras",
+      "type": "component",
+      "source_file": "src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "source_location": "src/modules/clientes/components/TopClientesPorCompras.jsx#TopClientesPorCompras",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "file:src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "label": "TopClientesPorMonto.jsx",
+      "type": "file",
+      "source_file": "src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "source_location": "src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/components/TopClientesPorMonto.jsx#TopClientesPorMonto",
+      "label": "TopClientesPorMonto",
+      "type": "component",
+      "source_file": "src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "source_location": "src/modules/clientes/components/TopClientesPorMonto.jsx#TopClientesPorMonto",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "file:src/modules/clientes/services/clientesService.js",
+      "label": "clientesService.js",
+      "type": "file",
+      "source_file": "src/modules/clientes/services/clientesService.js",
+      "source_location": "src/modules/clientes/services/clientesService.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/pages/ClientesPage.jsx#ClientesKpiCard",
+      "label": "ClientesKpiCard",
+      "type": "component",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "source_location": "src/modules/clientes/pages/ClientesPage.jsx#ClientesKpiCard",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/pages/ClientesPage.jsx#ClientesStatePanel",
+      "label": "ClientesStatePanel",
+      "type": "component",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "source_location": "src/modules/clientes/pages/ClientesPage.jsx#ClientesStatePanel",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/pages/ClientesPage.jsx#ClientesPage",
+      "label": "ClientesPage",
+      "type": "component",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "source_location": "src/modules/clientes/pages/ClientesPage.jsx#ClientesPage",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/pages/ClientesPage.jsx#handleApplyFilters",
+      "label": "handleApplyFilters",
+      "type": "function",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "source_location": "src/modules/clientes/pages/ClientesPage.jsx#handleApplyFilters",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/pages/ClientesPage.jsx#handleResetFilters",
+      "label": "handleResetFilters",
+      "type": "function",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "source_location": "src/modules/clientes/pages/ClientesPage.jsx#handleResetFilters",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "symbol:src/modules/clientes/services/clientesService.js#getClientesData",
+      "label": "getClientesData",
+      "type": "function",
+      "source_file": "src/modules/clientes/services/clientesService.js",
+      "source_location": "src/modules/clientes/services/clientesService.js#getClientesData",
+      "confidence": "EXTRACTED",
+      "community_name": "Clientes Module"
+    },
+    {
+      "id": "file:src/modules/compras/components/ComprasTable.jsx",
+      "label": "ComprasTable.jsx",
+      "type": "file",
+      "source_file": "src/modules/compras/components/ComprasTable.jsx",
+      "source_location": "src/modules/compras/components/ComprasTable.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "symbol:src/modules/compras/components/ComprasTable.jsx#ComprasTable",
+      "label": "ComprasTable",
+      "type": "component",
+      "source_file": "src/modules/compras/components/ComprasTable.jsx",
+      "source_location": "src/modules/compras/components/ComprasTable.jsx#ComprasTable",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "file:src/modules/compras/components/MesMayorFacturacion.jsx",
+      "label": "MesMayorFacturacion.jsx",
+      "type": "file",
+      "source_file": "src/modules/compras/components/MesMayorFacturacion.jsx",
+      "source_location": "src/modules/compras/components/MesMayorFacturacion.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "symbol:src/modules/compras/components/MesMayorFacturacion.jsx#MesMayorFacturacion",
+      "label": "MesMayorFacturacion",
+      "type": "component",
+      "source_file": "src/modules/compras/components/MesMayorFacturacion.jsx",
+      "source_location": "src/modules/compras/components/MesMayorFacturacion.jsx#MesMayorFacturacion",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "file:src/modules/compras/components/ResumenCompras.jsx",
+      "label": "ResumenCompras.jsx",
+      "type": "file",
+      "source_file": "src/modules/compras/components/ResumenCompras.jsx",
+      "source_location": "src/modules/compras/components/ResumenCompras.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "symbol:src/modules/compras/components/ResumenCompras.jsx#ResumenCompras",
+      "label": "ResumenCompras",
+      "type": "component",
+      "source_file": "src/modules/compras/components/ResumenCompras.jsx",
+      "source_location": "src/modules/compras/components/ResumenCompras.jsx#ResumenCompras",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "file:src/modules/compras/components/TicketPromedio.jsx",
+      "label": "TicketPromedio.jsx",
+      "type": "file",
+      "source_file": "src/modules/compras/components/TicketPromedio.jsx",
+      "source_location": "src/modules/compras/components/TicketPromedio.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "symbol:src/modules/compras/components/TicketPromedio.jsx#TicketPromedio",
+      "label": "TicketPromedio",
+      "type": "component",
+      "source_file": "src/modules/compras/components/TicketPromedio.jsx",
+      "source_location": "src/modules/compras/components/TicketPromedio.jsx#TicketPromedio",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "file:src/modules/compras/components/VentasPorAnio.jsx",
+      "label": "VentasPorAnio.jsx",
+      "type": "file",
+      "source_file": "src/modules/compras/components/VentasPorAnio.jsx",
+      "source_location": "src/modules/compras/components/VentasPorAnio.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "symbol:src/modules/compras/components/VentasPorAnio.jsx#VentasPorAnio",
+      "label": "VentasPorAnio",
+      "type": "component",
+      "source_file": "src/modules/compras/components/VentasPorAnio.jsx",
+      "source_location": "src/modules/compras/components/VentasPorAnio.jsx#VentasPorAnio",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "file:src/modules/compras/components/VentasPorMes.jsx",
+      "label": "VentasPorMes.jsx",
+      "type": "file",
+      "source_file": "src/modules/compras/components/VentasPorMes.jsx",
+      "source_location": "src/modules/compras/components/VentasPorMes.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "symbol:src/modules/compras/components/VentasPorMes.jsx#VentasPorMes",
+      "label": "VentasPorMes",
+      "type": "component",
+      "source_file": "src/modules/compras/components/VentasPorMes.jsx",
+      "source_location": "src/modules/compras/components/VentasPorMes.jsx#VentasPorMes",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "file:src/modules/compras/services/comprasService.js",
+      "label": "comprasService.js",
+      "type": "file",
+      "source_file": "src/modules/compras/services/comprasService.js",
+      "source_location": "src/modules/compras/services/comprasService.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "symbol:src/modules/compras/pages/ComprasPage.jsx#ComprasPage",
+      "label": "ComprasPage",
+      "type": "component",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "source_location": "src/modules/compras/pages/ComprasPage.jsx#ComprasPage",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "symbol:src/modules/compras/pages/ComprasPage.jsx#handleApplyFilters",
+      "label": "handleApplyFilters",
+      "type": "function",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "source_location": "src/modules/compras/pages/ComprasPage.jsx#handleApplyFilters",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "symbol:src/modules/compras/pages/ComprasPage.jsx#handleResetFilters",
+      "label": "handleResetFilters",
+      "type": "function",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "source_location": "src/modules/compras/pages/ComprasPage.jsx#handleResetFilters",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "symbol:src/modules/compras/services/comprasService.js#getComprasData",
+      "label": "getComprasData",
+      "type": "function",
+      "source_file": "src/modules/compras/services/comprasService.js",
+      "source_location": "src/modules/compras/services/comprasService.js#getComprasData",
+      "confidence": "EXTRACTED",
+      "community_name": "Compras Module"
+    },
+    {
+      "id": "package:chart.js/auto",
+      "label": "auto",
+      "type": "package",
+      "source_file": "chart.js/auto",
+      "source_location": "chart.js/auto",
+      "confidence": "EXTRACTED",
+      "community_name": "External Packages"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/ChartCanvas.jsx#ChartCanvas",
+      "label": "ChartCanvas",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/ChartCanvas.jsx",
+      "source_location": "src/modules/dashboard/components/ChartCanvas.jsx#ChartCanvas",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/ClientesConComprasKpi.jsx",
+      "label": "ClientesConComprasKpi.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/ClientesConComprasKpi.jsx",
+      "source_location": "src/modules/dashboard/components/ClientesConComprasKpi.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/KpiCard.jsx",
+      "label": "KpiCard.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/KpiCard.jsx",
+      "source_location": "src/modules/dashboard/components/KpiCard.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/ClientesConComprasKpi.jsx#ClientesConComprasKpi",
+      "label": "ClientesConComprasKpi",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/ClientesConComprasKpi.jsx",
+      "source_location": "src/modules/dashboard/components/ClientesConComprasKpi.jsx#ClientesConComprasKpi",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/ComprasPorCategoriaChart.jsx",
+      "label": "ComprasPorCategoriaChart.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/ComprasPorCategoriaChart.jsx",
+      "source_location": "src/modules/dashboard/components/ComprasPorCategoriaChart.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/ComprasPorCategoriaChart.jsx#ComprasPorCategoriaChart",
+      "label": "ComprasPorCategoriaChart",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/ComprasPorCategoriaChart.jsx",
+      "source_location": "src/modules/dashboard/components/ComprasPorCategoriaChart.jsx#ComprasPorCategoriaChart",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/CreditoDebitoChart.jsx",
+      "label": "CreditoDebitoChart.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/CreditoDebitoChart.jsx",
+      "source_location": "src/modules/dashboard/components/CreditoDebitoChart.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/CreditoDebitoChart.jsx#CreditoDebitoChart",
+      "label": "CreditoDebitoChart",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/CreditoDebitoChart.jsx",
+      "source_location": "src/modules/dashboard/components/CreditoDebitoChart.jsx#CreditoDebitoChart",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/DashboardFilters.jsx",
+      "label": "DashboardFilters.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/DashboardFilters.jsx",
+      "source_location": "src/modules/dashboard/components/DashboardFilters.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/DashboardFilters.jsx#DashboardFilters",
+      "label": "DashboardFilters",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/DashboardFilters.jsx",
+      "source_location": "src/modules/dashboard/components/DashboardFilters.jsx#DashboardFilters",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/KpiCard.jsx#KpiCard",
+      "label": "KpiCard",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/KpiCard.jsx",
+      "source_location": "src/modules/dashboard/components/KpiCard.jsx#KpiCard",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/ModuleAccessCard.jsx",
+      "label": "ModuleAccessCard.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/ModuleAccessCard.jsx",
+      "source_location": "src/modules/dashboard/components/ModuleAccessCard.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/ModuleAccessCard.jsx#ModuleAccessCard",
+      "label": "ModuleAccessCard",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/ModuleAccessCard.jsx",
+      "source_location": "src/modules/dashboard/components/ModuleAccessCard.jsx#ModuleAccessCard",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/MontoTotalVendidoKpi.jsx",
+      "label": "MontoTotalVendidoKpi.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/MontoTotalVendidoKpi.jsx",
+      "source_location": "src/modules/dashboard/components/MontoTotalVendidoKpi.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/MontoTotalVendidoKpi.jsx#MontoTotalVendidoKpi",
+      "label": "MontoTotalVendidoKpi",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/MontoTotalVendidoKpi.jsx",
+      "source_location": "src/modules/dashboard/components/MontoTotalVendidoKpi.jsx#MontoTotalVendidoKpi",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/StatePanel.jsx",
+      "label": "StatePanel.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/StatePanel.jsx",
+      "source_location": "src/modules/dashboard/components/StatePanel.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/StatePanel.jsx#StatePanel",
+      "label": "StatePanel",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/StatePanel.jsx",
+      "source_location": "src/modules/dashboard/components/StatePanel.jsx#StatePanel",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/TarjetasPorMarcaChart.jsx",
+      "label": "TarjetasPorMarcaChart.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/TarjetasPorMarcaChart.jsx",
+      "source_location": "src/modules/dashboard/components/TarjetasPorMarcaChart.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/TarjetasPorMarcaChart.jsx#TarjetasPorMarcaChart",
+      "label": "TarjetasPorMarcaChart",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/TarjetasPorMarcaChart.jsx",
+      "source_location": "src/modules/dashboard/components/TarjetasPorMarcaChart.jsx#TarjetasPorMarcaChart",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/TicketPromedioKpi.jsx",
+      "label": "TicketPromedioKpi.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/TicketPromedioKpi.jsx",
+      "source_location": "src/modules/dashboard/components/TicketPromedioKpi.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/TicketPromedioKpi.jsx#TicketPromedioKpi",
+      "label": "TicketPromedioKpi",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/TicketPromedioKpi.jsx",
+      "source_location": "src/modules/dashboard/components/TicketPromedioKpi.jsx#TicketPromedioKpi",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/TopClientesChart.jsx",
+      "label": "TopClientesChart.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/TopClientesChart.jsx",
+      "source_location": "src/modules/dashboard/components/TopClientesChart.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/TopClientesChart.jsx#TopClientesChart",
+      "label": "TopClientesChart",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/TopClientesChart.jsx",
+      "source_location": "src/modules/dashboard/components/TopClientesChart.jsx#TopClientesChart",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/TopClientesChart.jsx#RankingFallback",
+      "label": "RankingFallback",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/TopClientesChart.jsx",
+      "source_location": "src/modules/dashboard/components/TopClientesChart.jsx#RankingFallback",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/TopProductosChart.jsx",
+      "label": "TopProductosChart.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/TopProductosChart.jsx",
+      "source_location": "src/modules/dashboard/components/TopProductosChart.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/TopProductosChart.jsx#TopProductosChart",
+      "label": "TopProductosChart",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/TopProductosChart.jsx",
+      "source_location": "src/modules/dashboard/components/TopProductosChart.jsx#TopProductosChart",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/TopProductosChart.jsx#RankingFallback",
+      "label": "RankingFallback",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/TopProductosChart.jsx",
+      "source_location": "src/modules/dashboard/components/TopProductosChart.jsx#RankingFallback",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/TotalComprasKpi.jsx",
+      "label": "TotalComprasKpi.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/TotalComprasKpi.jsx",
+      "source_location": "src/modules/dashboard/components/TotalComprasKpi.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/TotalComprasKpi.jsx#TotalComprasKpi",
+      "label": "TotalComprasKpi",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/TotalComprasKpi.jsx",
+      "source_location": "src/modules/dashboard/components/TotalComprasKpi.jsx#TotalComprasKpi",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/components/VentasPorMesChart.jsx",
+      "label": "VentasPorMesChart.jsx",
+      "type": "file",
+      "source_file": "src/modules/dashboard/components/VentasPorMesChart.jsx",
+      "source_location": "src/modules/dashboard/components/VentasPorMesChart.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/components/VentasPorMesChart.jsx#VentasPorMesChart",
+      "label": "VentasPorMesChart",
+      "type": "component",
+      "source_file": "src/modules/dashboard/components/VentasPorMesChart.jsx",
+      "source_location": "src/modules/dashboard/components/VentasPorMesChart.jsx#VentasPorMesChart",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/services/dashboardService.js",
+      "label": "dashboardService.js",
+      "type": "file",
+      "source_file": "src/modules/dashboard/services/dashboardService.js",
+      "source_location": "src/modules/dashboard/services/dashboardService.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/dashboard/styles/dashboard.css",
+      "label": "dashboard.css",
+      "type": "file",
+      "source_file": "src/modules/dashboard/styles/dashboard.css",
+      "source_location": "src/modules/dashboard/styles/dashboard.css",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/pages/DashboardPage.jsx#DashboardPage",
+      "label": "DashboardPage",
+      "type": "component",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "source_location": "src/modules/dashboard/pages/DashboardPage.jsx#DashboardPage",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/pages/DashboardPage.jsx#handleApplyFilters",
+      "label": "handleApplyFilters",
+      "type": "function",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "source_location": "src/modules/dashboard/pages/DashboardPage.jsx#handleApplyFilters",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/pages/DashboardPage.jsx#handleResetFilters",
+      "label": "handleResetFilters",
+      "type": "function",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "source_location": "src/modules/dashboard/pages/DashboardPage.jsx#handleResetFilters",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "symbol:src/modules/dashboard/services/dashboardService.js#getDashboardData",
+      "label": "getDashboardData",
+      "type": "function",
+      "source_file": "src/modules/dashboard/services/dashboardService.js",
+      "source_location": "src/modules/dashboard/services/dashboardService.js#getDashboardData",
+      "confidence": "EXTRACTED",
+      "community_name": "Dashboard Module"
+    },
+    {
+      "id": "file:src/modules/productos/components/ProductosMayoresIngresos.jsx",
+      "label": "ProductosMayoresIngresos.jsx",
+      "type": "file",
+      "source_file": "src/modules/productos/components/ProductosMayoresIngresos.jsx",
+      "source_location": "src/modules/productos/components/ProductosMayoresIngresos.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Productos Module"
+    },
+    {
+      "id": "file:src/modules/productos/components/ProductosNuncaComprados.jsx",
+      "label": "ProductosNuncaComprados.jsx",
+      "type": "file",
+      "source_file": "src/modules/productos/components/ProductosNuncaComprados.jsx",
+      "source_location": "src/modules/productos/components/ProductosNuncaComprados.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Productos Module"
+    },
+    {
+      "id": "file:src/modules/productos/components/ProductosPorCategoria.jsx",
+      "label": "ProductosPorCategoria.jsx",
+      "type": "file",
+      "source_file": "src/modules/productos/components/ProductosPorCategoria.jsx",
+      "source_location": "src/modules/productos/components/ProductosPorCategoria.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Productos Module"
+    },
+    {
+      "id": "file:src/modules/productos/components/ProductosTable.jsx",
+      "label": "ProductosTable.jsx",
+      "type": "file",
+      "source_file": "src/modules/productos/components/ProductosTable.jsx",
+      "source_location": "src/modules/productos/components/ProductosTable.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Productos Module"
+    },
+    {
+      "id": "file:src/modules/productos/components/TopProductosMasVendidos.jsx",
+      "label": "TopProductosMasVendidos.jsx",
+      "type": "file",
+      "source_file": "src/modules/productos/components/TopProductosMasVendidos.jsx",
+      "source_location": "src/modules/productos/components/TopProductosMasVendidos.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Productos Module"
+    },
+    {
+      "id": "file:src/modules/productos/pages/ProductosPage.jsx",
+      "label": "ProductosPage.jsx",
+      "type": "file",
+      "source_file": "src/modules/productos/pages/ProductosPage.jsx",
+      "source_location": "src/modules/productos/pages/ProductosPage.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Productos Module"
+    },
+    {
+      "id": "file:src/modules/productos/services/productosService.js",
+      "label": "productosService.js",
+      "type": "file",
+      "source_file": "src/modules/productos/services/productosService.js",
+      "source_location": "src/modules/productos/services/productosService.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Productos Module"
+    },
+    {
+      "id": "file:src/modules/tarjetas/components/CreditoVsDebito.jsx",
+      "label": "CreditoVsDebito.jsx",
+      "type": "file",
+      "source_file": "src/modules/tarjetas/components/CreditoVsDebito.jsx",
+      "source_location": "src/modules/tarjetas/components/CreditoVsDebito.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Tarjetas Module"
+    },
+    {
+      "id": "file:src/modules/tarjetas/components/MarcaMasUtilizada.jsx",
+      "label": "MarcaMasUtilizada.jsx",
+      "type": "file",
+      "source_file": "src/modules/tarjetas/components/MarcaMasUtilizada.jsx",
+      "source_location": "src/modules/tarjetas/components/MarcaMasUtilizada.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Tarjetas Module"
+    },
+    {
+      "id": "file:src/modules/tarjetas/components/TarjetasPorMarca.jsx",
+      "label": "TarjetasPorMarca.jsx",
+      "type": "file",
+      "source_file": "src/modules/tarjetas/components/TarjetasPorMarca.jsx",
+      "source_location": "src/modules/tarjetas/components/TarjetasPorMarca.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Tarjetas Module"
+    },
+    {
+      "id": "file:src/modules/tarjetas/components/TarjetasTable.jsx",
+      "label": "TarjetasTable.jsx",
+      "type": "file",
+      "source_file": "src/modules/tarjetas/components/TarjetasTable.jsx",
+      "source_location": "src/modules/tarjetas/components/TarjetasTable.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Tarjetas Module"
+    },
+    {
+      "id": "file:src/modules/tarjetas/components/TopClientesPorTipoTarjeta.jsx",
+      "label": "TopClientesPorTipoTarjeta.jsx",
+      "type": "file",
+      "source_file": "src/modules/tarjetas/components/TopClientesPorTipoTarjeta.jsx",
+      "source_location": "src/modules/tarjetas/components/TopClientesPorTipoTarjeta.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Tarjetas Module"
+    },
+    {
+      "id": "file:src/modules/tarjetas/pages/TarjetasPage.jsx",
+      "label": "TarjetasPage.jsx",
+      "type": "file",
+      "source_file": "src/modules/tarjetas/pages/TarjetasPage.jsx",
+      "source_location": "src/modules/tarjetas/pages/TarjetasPage.jsx",
+      "confidence": "EXTRACTED",
+      "community_name": "Tarjetas Module"
+    },
+    {
+      "id": "file:src/modules/tarjetas/services/tarjetasService.js",
+      "label": "tarjetasService.js",
+      "type": "file",
+      "source_file": "src/modules/tarjetas/services/tarjetasService.js",
+      "source_location": "src/modules/tarjetas/services/tarjetasService.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Tarjetas Module"
+    },
+    {
+      "id": "file:src/routes/appRoutes.js",
+      "label": "appRoutes.js",
+      "type": "file",
+      "source_file": "src/routes/appRoutes.js",
+      "source_location": "src/routes/appRoutes.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Project Root"
+    },
+    {
+      "id": "file:src/services/apiService.js",
+      "label": "apiService.js",
+      "type": "file",
+      "source_file": "src/services/apiService.js",
+      "source_location": "src/services/apiService.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Shared Services"
+    },
+    {
+      "id": "file:src/utils/formatCurrency.js",
+      "label": "formatCurrency.js",
+      "type": "file",
+      "source_file": "src/utils/formatCurrency.js",
+      "source_location": "src/utils/formatCurrency.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Utilities"
+    },
+    {
+      "id": "file:src/utils/formatDate.js",
+      "label": "formatDate.js",
+      "type": "file",
+      "source_file": "src/utils/formatDate.js",
+      "source_location": "src/utils/formatDate.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Utilities"
+    },
+    {
+      "id": "file:src/utils/formatNumber.js",
+      "label": "formatNumber.js",
+      "type": "file",
+      "source_file": "src/utils/formatNumber.js",
+      "source_location": "src/utils/formatNumber.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Utilities"
+    },
+    {
+      "id": "file:src/utils/transformChartData.js",
+      "label": "transformChartData.js",
+      "type": "file",
+      "source_file": "src/utils/transformChartData.js",
+      "source_location": "src/utils/transformChartData.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Utilities"
+    },
+    {
+      "id": "file:vite.config.js",
+      "label": "vite.config.js",
+      "type": "file",
+      "source_file": "vite.config.js",
+      "source_location": "vite.config.js",
+      "confidence": "EXTRACTED",
+      "community_name": "Project Root"
+    },
+    {
+      "id": "package:@vitejs/plugin-react",
+      "label": "plugin-react",
+      "type": "package",
+      "source_file": "@vitejs/plugin-react",
+      "source_location": "@vitejs/plugin-react",
+      "confidence": "EXTRACTED",
+      "community_name": "External Packages"
+    },
+    {
+      "id": "package:vite",
+      "label": "vite",
+      "type": "package",
+      "source_file": "vite",
+      "source_location": "vite",
+      "confidence": "EXTRACTED",
+      "community_name": "External Packages"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/layouts/DashboardLayout.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/App.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/App.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/App.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/App.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "package:react",
+      "relation": "IMPORTS",
+      "source_file": "src/App.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/App.jsx",
+      "target": "symbol:src/App.jsx#App",
+      "relation": "DECLARES",
+      "source_file": "src/App.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/layouts/DashboardLayout.jsx",
+      "target": "file:src/layouts/Header.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/layouts/DashboardLayout.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/layouts/DashboardLayout.jsx",
+      "target": "file:src/layouts/MainContent.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/layouts/DashboardLayout.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/layouts/DashboardLayout.jsx",
+      "target": "file:src/layouts/Sidebar.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/layouts/DashboardLayout.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/layouts/DashboardLayout.jsx",
+      "target": "symbol:src/layouts/DashboardLayout.jsx#DashboardLayout",
+      "relation": "DECLARES",
+      "source_file": "src/layouts/DashboardLayout.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/layouts/Header.jsx",
+      "target": "symbol:src/layouts/Header.jsx#Header",
+      "relation": "DECLARES",
+      "source_file": "src/layouts/Header.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/layouts/MainContent.jsx",
+      "target": "symbol:src/layouts/MainContent.jsx#MainContent",
+      "relation": "DECLARES",
+      "source_file": "src/layouts/MainContent.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/layouts/Sidebar.jsx",
+      "target": "symbol:src/layouts/Sidebar.jsx#Sidebar",
+      "relation": "DECLARES",
+      "source_file": "src/layouts/Sidebar.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/main.jsx",
+      "target": "package:react",
+      "relation": "IMPORTS",
+      "source_file": "src/main.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/main.jsx",
+      "target": "package:react-dom/client",
+      "relation": "IMPORTS",
+      "source_file": "src/main.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/main.jsx",
+      "target": "file:src/App.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/main.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/ClientesPorGenero.jsx",
+      "target": "package:react",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/components/ClientesPorGenero.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/ClientesPorGenero.jsx",
+      "target": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/components/ClientesPorGenero.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/ClientesPorGenero.jsx",
+      "target": "symbol:src/modules/clientes/components/ClientesPorGenero.jsx#ClientesPorGenero",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/components/ClientesPorGenero.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/ClientesSinCompras.jsx",
+      "target": "symbol:src/modules/clientes/components/ClientesSinCompras.jsx#ClientesSinCompras",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/components/ClientesSinCompras.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/ClientesTable.jsx",
+      "target": "symbol:src/modules/clientes/components/ClientesTable.jsx#ClientesTable",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/components/ClientesTable.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "target": "package:react",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "target": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "target": "symbol:src/modules/clientes/components/TopClientesPorCompras.jsx#TopClientesPorCompras",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "target": "package:react",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "target": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "target": "symbol:src/modules/clientes/components/TopClientesPorMonto.jsx#TopClientesPorMonto",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "package:react",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "file:src/modules/clientes/components/ClientesPorGenero.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "file:src/modules/clientes/components/ClientesSinCompras.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "file:src/modules/clientes/components/ClientesTable.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "file:src/modules/clientes/components/TopClientesPorCompras.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "file:src/modules/clientes/components/TopClientesPorMonto.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "file:src/modules/clientes/services/clientesService.js",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "symbol:src/modules/clientes/pages/ClientesPage.jsx#ClientesKpiCard",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "symbol:src/modules/clientes/pages/ClientesPage.jsx#ClientesStatePanel",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "symbol:src/modules/clientes/pages/ClientesPage.jsx#ClientesPage",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "symbol:src/modules/clientes/pages/ClientesPage.jsx#handleApplyFilters",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/pages/ClientesPage.jsx",
+      "target": "symbol:src/modules/clientes/pages/ClientesPage.jsx#handleResetFilters",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/pages/ClientesPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/clientes/services/clientesService.js",
+      "target": "symbol:src/modules/clientes/services/clientesService.js#getClientesData",
+      "relation": "DECLARES",
+      "source_file": "src/modules/clientes/services/clientesService.js",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/components/ComprasTable.jsx",
+      "target": "symbol:src/modules/compras/components/ComprasTable.jsx#ComprasTable",
+      "relation": "DECLARES",
+      "source_file": "src/modules/compras/components/ComprasTable.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/components/MesMayorFacturacion.jsx",
+      "target": "symbol:src/modules/compras/components/MesMayorFacturacion.jsx#MesMayorFacturacion",
+      "relation": "DECLARES",
+      "source_file": "src/modules/compras/components/MesMayorFacturacion.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/components/ResumenCompras.jsx",
+      "target": "symbol:src/modules/compras/components/ResumenCompras.jsx#ResumenCompras",
+      "relation": "DECLARES",
+      "source_file": "src/modules/compras/components/ResumenCompras.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/components/TicketPromedio.jsx",
+      "target": "symbol:src/modules/compras/components/TicketPromedio.jsx#TicketPromedio",
+      "relation": "DECLARES",
+      "source_file": "src/modules/compras/components/TicketPromedio.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/components/VentasPorAnio.jsx",
+      "target": "symbol:src/modules/compras/components/VentasPorAnio.jsx#VentasPorAnio",
+      "relation": "DECLARES",
+      "source_file": "src/modules/compras/components/VentasPorAnio.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/components/VentasPorMes.jsx",
+      "target": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/compras/components/VentasPorMes.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/components/VentasPorMes.jsx",
+      "target": "symbol:src/modules/compras/components/VentasPorMes.jsx#VentasPorMes",
+      "relation": "DECLARES",
+      "source_file": "src/modules/compras/components/VentasPorMes.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "package:react",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "file:src/modules/compras/components/ComprasTable.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "file:src/modules/compras/components/MesMayorFacturacion.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "file:src/modules/compras/components/ResumenCompras.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "file:src/modules/compras/components/TicketPromedio.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "file:src/modules/compras/components/VentasPorAnio.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "file:src/modules/compras/components/VentasPorMes.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "file:src/modules/compras/services/comprasService.js",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "symbol:src/modules/compras/pages/ComprasPage.jsx#ComprasPage",
+      "relation": "DECLARES",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "symbol:src/modules/compras/pages/ComprasPage.jsx#handleApplyFilters",
+      "relation": "DECLARES",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/pages/ComprasPage.jsx",
+      "target": "symbol:src/modules/compras/pages/ComprasPage.jsx#handleResetFilters",
+      "relation": "DECLARES",
+      "source_file": "src/modules/compras/pages/ComprasPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/compras/services/comprasService.js",
+      "target": "symbol:src/modules/compras/services/comprasService.js#getComprasData",
+      "relation": "DECLARES",
+      "source_file": "src/modules/compras/services/comprasService.js",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "target": "package:react",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/ChartCanvas.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "target": "package:chart.js/auto",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/ChartCanvas.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "target": "symbol:src/modules/dashboard/components/ChartCanvas.jsx#ChartCanvas",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/ChartCanvas.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/ClientesConComprasKpi.jsx",
+      "target": "file:src/modules/dashboard/components/KpiCard.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/ClientesConComprasKpi.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/ClientesConComprasKpi.jsx",
+      "target": "symbol:src/modules/dashboard/components/ClientesConComprasKpi.jsx#ClientesConComprasKpi",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/ClientesConComprasKpi.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/ComprasPorCategoriaChart.jsx",
+      "target": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/ComprasPorCategoriaChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/ComprasPorCategoriaChart.jsx",
+      "target": "symbol:src/modules/dashboard/components/ComprasPorCategoriaChart.jsx#ComprasPorCategoriaChart",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/ComprasPorCategoriaChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/CreditoDebitoChart.jsx",
+      "target": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/CreditoDebitoChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/CreditoDebitoChart.jsx",
+      "target": "symbol:src/modules/dashboard/components/CreditoDebitoChart.jsx#CreditoDebitoChart",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/CreditoDebitoChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/DashboardFilters.jsx",
+      "target": "symbol:src/modules/dashboard/components/DashboardFilters.jsx#DashboardFilters",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/DashboardFilters.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/KpiCard.jsx",
+      "target": "symbol:src/modules/dashboard/components/KpiCard.jsx#KpiCard",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/KpiCard.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/ModuleAccessCard.jsx",
+      "target": "symbol:src/modules/dashboard/components/ModuleAccessCard.jsx#ModuleAccessCard",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/ModuleAccessCard.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/MontoTotalVendidoKpi.jsx",
+      "target": "file:src/modules/dashboard/components/KpiCard.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/MontoTotalVendidoKpi.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/MontoTotalVendidoKpi.jsx",
+      "target": "symbol:src/modules/dashboard/components/MontoTotalVendidoKpi.jsx#MontoTotalVendidoKpi",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/MontoTotalVendidoKpi.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/StatePanel.jsx",
+      "target": "symbol:src/modules/dashboard/components/StatePanel.jsx#StatePanel",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/StatePanel.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TarjetasPorMarcaChart.jsx",
+      "target": "symbol:src/modules/dashboard/components/TarjetasPorMarcaChart.jsx#TarjetasPorMarcaChart",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/TarjetasPorMarcaChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TicketPromedioKpi.jsx",
+      "target": "file:src/modules/dashboard/components/KpiCard.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/TicketPromedioKpi.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TicketPromedioKpi.jsx",
+      "target": "symbol:src/modules/dashboard/components/TicketPromedioKpi.jsx#TicketPromedioKpi",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/TicketPromedioKpi.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TopClientesChart.jsx",
+      "target": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/TopClientesChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TopClientesChart.jsx",
+      "target": "symbol:src/modules/dashboard/components/TopClientesChart.jsx#TopClientesChart",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/TopClientesChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TopClientesChart.jsx",
+      "target": "symbol:src/modules/dashboard/components/TopClientesChart.jsx#RankingFallback",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/TopClientesChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TopProductosChart.jsx",
+      "target": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/TopProductosChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TopProductosChart.jsx",
+      "target": "symbol:src/modules/dashboard/components/TopProductosChart.jsx#TopProductosChart",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/TopProductosChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TopProductosChart.jsx",
+      "target": "symbol:src/modules/dashboard/components/TopProductosChart.jsx#RankingFallback",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/TopProductosChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TotalComprasKpi.jsx",
+      "target": "file:src/modules/dashboard/components/KpiCard.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/TotalComprasKpi.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/TotalComprasKpi.jsx",
+      "target": "symbol:src/modules/dashboard/components/TotalComprasKpi.jsx#TotalComprasKpi",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/TotalComprasKpi.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/VentasPorMesChart.jsx",
+      "target": "file:src/modules/dashboard/components/ChartCanvas.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/components/VentasPorMesChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/components/VentasPorMesChart.jsx",
+      "target": "symbol:src/modules/dashboard/components/VentasPorMesChart.jsx#VentasPorMesChart",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/components/VentasPorMesChart.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "package:react",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/ClientesConComprasKpi.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/ComprasPorCategoriaChart.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/CreditoDebitoChart.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/DashboardFilters.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/ModuleAccessCard.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/MontoTotalVendidoKpi.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/StatePanel.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/TarjetasPorMarcaChart.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/TicketPromedioKpi.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/TopClientesChart.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/TopProductosChart.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/TotalComprasKpi.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/components/VentasPorMesChart.jsx",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/services/dashboardService.js",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "file:src/modules/dashboard/styles/dashboard.css",
+      "relation": "IMPORTS",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "symbol:src/modules/dashboard/pages/DashboardPage.jsx#DashboardPage",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "symbol:src/modules/dashboard/pages/DashboardPage.jsx#handleApplyFilters",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/pages/DashboardPage.jsx",
+      "target": "symbol:src/modules/dashboard/pages/DashboardPage.jsx#handleResetFilters",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/pages/DashboardPage.jsx",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:src/modules/dashboard/services/dashboardService.js",
+      "target": "symbol:src/modules/dashboard/services/dashboardService.js#getDashboardData",
+      "relation": "DECLARES",
+      "source_file": "src/modules/dashboard/services/dashboardService.js",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:vite.config.js",
+      "target": "package:@vitejs/plugin-react",
+      "relation": "IMPORTS",
+      "source_file": "vite.config.js",
+      "confidence": "EXTRACTED"
+    },
+    {
+      "source": "file:vite.config.js",
+      "target": "package:vite",
+      "relation": "IMPORTS",
+      "source_file": "vite.config.js",
+      "confidence": "EXTRACTED"
+    }
+  ],
+  "communities": {}
+}
