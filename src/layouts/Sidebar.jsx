@@ -1,13 +1,13 @@
 const navigationItems = [
-  { label: "Dashboard General", icon: "bar_chart", active: true },
+  { label: "Dashboard General", icon: "bar_chart", page: "dashboard" },
   { label: "Clientes", icon: "group" },
   { label: "Productos", icon: "inventory_2" },
   { label: "Categorias", icon: "layers" },
-  { label: "Compras", icon: "receipt_long" },
+  { label: "Compras", icon: "receipt_long", page: "compras" },
   { label: "Tarjetas", icon: "credit_card" },
 ];
 
-function Sidebar() {
+function Sidebar({ activePage = "dashboard", onNavigate }) {
   return (
     <aside className="dashboard-sidebar">
       <div>
@@ -21,19 +21,28 @@ function Sidebar() {
 
         <div className="sidebar-label">Navegacion Principal</div>
         <nav className="sidebar-nav" aria-label="Navegacion principal">
-          {navigationItems.map((item) => (
+          {navigationItems.map((item) => {
+            const isActive = item.page === activePage;
+
+            return (
             <a
-              aria-current={item.active ? "page" : undefined}
-              className={item.active ? "sidebar-link is-active" : "sidebar-link"}
+              aria-current={isActive ? "page" : undefined}
+              className={isActive ? "sidebar-link is-active" : "sidebar-link"}
               href="#"
               key={item.label}
+              onClick={(event) => {
+                if (!item.page) return;
+                event.preventDefault();
+                onNavigate?.(item.page);
+              }}
             >
               <span className="material-symbols-outlined" aria-hidden="true">
                 {item.icon}
               </span>
               <span>{item.label}</span>
             </a>
-          ))}
+            );
+          })}
         </nav>
       </div>
 

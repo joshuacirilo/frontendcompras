@@ -2,10 +2,10 @@ import Header from "./Header";
 import MainContent from "./MainContent";
 import Sidebar from "./Sidebar";
 
-function DashboardLayout({ children }) {
+function DashboardLayout({ activePage = "dashboard", children, onNavigate }) {
   return (
     <div className="dashboard-shell">
-      <Sidebar />
+      <Sidebar activePage={activePage} onNavigate={onNavigate} />
       <div className="dashboard-workspace">
         <Header />
         <MainContent>{children}</MainContent>
