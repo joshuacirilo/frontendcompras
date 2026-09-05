@@ -1,6 +1,6 @@
 import { apiRequest, buildApiUrl, getListPayload } from "../../../services/apiService";
 
-export const dashboardEndpointCards = [
+export const allDashboardEndpointCards = [
   {
     id: "clientes",
     title: "Clientes",
@@ -118,6 +118,19 @@ export const dashboardEndpointCards = [
     icon: "verified",
   },
 ];
+
+const visibleDashboardEndpointIds = new Set([
+  "clientes",
+  "clientes-sin-compras",
+  "cliente-mayor-consumo",
+  "compras-por-anio",
+  "compras-promedio",
+  "tarjetas-credito-debito",
+]);
+
+export const dashboardEndpointCards = allDashboardEndpointCards.filter((card) =>
+  visibleDashboardEndpointIds.has(card.id),
+);
 
 function firstValue(record, keys) {
   for (const key of keys) {

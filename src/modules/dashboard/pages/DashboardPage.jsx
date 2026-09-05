@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { API_BASE_URL } from "../../../config/apiConfig";
 import EndpointCard from "../components/EndpointCard";
 import StatePanel from "../components/StatePanel";
 import { dashboardEndpointCards, getDashboardEndpointCards } from "../services/dashboardEndpoints";
@@ -59,11 +58,6 @@ function DashboardPage() {
             <span>Datos verificados por respuesta</span>
           </div>
           <h1>Dashboard General</h1>
-          <p>
-            Panel de endpoints disponibles. Cada card muestra solamente informacion que devuelve
-            la API.
-          </p>
-          <code className="api-base-chip">{API_BASE_URL}</code>
         </div>
       </section>
 

@@ -790,26 +790,26 @@ a {
 
 .endpoint-grid {
   display: grid;
-  gap: var(--space-md);
+  gap: var(--space-lg);
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .endpoint-card {
   background: var(--surface-card);
-  border: 1px solid rgba(196, 197, 213, 0.5);
-  border-radius: 0.75rem;
+  border: 1px solid var(--outline-variant);
+  border-radius: 0.5rem;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  min-height: 13.5rem;
-  padding: var(--space-lg);
-  transition: box-shadow 160ms ease, transform 160ms ease;
+  gap: var(--space-sm);
+  min-height: 12rem;
+  padding: var(--space-md);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
 .endpoint-card:hover {
+  border-color: rgba(30, 64, 175, 0.35);
   box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
 }
 
 .endpoint-card.error {
@@ -822,35 +822,34 @@ a {
 
 .endpoint-card-header,
 .endpoint-status,
-.endpoint-card-meta {
+.endpoint-card-meta,
+.endpoint-result {
   align-items: center;
   display: flex;
 }
 
-.endpoint-card-header,
-.endpoint-card-meta {
+.endpoint-card-header {
   justify-content: space-between;
 }
 
 .endpoint-icon {
   align-items: center;
   background: var(--surface-low);
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   color: var(--primary);
   display: flex;
-  height: 2.25rem;
+  height: 2rem;
   justify-content: center;
-  width: 2.25rem;
+  width: 2rem;
 }
 
 .endpoint-status {
-  background: var(--tertiary-fixed);
-  border-radius: 999px;
-  color: #002114;
+  background: transparent;
+  color: var(--tertiary);
   font-size: 0.6875rem;
-  font-weight: 800;
+  font-weight: 700;
   gap: 0.125rem;
-  padding: 0.125rem 0.5rem;
+  padding: 0;
 }
 
 .endpoint-status .material-symbols-outlined {
@@ -858,57 +857,230 @@ a {
 }
 
 .endpoint-card.error .endpoint-status {
-  background: var(--error-container);
   color: var(--error);
 }
 
 .endpoint-card.empty .endpoint-status,
 .endpoint-card.loading .endpoint-status {
-  background: var(--surface-container);
   color: var(--on-surface-muted);
 }
 
 .endpoint-card-body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
 }
 
 .endpoint-card-body h2 {
   color: var(--on-surface);
   font-family: "Plus Jakarta Sans", Arial, sans-serif;
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1.5rem;
   margin: 0;
 }
 
-.endpoint-card-body code {
+.endpoint-result {
+  align-items: flex-start;
+  background: var(--surface-low);
+  border-radius: 0.5rem;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-xs);
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+.endpoint-result span {
+  color: var(--on-surface-muted);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.endpoint-result strong {
+  color: var(--on-surface);
+  display: -webkit-box;
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.endpoint-card.error .endpoint-result {
+  background: rgba(255, 218, 214, 0.35);
+}
+
+.api-summary-grid,
+.api-list-grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.api-summary-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.api-list-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.api-summary-card,
+.api-list-panel {
+  background: var(--surface-card);
+  border: 1px solid var(--outline-variant);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.api-summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-height: 11rem;
+  padding: var(--space-md);
+}
+
+.api-summary-card-top,
+.api-list-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.api-summary-card-top > .material-symbols-outlined {
+  align-items: center;
   background: var(--surface-low);
   border-radius: 0.375rem;
   color: var(--primary);
-  display: block;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.75rem;
-  line-height: 1.3;
+  display: flex;
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+
+.api-summary-card h2,
+.api-list-heading h2 {
+  color: var(--on-surface);
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.api-summary-card strong {
+  color: var(--on-surface);
+  display: -webkit-box;
+  font-family: "Plus Jakarta Sans", Arial, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  margin-top: var(--space-sm);
+  overflow: hidden;
   overflow-wrap: anywhere;
-  padding: 0.375rem 0.5rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
-.endpoint-card-meta {
-  border-top: 1px solid var(--surface-container);
-  gap: var(--space-sm);
-  padding-top: var(--space-sm);
+.api-summary-card > span,
+.api-list-heading span,
+.api-list-message {
+  color: var(--on-surface-muted);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin: 0;
 }
 
-.endpoint-card-meta div {
+.api-state-badge {
+  color: var(--tertiary);
+  font-size: 0.6875rem;
+  font-weight: 800;
+}
+
+.api-state-badge.loading {
+  color: var(--on-surface-muted);
+}
+
+.api-state-badge.error {
+  color: var(--error);
+}
+
+.api-list-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md);
+}
+
+.api-list-heading > div {
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
 }
 
+.api-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.api-list-row {
+  background: var(--surface-low);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+}
+
+.api-list-row > strong {
+  color: var(--on-surface);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.api-list-row dl {
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.api-list-row dt,
+.api-list-row dd {
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.api-list-row dt {
+  color: var(--outline);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.api-list-row dd {
+  color: var(--on-surface-muted);
+}
+
+.api-summary-card.error,
+.api-list-panel.error {
+  border-color: rgba(186, 26, 26, 0.28);
+}
+
+.endpoint-card-meta {
+  border-top: 1px solid rgba(196, 197, 213, 0.55);
+  gap: var(--space-sm);
+  justify-content: space-between;
+  margin-top: var(--space-xs);
+  padding-top: var(--space-sm);
+}
+
 .endpoint-card-meta span,
-.endpoint-card-meta p,
-.endpoint-sample {
+.endpoint-card-meta p {
   color: var(--on-surface-muted);
   font-size: 0.75rem;
   line-height: 1.4;
@@ -918,20 +1090,7 @@ a {
 .endpoint-card-meta strong {
   color: var(--on-surface);
   font-family: "JetBrains Mono", monospace;
-  font-size: 1rem;
-}
-
-.endpoint-card-meta p {
-  text-align: right;
-}
-
-.endpoint-sample {
-  background: var(--surface-low);
-  border-radius: 0.5rem;
-  margin-top: auto;
-  min-height: 2.5rem;
-  overflow-wrap: anywhere;
-  padding: var(--space-sm);
+  font-size: 0.9375rem;
 }
 
 .sales-chart-panel {

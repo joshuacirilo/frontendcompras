@@ -10,9 +10,10 @@ desarrollador que retome el trabajo.
 El proyecto es una aplicacion React con JavaScript usando Vite.
 
 Ya existe una implementacion visual del Dashboard General, adaptada desde una
-referencia generada por Stitch. El dashboard incluye layout, sidebar, header,
-KPIs, tarjetas de acceso a modulos, estados visuales reales y secciones de
-graficas.
+referencia generada por Stitch. En la etapa mas reciente se simplifico el
+Dashboard General para mostrar un tablero honesto de endpoints reales de la API:
+cada card corresponde a un endpoint documentado, hace su propia consulta y
+muestra solo datos devueltos por FastAPI.
 
 Tambien existen pantallas mock para los modulos principales:
 
@@ -23,10 +24,11 @@ Tambien existen pantallas mock para los modulos principales:
 - Tarjetas
 
 Estos modulos ya tienen paginas, componentes y servicios locales con datos de
-presentacion. Dashboard, Clientes y Compras ya cargan datos desde la API con
-fallback inicial de mock mientras se resuelve la carga. Productos, Categorias y
-Tarjetas aun muestran datos mock en sus paginas, aunque sus servicios ya tienen
-funciones base para consumir endpoints.
+presentacion. Clientes y Compras ya cargan datos desde la API con fallback
+inicial de mock mientras se resuelve la carga. Productos, Categorias y Tarjetas
+aun muestran datos mock en sus paginas, aunque sus servicios ya tienen funciones
+base para consumir endpoints. El Dashboard General ya no debe presentar KPIs,
+graficas ni tendencias de negocio inventadas.
 
 ## Tecnologias Instaladas
 
@@ -55,6 +57,12 @@ Servidor local esperado:
 
 ```text
 http://127.0.0.1:5173/
+```
+
+Si el puerto `5173` esta ocupado, Vite puede levantar otro puerto, por ejemplo:
+
+```text
+http://127.0.0.1:5174/
 ```
 
 ## Estructura Principal
@@ -130,6 +138,8 @@ misma funcion. No hay rutas reales del navegador.
 Archivos principales:
 
 - `src/modules/dashboard/pages/DashboardPage.jsx`
+- `src/modules/dashboard/components/EndpointCard.jsx`
+- `src/modules/dashboard/services/dashboardEndpoints.js`
 - `src/modules/dashboard/services/dashboardService.js`
 - `src/modules/dashboard/styles/dashboard.css`
 - `src/layouts/DashboardLayout.jsx`
@@ -139,13 +149,18 @@ Archivos principales:
 
 Componentes del Dashboard:
 
+- `EndpointCard.jsx`
+- `StatePanel.jsx`
+
+Componentes historicos del dashboard visual original que aun pueden existir,
+pero ya no son el render principal del Dashboard General:
+
 - `KpiCard.jsx`
 - `TotalComprasKpi.jsx`
 - `ClientesConComprasKpi.jsx`
 - `MontoTotalVendidoKpi.jsx`
 - `TicketPromedioKpi.jsx`
 - `ModuleAccessCard.jsx`
-- `StatePanel.jsx`
 - `ChartCanvas.jsx`
 - `VentasPorMesChart.jsx`
 - `TopClientesChart.jsx`
@@ -170,6 +185,17 @@ src/hooks/useData.js
 http://127.0.0.1:8000
 ```
 
+En esta etapa se decidio no volver a apuntar al backend local para el trabajo
+actual. Existe `.env.local` con la base FastAPI de Azure:
+
+```text
+VITE_API_BASE_URL=https://python-api-g2dnemg4ewana3bb.westus3-01.azurewebsites.net
+```
+
+`DashboardPage.jsx` muestra la base activa de API en pantalla para evitar dudas
+durante debugging. Recordatorio: Vite lee `.env.local` al iniciar; si se cambia
+esta variable, reiniciar `npm.cmd run dev -- --host 127.0.0.1`.
+
 Modulos conectados en pagina:
 
 - Dashboard: `src/modules/dashboard/pages/DashboardPage.jsx`
@@ -182,16 +208,31 @@ Modulos con funciones API en servicio, pero pagina aun mock/sin carga real:
 - Categorias: `src/modules/categorias/pages/CategoriasPage.jsx`
 - Tarjetas: `src/modules/tarjetas/pages/TarjetasPage.jsx`
 
-Endpoints que ya usa Dashboard:
+Endpoints que ya usa Dashboard General como cards:
 
+- `GET /api/clientes`
+- `GET /api/clientes/top10`
+- `GET /api/clientes/sin-compras`
+- `GET /api/clientes/mayor-consumo`
+- `GET /api/productos`
+- `GET /api/productos/top10`
+- `GET /api/productos/sin-ventas`
+- `GET /api/productos/por-categoria`
+- `GET /api/categorias`
 - `GET /api/compras`
 - `GET /api/compras/por-mes`
+- `GET /api/compras/por-anio`
 - `GET /api/compras/promedio`
-- `GET /api/clientes/top10`
-- `GET /api/productos/top10`
-- `GET /api/productos/por-categoria`
+- `GET /api/tarjetas`
+- `GET /api/tarjetas/mas-utilizadas`
 - `GET /api/tarjetas/por-marca`
 - `GET /api/tarjetas/credito-vs-debito`
+- `GET /api/marcas`
+
+Todos esos endpoints fueron validados contra la base FastAPI de Azure. Durante
+la depuracion hubo error visual en `/api/clientes/top10`, `/api/tarjetas` y
+`/api/marcas`; se confirmo que los tres responden `200 OK` y se dejaron esas
+cards llamando exactamente la ruta documentada, sin parametros extra.
 
 Endpoints que ya usa Clientes:
 
@@ -230,6 +271,9 @@ Graficas relacionadas:
 Algunos modulos tambien reutilizan `ChartCanvas` o visualizaciones CSS para
 mantener la estetica del dashboard.
 
+Nota actual: el Dashboard General ya no renderiza graficas. Chart.js queda como
+dependencia para pantallas internas y componentes historicos.
+
 ## Datos Temporales Y Mocks
 
 Los datos mock siguen existiendo para presentacion y fallback inicial. Estan
@@ -244,8 +288,9 @@ Servicios locales relevantes:
 - `src/modules/compras/services/comprasService.js`
 - `src/modules/tarjetas/services/tarjetasService.js`
 
-Dashboard, Clientes y Compras ya consumen API desde sus pantallas. Productos,
-Categorias y Tarjetas son los siguientes pendientes.
+El Dashboard General consume API como tablero de endpoints. Clientes y Compras
+consumen API desde sus pantallas. Productos, Categorias y Tarjetas son los
+siguientes pendientes si el usuario pide integracion por modulo.
 
 ## Backend y Endpoints
 
@@ -261,6 +306,9 @@ Bases documentadas:
 - Local: `http://127.0.0.1:8000`
 - Azure: `https://python-api-g2dnemg4ewana3bb.westus3-01.azurewebsites.net`
 
+Decision actual de la conversacion: usar la base Azure de FastAPI como fuente
+activa. No cambiar de vuelta a local salvo instruccion explicita del usuario.
+
 Stack backend esperado/documentado:
 
 - Python
@@ -269,6 +317,14 @@ Stack backend esperado/documentado:
 
 Antes de integrar mas pantallas, revisar `endpoints.md` y reutilizar
 `src/services/apiService.js` como capa compartida.
+
+`src/services/apiService.js` expone:
+
+- `apiRequest(path, options)`: request HTTP con timeout y errores HTTP.
+- `getListPayload(payload)`: normaliza respuestas tipo array, `items`, `data`,
+  `results` o `value`.
+- `buildApiUrl(path, params)`: arma la URL completa, usado para mostrar errores
+  diagnosticos en cards.
 
 ## Filtros Y Controles Eliminados
 
@@ -309,10 +365,13 @@ Notas importantes:
 - No se usa React Router todavia.
 - No se instalo Axios ni otra libreria HTTP.
 - No se modifico backend ni base de datos desde este repo.
-- La navegacion del sidebar y de las tarjetas del dashboard es manual por estado
-  local.
+- La navegacion del sidebar es manual por estado local.
 - No deben mostrarse filtros, buscadores o controles demo si no tienen efecto
   real.
+- El Dashboard General no debe inventar metricas. Mostrar solo endpoints y datos
+  reales devueltos por la API.
+- Si una card falla, debe mostrar `Error` en esa card y la URL completa intentada
+  en el detalle diagnostico.
 - Los estados `loading`, `empty` y `error` existen internamente para responder a
   la carga real de API.
 - El proyecto prioriza continuidad visual y cambios acotados por modulo.
@@ -379,6 +438,15 @@ En la ultima etapa se ejecuto correctamente:
 npm.cmd run build
 ```
 
+Tambien se validaron manualmente contra FastAPI Azure los endpoints del
+Dashboard General, incluyendo los tres que daban error visual:
+
+```text
+GET /api/clientes/top10
+GET /api/tarjetas
+GET /api/marcas
+```
+
 En una etapa previa tambien se inicio el servidor local con:
 
 ```bash
@@ -397,14 +465,18 @@ Antes de modificar codigo:
 
 1. Revisar `src/App.jsx` para entender la navegacion actual.
 2. Revisar `src/services/apiService.js` y `src/config/apiConfig.js`.
-3. Revisar `src/modules/dashboard/services/dashboardService.js` como ejemplo de
-   normalizacion multi-endpoint.
+3. Revisar `src/modules/dashboard/services/dashboardEndpoints.js` y
+   `src/modules/dashboard/components/EndpointCard.jsx` para entender el
+   Dashboard General actual.
 4. Revisar `src/modules/clientes/services/clientesService.js` y
    `src/modules/compras/services/comprasService.js` como ejemplos por modulo.
 5. Para continuar integracion API, seguir con Productos, luego Tarjetas y por
    ultimo Categorias.
-6. No reintroducir filtros o buscadores visuales sin funcionalidad real.
+6. No reintroducir filtros, buscadores, KPIs, tendencias o graficas sin respaldo
+   directo de endpoints reales.
 7. Revisar `src/modules/dashboard/styles/dashboard.css` antes de tocar estilos,
    porque contiene reglas compartidas por varias superficies.
 8. Consultar `graphify-out/GRAPH_REPORT.md` si la tarea afecta arquitectura.
-9. Mantener las restricciones tecnologicas salvo nueva instruccion del usuario.
+9. Mantener la base Azure FastAPI en `.env.local` salvo instruccion explicita del
+   usuario.
+10. Mantener las restricciones tecnologicas salvo nueva instruccion del usuario.

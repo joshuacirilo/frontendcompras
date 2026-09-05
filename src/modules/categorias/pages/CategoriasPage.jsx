@@ -1,22 +1,36 @@
-import { useMemo, useState } from "react";
-import CategoriaMasConsumida from "../components/CategoriaMasConsumida";
-import CategoriaMenosConsumida from "../components/CategoriaMenosConsumida";
-import CategoriasKpiCard from "../components/CategoriasKpiCard";
-import CategoriasStatePanel from "../components/CategoriasStatePanel";
-import CategoriasTable from "../components/CategoriasTable";
-import CategoriasYoYPanel from "../components/CategoriasYoYPanel";
-import ParticipacionPorCategoria from "../components/ParticipacionPorCategoria";
-import { getCategoriasData } from "../services/categoriasService";
+import { useEffect, useState } from "react";
+import { ApiResultList } from "../../../components/ui/ApiResultViews";
+import { getCategorias } from "../services/categoriasService";
 import "../../dashboard/styles/dashboard.css";
 import "../styles/categorias.css";
 
-function CategoriasPage({ onBackToDashboard }) {
-  const data = useMemo(() => getCategoriasData(), []);
-  const [viewMode, setViewMode] = useState("normal");
+const listEndpoints = [
+  { id: "categorias", title: "Categorias", load: () => getCategorias({ limit: 10, offset: 0 }) },
+];
 
-  function handleResetFilters() {
-    setViewMode("normal");
+function buildInitialState() {
+  return listEndpoints.map((item) => ({ ...item, payload: null, status: "loading" }));
+}
+
+async function loadItem(item) {
+  try {
+    return { ...item, payload: await item.load(), status: "available" };
+  } catch (error) {
+    return { ...item, error: error.message, payload: null, status: "error" };
   }
+}
+
+function CategoriasPage({ onBackToDashboard }) {
+  const [lists, setLists] = useState(buildInitialState);
+
+  async function loadCategorias() {
+    setLists(buildInitialState());
+    setLists(await Promise.all(listEndpoints.map(loadItem)));
+  }
+
+  useEffect(() => {
+    loadCategorias();
+  }, []);
 
   return (
     <div className="categorias-page">
@@ -31,41 +45,16 @@ function CategoriasPage({ onBackToDashboard }) {
             <strong>Categorias</strong>
           </nav>
           <div className="categorias-title-row">
-            <h1>Categorias / Analisis</h1>
-            <span>Q3 FY2024</span>
+            <h1>Categorias</h1>
           </div>
-          <p>Evaluacion de lineas comerciales, penetracion de mercado y concentracion de ventas por categoria.</p>
-        </div>
-        <div className="categorias-header-actions">
-          <button type="button">
-            <span className="material-symbols-outlined" aria-hidden="true">tune</span>
-            Rebalancear Mix
-          </button>
-          <button className="primary" type="button">
-            <span className="material-symbols-outlined" aria-hidden="true">download_for_offline</span>
-            Descargar Matriz
-          </button>
         </div>
       </header>
 
-      {viewMode === "normal" ? (
-        <>
-          <section className="categorias-kpi-grid">
-            {data.kpis.map((kpi) => <CategoriasKpiCard key={kpi.label} kpi={kpi} />)}
-          </section>
-          <section className="categorias-report-grid">
-            <CategoriaMasConsumida category={data.mostConsumed} />
-            <CategoriaMenosConsumida category={data.leastConsumed} />
-          </section>
-          <section className="categorias-report-grid">
-            <ParticipacionPorCategoria data={data.participation} />
-            <CategoriasYoYPanel data={data.yoyPerformance} />
-          </section>
-          <CategoriasTable categories={data.table} total={data.kpis[0].value} />
-        </>
-      ) : (
-        <CategoriasStatePanel type={viewMode} onReset={handleResetFilters} />
-      )}
+      <section className="api-list-grid">
+        {lists.map((item) => (
+          <ApiResultList item={item} key={item.id} />
+        ))}
+      </section>
     </div>
   );
 }

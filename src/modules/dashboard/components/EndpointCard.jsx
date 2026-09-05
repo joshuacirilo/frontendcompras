@@ -7,6 +7,8 @@ const statusLabels = {
 
 function EndpointCard({ card }) {
   const [statusIcon, statusText] = statusLabels[card.status] || statusLabels.loading;
+  const resultText =
+    card.status === "error" ? "No se pudo cargar el resultado." : card.sample;
 
   return (
     <article className={`endpoint-card ${card.status}`}>
@@ -26,18 +28,17 @@ function EndpointCard({ card }) {
 
       <div className="endpoint-card-body">
         <h2>{card.title}</h2>
-        <code>{card.endpoint}</code>
+      </div>
+
+      <div className="endpoint-result">
+        <span>Resultado</span>
+        <strong>{resultText}</strong>
       </div>
 
       <div className="endpoint-card-meta">
-        <div>
-          <span>Conteo</span>
-          <strong>{card.count}</strong>
-        </div>
-        <p>{card.detail}</p>
+        <span>{card.detail}</span>
+        <strong>{card.count}</strong>
       </div>
-
-      <p className="endpoint-sample">{card.sample}</p>
     </article>
   );
 }
