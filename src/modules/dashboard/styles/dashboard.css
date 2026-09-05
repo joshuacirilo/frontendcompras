@@ -45,10 +45,14 @@
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 18% -8%, rgba(74, 117, 255, 0.46), transparent 30rem),
-    radial-gradient(circle at 62% 18%, rgba(151, 76, 186, 0.28), transparent 24rem),
-    radial-gradient(circle at 85% 72%, rgba(69, 215, 178, 0.24), transparent 28rem),
-    linear-gradient(135deg, #03050b 0%, #08111f 46%, #05070f 100%);
+    radial-gradient(circle at 29% 36%, rgba(159, 88, 35, 0.5), transparent 22rem),
+    radial-gradient(circle at 18% 20%, rgba(94, 53, 31, 0.42), transparent 26rem),
+    radial-gradient(circle at 46% 44%, rgba(176, 119, 57, 0.23), transparent 30rem),
+    radial-gradient(circle at 72% 10%, rgba(88, 63, 137, 0.48), transparent 32rem),
+    radial-gradient(circle at 89% 23%, rgba(83, 48, 122, 0.36), transparent 28rem),
+    radial-gradient(circle at 84% 76%, rgba(18, 92, 96, 0.32), transparent 28rem),
+    linear-gradient(180deg, rgba(8, 9, 15, 0.12) 0%, rgba(3, 4, 8, 0.88) 100%),
+    linear-gradient(135deg, #06070b 0%, #11100f 38%, #11101b 68%, #05070b 100%);
   background-attachment: fixed;
   color: var(--on-surface);
   font-family: "Inter", Arial, sans-serif;
@@ -56,13 +60,30 @@ body {
 
 body::before {
   background:
-    linear-gradient(115deg, transparent 0 18%, rgba(113, 152, 255, 0.12) 22%, transparent 36%),
-    linear-gradient(24deg, transparent 0 55%, rgba(130, 91, 255, 0.14) 65%, transparent 78%);
+    radial-gradient(ellipse at center, transparent 0%, transparent 54%, rgba(0, 0, 0, 0.62) 100%),
+    linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.72) 100%),
+    linear-gradient(118deg, transparent 0 18%, rgba(234, 133, 58, 0.08) 26%, transparent 42%),
+    linear-gradient(28deg, transparent 0 55%, rgba(121, 91, 189, 0.1) 66%, transparent 82%);
   content: "";
   inset: 0;
   pointer-events: none;
   position: fixed;
-  z-index: -1;
+  z-index: 0;
+}
+
+body::after {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px);
+  background-size: 3px 3px, 3px 3px, 5px 5px;
+  content: "";
+  inset: 0;
+  mix-blend-mode: overlay;
+  opacity: 0.28;
+  pointer-events: none;
+  position: fixed;
+  z-index: 0;
 }
 
 button,
@@ -99,6 +120,9 @@ a {
 .dashboard-shell {
   min-height: 100vh;
   background: transparent;
+  isolation: isolate;
+  position: relative;
+  z-index: 1;
 }
 
 .dashboard-sidebar {
