@@ -4,6 +4,7 @@ import ClientesPage from "./modules/clientes/pages/ClientesPage";
 import ComprasPage from "./modules/compras/pages/ComprasPage";
 import CategoriasPage from "./modules/categorias/pages/CategoriasPage";
 import ProductosPage from "./modules/productos/pages/ProductosPage";
+import TarjetasPage from "./modules/tarjetas/pages/TarjetasPage";
 import { useState } from "react";
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
         <CategoriasPage onBackToDashboard={() => setActivePage("dashboard")} />
       ) : activePage === "productos" ? (
         <ProductosPage onBackToDashboard={() => setActivePage("dashboard")} />
+      ) : activePage === "tarjetas" ? (
+        <TarjetasPage onBackToDashboard={() => setActivePage("dashboard")} />
       ) : (
         <DashboardPage />
       )}

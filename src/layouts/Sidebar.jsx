@@ -4,7 +4,7 @@ const navigationItems = [
   { label: "Productos", icon: "inventory_2", page: "productos" },
   { label: "Categorias", icon: "layers", page: "categorias" },
   { label: "Compras", icon: "receipt_long", page: "compras" },
-  { label: "Tarjetas", icon: "credit_card" },
+  { label: "Tarjetas", icon: "credit_card", page: "tarjetas" },
 ];
 
 function Sidebar({ activePage = "dashboard", onNavigate }) {
