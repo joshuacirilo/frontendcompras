@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Chart from "chart.js/auto";
 
 function ChartCanvas({ ariaLabel, config, fallback }) {
   const canvasRef = useRef(null);
@@ -6,12 +7,12 @@ function ChartCanvas({ ariaLabel, config, fallback }) {
   const [isChartReady, setIsChartReady] = useState(false);
 
   useEffect(() => {
-    if (!canvasRef.current || !window.Chart) {
+    if (!canvasRef.current) {
       setIsChartReady(false);
       return undefined;
     }
 
-    chartRef.current = new window.Chart(canvasRef.current, config);
+    chartRef.current = new Chart(canvasRef.current, config);
     setIsChartReady(true);
 
     return () => {
