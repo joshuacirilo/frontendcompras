@@ -2,26 +2,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
 
 :root {
-  --primary: #00288e;
-  --primary-container: #1e40af;
-  --primary-fixed: #dde1ff;
-  --surface: #f8f9ff;
-  --surface-low: #eff4ff;
-  --surface-container: #e5eeff;
-  --surface-high: #dce9ff;
-  --surface-highest: #d3e4fe;
-  --surface-card: #ffffff;
-  --on-surface: #0b1c30;
-  --on-surface-muted: #444653;
-  --outline: #757684;
-  --outline-variant: #c4c5d5;
-  --secondary: #565e74;
-  --secondary-container: #dae2fd;
-  --tertiary: #003d28;
-  --tertiary-accent: #68dba9;
-  --tertiary-fixed: #85f8c4;
-  --error: #ba1a1a;
-  --error-container: #ffdad6;
+  --primary: #8fb9ff;
+  --primary-container: rgba(61, 112, 255, 0.32);
+  --primary-fixed: rgba(143, 185, 255, 0.18);
+  --surface: #05070f;
+  --surface-low: rgba(255, 255, 255, 0.06);
+  --surface-container: rgba(255, 255, 255, 0.09);
+  --surface-high: rgba(255, 255, 255, 0.12);
+  --surface-highest: rgba(255, 255, 255, 0.16);
+  --surface-card: rgba(10, 14, 24, 0.58);
+  --on-surface: #f6f8ff;
+  --on-surface-muted: #b9c1d6;
+  --outline: #93a0bd;
+  --outline-variant: rgba(255, 255, 255, 0.16);
+  --secondary: #c2a7ff;
+  --secondary-container: rgba(194, 167, 255, 0.18);
+  --tertiary: #7af7c8;
+  --tertiary-accent: #45d7b2;
+  --tertiary-fixed: rgba(122, 247, 200, 0.16);
+  --error: #ff9c96;
+  --error-container: rgba(255, 122, 116, 0.18);
   --space-2xs: 0.125rem;
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -31,8 +31,11 @@
   --space-xl: 1.5rem;
   --space-2xl: 2rem;
   --space-4xl: 3rem;
-  --shadow-sm: 0 1px 3px rgba(11, 28, 48, 0.06);
-  --shadow-md: 0 10px 24px rgba(11, 28, 48, 0.08);
+  --shadow-sm: 0 18px 50px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 28px 80px rgba(0, 0, 0, 0.36);
+  --glass-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04));
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-highlight: rgba(255, 255, 255, 0.28);
 }
 
 * {
@@ -41,9 +44,25 @@
 
 body {
   margin: 0;
-  background: var(--surface);
+  background:
+    radial-gradient(circle at 18% -8%, rgba(74, 117, 255, 0.46), transparent 30rem),
+    radial-gradient(circle at 62% 18%, rgba(151, 76, 186, 0.28), transparent 24rem),
+    radial-gradient(circle at 85% 72%, rgba(69, 215, 178, 0.24), transparent 28rem),
+    linear-gradient(135deg, #03050b 0%, #08111f 46%, #05070f 100%);
+  background-attachment: fixed;
   color: var(--on-surface);
   font-family: "Inter", Arial, sans-serif;
+}
+
+body::before {
+  background:
+    linear-gradient(115deg, transparent 0 18%, rgba(113, 152, 255, 0.12) 22%, transparent 36%),
+    linear-gradient(24deg, transparent 0 55%, rgba(130, 91, 255, 0.14) 65%, transparent 78%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
 }
 
 button,
@@ -79,12 +98,14 @@ a {
 
 .dashboard-shell {
   min-height: 100vh;
-  background: var(--surface);
+  background: transparent;
 }
 
 .dashboard-sidebar {
-  background: var(--surface-low);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(24px) saturate(150%);
+  background: rgba(4, 8, 17, 0.62);
+  border-right: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -104,9 +125,10 @@ a {
 
 .dashboard-header {
   align-items: center;
-  backdrop-filter: blur(20px);
-  background: rgba(248, 249, 255, 0.9);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(24px) saturate(160%);
+  background: rgba(5, 8, 18, 0.58);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
   display: flex;
   height: 4rem;
   justify-content: space-between;
@@ -133,9 +155,9 @@ a {
 
 .brand-mark {
   align-items: center;
-  background: var(--primary);
+  background: linear-gradient(135deg, rgba(143, 185, 255, 0.95), rgba(122, 247, 200, 0.75));
   border-radius: 0.5rem;
-  color: #ffffff;
+  color: #06101f;
   display: inline-flex;
   flex: 0 0 auto;
   font-family: "Plus Jakarta Sans", Arial, sans-serif;
@@ -155,7 +177,7 @@ a {
 }
 
 .sidebar-logo strong {
-  color: var(--primary);
+  color: var(--on-surface);
   display: block;
   font-family: "Plus Jakarta Sans", Arial, sans-serif;
   font-size: 1rem;
@@ -194,14 +216,14 @@ a {
 }
 
 .sidebar-link:hover {
-  background: var(--surface-container);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--on-surface);
 }
 
 .sidebar-link.is-active {
-  background: var(--primary-container);
-  box-shadow: var(--shadow-sm);
-  color: #ffffff;
+  background: linear-gradient(135deg, rgba(143, 185, 255, 0.26), rgba(122, 247, 200, 0.12));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  color: var(--on-surface);
   font-weight: 600;
 }
 
@@ -419,7 +441,7 @@ a {
 }
 
 .eyebrow-row span:first-child {
-  color: var(--primary);
+  color: var(--tertiary);
 }
 
 .eyebrow-row i {
@@ -430,6 +452,7 @@ a {
 }
 
 .page-heading h1 {
+  color: var(--on-surface);
   font-family: "Plus Jakarta Sans", Arial, sans-serif;
   font-size: 2rem;
   line-height: 2.5rem;
@@ -795,10 +818,11 @@ a {
 }
 
 .endpoint-card {
-  background: var(--surface-card);
-  border: 1px solid var(--outline-variant);
-  border-radius: 0.5rem;
-  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(22px) saturate(150%);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-sm), inset 0 1px 0 var(--glass-highlight);
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -808,7 +832,7 @@ a {
 }
 
 .endpoint-card:hover {
-  border-color: rgba(30, 64, 175, 0.35);
+  border-color: rgba(143, 185, 255, 0.45);
   box-shadow: var(--shadow-md);
 }
 
@@ -834,8 +858,9 @@ a {
 
 .endpoint-icon {
   align-items: center;
-  background: var(--surface-low);
-  border-radius: 0.375rem;
+  background: rgba(143, 185, 255, 0.16);
+  border: 1px solid rgba(143, 185, 255, 0.22);
+  border-radius: 0.75rem;
   color: var(--primary);
   display: flex;
   height: 2rem;
@@ -880,8 +905,9 @@ a {
 
 .endpoint-result {
   align-items: flex-start;
-  background: var(--surface-low);
-  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.875rem;
   flex: 1;
   flex-direction: column;
   gap: var(--space-xs);
@@ -910,7 +936,7 @@ a {
 }
 
 .endpoint-card.error .endpoint-result {
-  background: rgba(255, 218, 214, 0.35);
+  background: rgba(255, 122, 116, 0.12);
 }
 
 .api-summary-grid,
@@ -929,10 +955,11 @@ a {
 
 .api-summary-card,
 .api-list-panel {
-  background: var(--surface-card);
-  border: 1px solid var(--outline-variant);
-  border-radius: 0.5rem;
-  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(22px) saturate(150%);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-sm), inset 0 1px 0 var(--glass-highlight);
 }
 
 .api-summary-card {
@@ -952,8 +979,9 @@ a {
 
 .api-summary-card-top > .material-symbols-outlined {
   align-items: center;
-  background: var(--surface-low);
-  border-radius: 0.375rem;
+  background: rgba(143, 185, 255, 0.16);
+  border: 1px solid rgba(143, 185, 255, 0.22);
+  border-radius: 0.75rem;
   color: var(--primary);
   display: flex;
   height: 2rem;
@@ -1026,8 +1054,9 @@ a {
 }
 
 .api-list-row {
-  background: var(--surface-low);
-  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.875rem;
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -1071,8 +1100,71 @@ a {
   border-color: rgba(186, 26, 26, 0.28);
 }
 
+.clientes-page,
+.compras-page,
+.productos-page,
+.categorias-page,
+.tarjetas-page {
+  color: var(--on-surface);
+}
+
+.clientes-heading,
+.compras-heading,
+.productos-heading,
+.categorias-heading,
+.tarjetas-heading,
+.tarjetas-topbar {
+  backdrop-filter: blur(18px) saturate(140%);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  padding: var(--space-lg);
+}
+
+.clientes-title-block,
+.compras-heading-main,
+.productos-title-row,
+.categorias-title-row,
+.tarjetas-title-row {
+  color: var(--on-surface);
+}
+
+.clientes-title-block h1,
+.compras-title-row h1,
+.productos-title-row h1,
+.categorias-title-row h1,
+.tarjetas-title-row h1 {
+  color: var(--on-surface);
+  text-shadow: 0 0 30px rgba(143, 185, 255, 0.18);
+}
+
+.clientes-heading nav,
+.compras-heading nav,
+.productos-heading nav,
+.categorias-heading nav,
+.tarjetas-topbar nav {
+  color: var(--on-surface-muted);
+}
+
+.clientes-heading nav button,
+.compras-heading nav button,
+.productos-heading nav button,
+.categorias-heading nav button,
+.tarjetas-topbar nav button {
+  color: var(--primary);
+}
+
+.clientes-heading nav strong,
+.compras-heading nav strong,
+.productos-heading nav strong,
+.categorias-heading nav strong,
+.tarjetas-topbar nav strong {
+  color: var(--on-surface);
+}
+
 .endpoint-card-meta {
-  border-top: 1px solid rgba(196, 197, 213, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   gap: var(--space-sm);
   justify-content: space-between;
   margin-top: var(--space-xs);
