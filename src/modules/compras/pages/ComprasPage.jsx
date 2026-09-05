@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ApiResultList, ApiSummaryCard } from "../../../components/ui/ApiResultViews";
 import {
   getCompras,
+  getDetalleCompras,
   getComprasPorAnio,
   getComprasPorMes,
   getComprasPromedio,
@@ -14,6 +15,7 @@ const cardEndpoints = [
 
 const listEndpoints = [
   { id: "compras", title: "Compras", load: () => getCompras({ limit: 10, offset: 0 }) },
+  { id: "detalle-compras", title: "Detalle de compras", load: () => getDetalleCompras({ limit: 10, offset: 0 }) },
   { id: "compras-por-mes", title: "Compras por mes", load: getComprasPorMes },
 ];
 

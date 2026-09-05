@@ -3,6 +3,7 @@ import { ApiResultList } from "../../../components/ui/ApiResultViews";
 import {
   getMarcas,
   getTarjetas,
+  getTarjetasCreditoVsDebito,
   getTarjetasMasUtilizadas,
   getTarjetasPorMarca,
 } from "../services/tarjetasService";
@@ -15,6 +16,11 @@ const listEndpoints = [
     id: "tarjetas-mas-utilizadas",
     title: "Tarjetas mas utilizadas",
     load: () => getTarjetasMasUtilizadas({ limit: 10 }),
+  },
+  {
+    id: "tarjetas-credito-debito",
+    title: "Credito vs debito",
+    load: getTarjetasCreditoVsDebito,
   },
   { id: "marcas", title: "Marcas", load: () => getMarcas({ limit: 10, offset: 0 }) },
   { id: "tarjetas-por-marca", title: "Tarjetas por marca", load: getTarjetasPorMarca },
