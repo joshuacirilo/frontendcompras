@@ -32,16 +32,7 @@ function ComprasPorCategoriaChart({ data }) {
           pie_chart
         </span>
       </div>
-      <ChartCanvas
-        ariaLabel="Grafica de dona de compras por categoria"
-        config={config}
-        fallback={
-          <div className="donut-fallback category-donut" aria-hidden="true">
-            <strong>42.5%</strong>
-            <span>Lider</span>
-          </div>
-        }
-      />
+      <ChartCanvas ariaLabel="Grafica de dona de compras por categoria" config={config} />
       <div className="legend-grid">
         {data.map(([label, value, color]) => (
           <span key={label}>

@@ -40,36 +40,11 @@ function VentasPorMesChart({ data }) {
       <div className="panel-title-row">
         <div>
           <h3>Evolucion de Ventas Mensuales</h3>
-          <p>Comportamiento financiero anual acumulado (Cifras expresadas en Quetzales - GTQ)</p>
-        </div>
-        <div className="segmented-actions">
-          <button className="is-active" type="button">
-            2024
-          </button>
-          <button type="button">2023</button>
-          <button className="icon-button" type="button" aria-label="Descargar datos en CSV">
-            <span className="material-symbols-outlined" aria-hidden="true">
-              download
-            </span>
-          </button>
+          <p>Serie desde /api/compras/por-mes (Chart.js)</p>
         </div>
       </div>
 
-      <ChartCanvas
-        ariaLabel="Grafica de linea de ventas por mes"
-        config={config}
-        fallback={
-          <div className="line-chart-fallback" aria-hidden="true">
-            {data.values.map((value, index) => (
-              <span
-                key={data.labels[index]}
-                style={{ height: `${Math.max(18, (value / 400000) * 100)}%` }}
-                title={`${data.labels[index]}: ${value}`}
-              />
-            ))}
-          </div>
-        }
-      />
+      <ChartCanvas ariaLabel="Grafica de linea de ventas por mes" config={config} />
     </section>
   );
 }

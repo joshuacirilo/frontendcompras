@@ -1,78 +1,72 @@
-import { useEffect, useState } from "react";
-import { ApiResultList } from "../../../components/ui/ApiResultViews";
-import {
-  getMarcas,
-  getTarjetas,
-  getTarjetasCreditoVsDebito,
-  getTarjetasMasUtilizadas,
-  getTarjetasPorMarca,
-} from "../services/tarjetasService";
+import { useCallback, useState } from "react";
+import FilterBar from "../../../components/filters/FilterBar";
+import EmptyBlock from "../../../components/ui/EmptyBlock";
+import ApiStatusDot from "../../../components/ui/ApiStatusDot";
+import { EMPTY_FILTERS } from "../../../config/apiContract";
+import { useData } from "../../../hooks/useData";
+import CreditoVsDebito from "../components/CreditoVsDebito";
+import MarcaMasUtilizada from "../components/MarcaMasUtilizada";
+import TopClientesPorTipoTarjeta from "../components/TopClientesPorTipoTarjeta";
+import { getTarjetasData } from "../services/tarjetasService";
 import "../../dashboard/styles/dashboard.css";
 import "../styles/tarjetas.css";
 
-const listEndpoints = [
-  { id: "tarjetas", title: "Tarjetas", load: () => getTarjetas({ limit: 10, offset: 0 }) },
-  {
-    id: "tarjetas-mas-utilizadas",
-    title: "Tarjetas mas utilizadas",
-    load: () => getTarjetasMasUtilizadas({ limit: 10 }),
-  },
-  {
-    id: "tarjetas-credito-debito",
-    title: "Credito vs debito",
-    load: getTarjetasCreditoVsDebito,
-  },
-  { id: "marcas", title: "Marcas", load: () => getMarcas({ limit: 10, offset: 0 }) },
-  { id: "tarjetas-por-marca", title: "Tarjetas por marca", load: getTarjetasPorMarca },
-];
-
-function buildInitialState() {
-  return listEndpoints.map((item) => ({ ...item, payload: null, status: "loading" }));
-}
-
-async function loadItem(item) {
-  try {
-    return { ...item, payload: await item.load(), status: "available" };
-  } catch (error) {
-    return { ...item, error: error.message, payload: null, status: "error" };
-  }
-}
-
 function TarjetasPage({ onBackToDashboard }) {
-  const [lists, setLists] = useState(buildInitialState);
+  const [draftFilters, setDraftFilters] = useState(EMPTY_FILTERS);
+  const [appliedFilters, setAppliedFilters] = useState(EMPTY_FILTERS);
 
-  async function loadTarjetas() {
-    setLists(buildInitialState());
-    setLists(await Promise.all(listEndpoints.map(loadItem)));
-  }
-
-  useEffect(() => {
-    loadTarjetas();
-  }, []);
+  const loader = useCallback(() => getTarjetasData(), []);
+  const { data, error, isLoading, refetch } = useData(loader, { params: appliedFilters });
 
   return (
     <div className="tarjetas-page">
-      <div className="tarjetas-topbar">
+      <header className="tarjetas-heading">
         <nav aria-label="Ruta actual">
-          <button type="button" onClick={onBackToDashboard}>Dashboard</button>
-          <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+          <button type="button" onClick={onBackToDashboard}>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              dashboard
+            </span>
+            Dashboard
+          </button>
+          <span className="material-symbols-outlined" aria-hidden="true">
+            chevron_right
+          </span>
           <strong>Tarjetas</strong>
         </nav>
-      </div>
-
-      <header className="tarjetas-heading">
-        <div>
-          <div className="tarjetas-title-row">
-            <h1>Tarjetas</h1>
-          </div>
+        <div className="tarjetas-title-block">
+          <h1>
+            Tarjetas
+            <ApiStatusDot offline={Boolean(data?.usingMock)} />
+          </h1>
         </div>
       </header>
 
-      <section className="api-list-grid">
-        {lists.map((item) => (
-          <ApiResultList item={item} key={item.id} />
-        ))}
-      </section>
+      <FilterBar
+        value={draftFilters}
+        onChange={setDraftFilters}
+        onApply={() => setAppliedFilters({ ...draftFilters })}
+        onReset={() => {
+          setDraftFilters(EMPTY_FILTERS);
+          setAppliedFilters(EMPTY_FILTERS);
+        }}
+      />
+
+      {isLoading && !data ? <EmptyBlock title="Cargando tarjetas" message="Consultando endpoints..." /> : null}
+      {error && !data ? <EmptyBlock title="Error al cargar tarjetas" message={error.message} /> : null}
+
+      {data ? (
+        <div className="tarjetas-analytics-grid">
+          {data.mostUsedBrand ? <MarcaMasUtilizada data={data.mostUsedBrand} /> : null}
+          {data.creditDebit.length ? <CreditoVsDebito data={data.creditDebit} /> : null}
+          {data.topClients.length ? <TopClientesPorTipoTarjeta clients={data.topClients} /> : null}
+        </div>
+      ) : null}
+
+      {data && !isLoading ? (
+        <button className="ghost-button" type="button" onClick={() => refetch(appliedFilters)}>
+          Reintentar
+        </button>
+      ) : null}
     </div>
   );
 }

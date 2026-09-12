@@ -1,51 +1,51 @@
-import { useEffect, useState } from "react";
-import EndpointCard from "../components/EndpointCard";
+import { useCallback, useState } from "react";
+import FilterBar from "../../../components/filters/FilterBar";
+import EmptyBlock from "../../../components/ui/EmptyBlock";
+import ApiStatusDot from "../../../components/ui/ApiStatusDot";
+import { EMPTY_FILTERS } from "../../../config/apiContract";
+import { useData } from "../../../hooks/useData";
+import ClientesConComprasKpi from "../components/ClientesConComprasKpi";
+import ComprasPorCategoriaChart from "../components/ComprasPorCategoriaChart";
+import CreditoDebitoChart from "../components/CreditoDebitoChart";
+import MontoTotalVendidoKpi from "../components/MontoTotalVendidoKpi";
 import StatePanel from "../components/StatePanel";
-import { dashboardEndpointCards, getDashboardEndpointCards } from "../services/dashboardEndpoints";
+import TarjetasPorMarcaChart from "../components/TarjetasPorMarcaChart";
+import TicketPromedioKpi from "../components/TicketPromedioKpi";
+import TopClientesChart from "../components/TopClientesChart";
+import TopProductosChart from "../components/TopProductosChart";
+import TotalComprasKpi from "../components/TotalComprasKpi";
+import VentasPorMesChart from "../components/VentasPorMesChart";
+import { getDashboardData } from "../services/dashboardService";
 import "../styles/dashboard.css";
 
 function DashboardPage() {
-  const [cards, setCards] = useState(() =>
-    dashboardEndpointCards.map((card) => ({
-      ...card,
-      count: "-",
-      detail: "Consulta pendiente",
-      sample: "Esperando respuesta del endpoint",
-      status: "loading",
-    })),
-  );
-  const [viewMode, setViewMode] = useState("loading");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [draftFilters, setDraftFilters] = useState(EMPTY_FILTERS);
+  const [appliedFilters, setAppliedFilters] = useState(EMPTY_FILTERS);
 
-  async function loadDashboard() {
-    setViewMode("loading");
-    setErrorMessage("");
-    setCards((currentCards) =>
-      currentCards.map((card) => ({
-        ...card,
-        count: "-",
-        detail: "Consulta pendiente",
-        sample: "Esperando respuesta del endpoint",
-        status: "loading",
-      })),
-    );
+  const loadDashboard = useCallback((params) => getDashboardData(params), []);
+  const { data, error, isLoading, refetch } = useData(loadDashboard, {
+    params: appliedFilters,
+  });
 
-    try {
-      const nextCards = await getDashboardEndpointCards();
-      setCards(nextCards);
-      setViewMode(nextCards.some((card) => card.status === "available") ? "normal" : "empty");
-    } catch (error) {
-      setErrorMessage(error.message);
-      setViewMode("error");
-    }
+  function handleApply() {
+    setAppliedFilters({ ...draftFilters });
   }
 
-  useEffect(() => {
-    loadDashboard();
-  }, []);
+  function handleReset() {
+    setDraftFilters(EMPTY_FILTERS);
+    setAppliedFilters(EMPTY_FILTERS);
+  }
 
-  function handleResetFilters() {
-    loadDashboard();
+  if (isLoading && !data) {
+    return <StatePanel type="loading" />;
+  }
+
+  if (error && !data) {
+    return <StatePanel type="error" message={error.message} onReset={() => refetch(appliedFilters)} />;
+  }
+
+  if (!data) {
+    return <StatePanel type="empty" onReset={() => refetch(appliedFilters)} />;
   }
 
   return (
@@ -53,36 +53,69 @@ function DashboardPage() {
       <section className="page-heading">
         <div>
           <div className="eyebrow-row">
-            <span>Endpoints API</span>
+            <span>Dashboard</span>
             <i aria-hidden="true" />
-            <span>Datos verificados por respuesta</span>
+            <span>Chart.js · FastAPI Azure</span>
           </div>
-          <h1>Dashboard General</h1>
+          <h1>
+            Dashboard General
+            <ApiStatusDot offline={Boolean(data.usingMock)} />
+          </h1>
         </div>
       </section>
 
-      {viewMode === "normal" || viewMode === "empty" ? (
-        <div className="dashboard-content">
-          <section className="endpoint-board">
-            <div className="section-title-row">
-              <h2>
-                <span className="material-symbols-outlined" aria-hidden="true">
-                  api
-                </span>
-                Resumen general
-              </h2>
-              <span>{cards.length} consultas</span>
-            </div>
-            <div className="endpoint-grid">
-              {cards.map((card) => (
-                <EndpointCard key={card.id} card={card} />
-              ))}
-            </div>
-          </section>
+      <FilterBar
+        value={draftFilters}
+        onChange={setDraftFilters}
+        onApply={handleApply}
+        onReset={handleReset}
+      />
+
+      <section className="kpi-grid">
+        <TotalComprasKpi data={data.kpis.totalCompras} />
+        <ClientesConComprasKpi data={data.kpis.clientesConCompras} />
+        <MontoTotalVendidoKpi data={data.kpis.montoTotalVendido} />
+        <TicketPromedioKpi data={data.kpis.ticketPromedio} />
+      </section>
+
+      <div className="dashboard-content">
+        {data.monthlySales.values.length ? (
+          <VentasPorMesChart data={data.monthlySales} />
+        ) : (
+          <EmptyBlock title="Ventas por mes" message="Sin registros." />
+        )}
+
+        <div className="charts-two-columns">
+          {data.topClients.length ? (
+            <TopClientesChart data={data.topClients} />
+          ) : (
+            <EmptyBlock title="Top 10 clientes" message="Sin registros." />
+          )}
+          {data.topProducts.length ? (
+            <TopProductosChart data={data.topProducts} />
+          ) : (
+            <EmptyBlock title="Top 10 productos" message="Sin registros." />
+          )}
         </div>
-      ) : (
-        <StatePanel type={viewMode} message={errorMessage} onReset={handleResetFilters} />
-      )}
+
+        <div className="charts-three-columns">
+          {data.categoryShare.length ? (
+            <ComprasPorCategoriaChart data={data.categoryShare} />
+          ) : (
+            <EmptyBlock title="Compras por categoria" message="Sin registros." />
+          )}
+          {data.cardBrands.length ? (
+            <TarjetasPorMarcaChart data={data.cardBrands} />
+          ) : (
+            <EmptyBlock title="Tarjetas por marca" message="Sin registros." />
+          )}
+          {data.paymentTypes.length ? (
+            <CreditoDebitoChart data={data.paymentTypes} />
+          ) : (
+            <EmptyBlock title="Credito vs Debito" message="Sin registros." />
+          )}
+        </div>
+      </div>
     </div>
   );
 }

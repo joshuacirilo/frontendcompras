@@ -1,182 +1,101 @@
-import { apiRequest } from "../../../services/apiService";
-
-const categoriasData = {
-  filters: {
-    fechas: [
-      "Periodo: Este Trimestre (Q3)",
-      "Ultimos 30 dias",
-      "Ano en Curso (YTD)",
-      "Ano Completo 2023",
-    ],
-    categorias: [
-      "Categoria: Todas",
-      "Alimentos & Bebidas",
-      "Abarrotes y Granos",
-      "Limpieza & Hogar",
-      "Cuidado Personal",
-      "Oficina y Papeleria",
-      "Cuidado del Calzado",
-    ],
-  },
-  kpis: [
-    {
-      label: "Total de categorias",
-      value: "18",
-      icon: "category",
-      detail: "distribucion ponderada",
-      trend: "100%",
-      tone: "primary",
-    },
-    {
-      label: "Categoria mas consumida",
-      value: "Alimentos & Bebidas",
-      icon: "workspace_premium",
-      detail: "Q 416,691.00",
-      trend: "+18.4%",
-      tone: "success",
-    },
-    {
-      label: "Categoria menos consumida",
-      value: "Cuidado del Calzado",
-      icon: "warning_amber",
-      detail: "Q 4,120.00",
-      trend: "0.42%",
-      tone: "danger",
-    },
-    {
-      label: "Mayor participacion",
-      value: "42.5%",
-      icon: "pie_chart",
-      detail: "Alimentos & Bebidas",
-      trend: "Share Maximo",
-      tone: "featured",
-    },
-  ],
-  mostConsumed: {
-    name: "Alimentos & Bebidas",
-    code: "CAT-ALM01",
-    amount: "Q 416,691.00",
-    purchases: "1,465",
-    share: 42.5,
-    trend: "+18.4% vs trimestre anterior",
-    icon: "restaurant",
-  },
-  leastConsumed: {
-    name: "Cuidado del Calzado",
-    code: "CAT-CAL07",
-    amount: "Q 4,120.00",
-    purchases: "97",
-    share: 0.42,
-    trend: "-14.2% YoY",
-    icon: "roller_skating",
-  },
-  participation: [
-    { category: "Alimentos & Bebidas", value: 42.5, color: "#00288e" },
-    { category: "Abarrotes y Granos", value: 24.2, color: "#1e40af" },
-    { category: "Limpieza & Hogar", value: 14.6, color: "#5bcf9e" },
-    { category: "Cuidado Personal", value: 11.8, color: "#68dba9" },
-    { category: "Oficina y Papeleria", value: 3.9, color: "#bec6e0" },
-    { category: "Indumentaria & Cuero", value: 2.6, color: "#dae2fd" },
-    { category: "Cuidado del Calzado", value: 0.42, color: "#ba1a1a" },
-  ],
-  yoyPerformance: [
-    ["Alimentos & Bebidas", "+18.4% YoY", 92, "strong"],
-    ["Abarrotes y Granos", "+11.6% YoY", 78, "primary"],
-    ["Limpieza & Hogar", "+8.2% YoY", 66, "success"],
-    ["Cuidado Personal", "+5.9% YoY", 55, "success"],
-    ["Oficina y Papeleria", "-1.8% YoY", 14, "muted"],
-    ["Cuidado del Calzado", "-14.2% YoY", 22, "danger"],
-  ],
-  table: [
-    {
-      category: "Alimentos & Bebidas",
-      code: "CAT-ALM01",
-      icon: "restaurant",
-      purchases: 1465,
-      amount: 416691,
-      ticket: 284.43,
-      share: 42.5,
-      margin: 32.8,
-      tone: "primary",
-    },
-    {
-      category: "Abarrotes y Granos",
-      code: "CAT-ABR02",
-      icon: "kitchen",
-      purchases: 982,
-      amount: 237268,
-      ticket: 241.62,
-      share: 24.2,
-      margin: 26.4,
-      tone: "default",
-    },
-    {
-      category: "Limpieza & Hogar",
-      code: "CAT-LMP03",
-      icon: "cleaning_services",
-      purchases: 734,
-      amount: 143145,
-      ticket: 195.02,
-      share: 14.6,
-      margin: 38.1,
-      tone: "success",
-    },
-    {
-      category: "Cuidado Personal",
-      code: "CAT-CP04",
-      icon: "spa",
-      purchases: 641,
-      amount: 115693,
-      ticket: 180.48,
-      share: 11.8,
-      margin: 41.5,
-      tone: "success",
-    },
-    {
-      category: "Oficina y Papeleria",
-      code: "CAT-OFC05",
-      icon: "edit_note",
-      purchases: 290,
-      amount: 38420,
-      ticket: 132.48,
-      share: 3.9,
-      margin: 22.1,
-      tone: "muted",
-    },
-    {
-      category: "Indumentaria & Cuero",
-      code: "CAT-IND06",
-      icon: "checkroom",
-      purchases: 112,
-      amount: 25113,
-      ticket: 224.22,
-      share: 2.6,
-      margin: 35,
-      tone: "default",
-    },
-    {
-      category: "Cuidado del Calzado",
-      code: "CAT-CAL07",
-      icon: "roller_skating",
-      purchases: 97,
-      amount: 4120,
-      ticket: 42.47,
-      share: 0.42,
-      margin: 14.2,
-      tone: "danger",
-      critical: true,
-    },
-  ],
-};
+import { pickListParams } from "../../../config/apiContract";
+import { mockCategorias, settleOrMock } from "../../../data/mockData";
+import { apiRequest, getListPayload } from "../../../services/apiService";
+import { colorAt, firstValue, formatCurrency, toNumber } from "../../../utils/dataFormat";
 
 export function getCategorias(params) {
-  return apiRequest("/api/categorias", { params });
+  return apiRequest("/api/categorias", { params: pickListParams(params) });
 }
 
 export function getCategoriaById(idCategoria) {
   return apiRequest(`/api/categorias/${idCategoria}`);
 }
 
-export function getCategoriasData() {
-  return categoriasData;
+function normalizeParticipation(records) {
+  const rows = records.map((record, index) => {
+    const amount = toNumber(
+      firstValue(record, ["monto_total", "total", "ingresos", "amount"], null) ??
+        firstValue(record, ["porcentaje", "participacion", "share", "value"], 0),
+    );
+    return {
+      category: firstValue(record, ["categoria", "nombre_categoria", "nombre", "category"], "Categoria"),
+      amount,
+      purchases: firstValue(record, ["compras", "cantidad", "total_compras"], null),
+      code: firstValue(record, ["codigo", "code", "id_categoria", "id"], "CAT"),
+      color: firstValue(record, ["color"], colorAt(index)),
+      explicitPercent: firstValue(record, ["porcentaje", "participacion", "share"], null),
+    };
+  });
+
+  const total = rows.reduce((sum, row) => sum + row.amount, 0);
+
+  return rows.map((row) => {
+    const value =
+      row.explicitPercent !== null && row.explicitPercent !== undefined
+        ? toNumber(row.explicitPercent)
+        : total
+          ? Number(((row.amount / total) * 100).toFixed(2))
+          : 0;
+
+    return {
+      ...row,
+      value,
+      amountLabel: formatCurrency(row.amount),
+      purchasesLabel:
+        row.purchases === null || row.purchases === undefined ? "—" : String(row.purchases),
+    };
+  });
+}
+
+function toCategoryCard(row, icon) {
+  if (!row) return null;
+  return {
+    name: row.category,
+    code: String(row.code),
+    amount: row.amountLabel,
+    purchases: row.purchasesLabel,
+    share: row.value,
+    trend: `${row.value}% del total`,
+    icon,
+  };
+}
+
+export async function getCategoriasData() {
+  const mockFlags = [];
+  const result = await settleOrMock(
+    apiRequest("/api/productos/por-categoria"),
+    null,
+    "productos/por-categoria",
+    mockFlags,
+  );
+
+  if (result.usedMock) {
+    return {
+      ...mockCategorias,
+      usingMock: true,
+      mockReasons: mockFlags,
+      hasApiData: true,
+    };
+  }
+
+  const participation = normalizeParticipation(getListPayload(result.value));
+  if (!participation.length) {
+    return {
+      ...mockCategorias,
+      usingMock: true,
+      mockReasons: ["productos/por-categoria: vacio, usando mock"],
+      hasApiData: true,
+    };
+  }
+
+  const sorted = [...participation].sort((a, b) => b.value - a.value);
+
+  return {
+    participation,
+    mostConsumed: toCategoryCard(sorted[0], "restaurant"),
+    leastConsumed: toCategoryCard(sorted[sorted.length - 1], "warning_amber"),
+    usingMock: false,
+    mockReasons: [],
+    hasApiData: true,
+  };
 }

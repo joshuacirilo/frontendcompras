@@ -605,19 +605,31 @@ a {
 
 .filter-grid input,
 .filter-grid select {
-  background: var(--surface-low);
+  background: #ffffff;
   border: 0;
   border-radius: 0.5rem;
-  color: var(--on-surface);
+  color: #12141c;
+  color-scheme: light;
   height: 2.25rem;
   outline: 0;
   padding: 0 var(--space-sm);
 }
 
+.filter-grid input::placeholder {
+  color: #667085;
+}
+
+.filter-grid select option,
+.filter-grid select optgroup {
+  background-color: #ffffff;
+  color: #12141c;
+}
+
 .filter-grid input:focus,
 .filter-grid select:focus {
-  background: var(--surface-container);
-  box-shadow: inset 0 0 0 1px var(--primary);
+  background: #ffffff;
+  box-shadow: inset 0 0 0 2px var(--primary);
+  color: #12141c;
 }
 
 .filter-actions {
@@ -4302,5 +4314,51 @@ a {
   .productos-ranking-item {
     grid-template-columns: 1.5rem minmax(5rem, 7rem) minmax(4rem, 1fr) 3.75rem;
     gap: var(--space-sm);
+  }
+}
+
+.clientes-analytics-grid,
+.productos-analytics-grid,
+.categorias-analytics-grid,
+.tarjetas-analytics-grid {
+  display: grid;
+  gap: var(--space-xl);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.clientes-analytics-grid .clientes-wide-chart,
+.productos-analytics-grid .productos-revenue-panel,
+.categorias-analytics-grid .categorias-chart-panel {
+  grid-column: 1 / -1;
+}
+
+.api-status-dot {
+  background: #ef4444;
+  border-radius: 999px;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+  display: inline-block;
+  flex-shrink: 0;
+  height: 0.55rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  width: 0.55rem;
+}
+
+.page-heading h1,
+.clientes-title-block h1,
+.compras-title-block h1,
+.productos-title-block h1,
+.categorias-title-block h1,
+.tarjetas-title-block h1 {
+  align-items: center;
+  display: inline-flex;
+}
+
+@media (max-width: 900px) {
+  .clientes-analytics-grid,
+  .productos-analytics-grid,
+  .categorias-analytics-grid,
+  .tarjetas-analytics-grid {
+    grid-template-columns: 1fr;
   }
 }

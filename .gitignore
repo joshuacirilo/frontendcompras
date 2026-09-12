@@ -1,9 +1,17 @@
-.agents/
-.codex/
+# Dependencias y build
 node_modules/
 dist/
+
+# Secretos / entorno local (nunca subir)
 .env
 .env.*
 !.env.example
 
-endpoints.md
+# Skills y tooling local de agentes (no forman parte del entregable)
+.agents/
+.codex/
+
+# Cache / temporales
+*.log
+.DS_Store
+Thumbs.db

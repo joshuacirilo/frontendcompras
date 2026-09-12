@@ -1,116 +1,17 @@
-import { apiRequest } from "../../../services/apiService";
-
-const tarjetasData = {
-  filters: {
-    fechas: ["Mes actual (Oct 2024)", "Trimestre movil (Q3-Q4)", "Anio completo 2024", "Personalizado"],
-    clientes: ["Todos los clientes", "Distribuidora Central S.A.", "Supertiendas Aurora", "Farmacias del Golfo S.A.", "Operadora de Hoteles Maya"],
-    marcas: ["Todas las marcas", "Visa Inc.", "Mastercard Worldwide", "American Express", "Otras locales"],
-    tipos: ["Todas las modalidades", "Credito financiado", "Debito inmediato"],
-  },
-  kpis: [
-    {
-      label: "Tarjetas registradas",
-      value: "2,890",
-      icon: "credit_card",
-      trend: "+8.4%",
-      detail: "plasticos unicos activos",
-    },
-    {
-      label: "Marca mas utilizada",
-      value: "Visa",
-      icon: "workspace_premium",
-      trend: "58.0%",
-      detail: "dominancia en volumen transaccional POS",
-      highlighted: true,
-    },
-    {
-      label: "Credito",
-      value: "64%",
-      icon: "payments",
-      trend: "Q 696,119",
-      detail: "volumen financiado",
-    },
-    {
-      label: "Debito",
-      value: "36%",
-      icon: "account_balance_wallet",
-      trend: "Q 284,331",
-      detail: "cargo inmediato",
-    },
-  ],
-  gateway: {
-    provider: "Gateway BAC/Visanet",
-    uptime: "99.8% Online",
-    cut: "Ultimo corte POS: Hoy 18:42",
-  },
-  mostUsedBrand: {
-    brand: "Visa",
-    share: 58,
-    transactions: "6,565",
-    volume: "Q 568,662.00",
-    approval: "99.4%",
-    detail: "Marca lider en credito y debito con mayor volumen POS.",
-  },
-  creditDebit: [
-    ["Credito", 64, "#00288e"],
-    ["Debito", 36, "#68dba9"],
-  ],
-  byBrand: [
-    ["Visa", "6,565", 58, "#00288e"],
-    ["Mastercard", "3,812", 32, "#565e74"],
-    ["Amex", "241", 7, "#00563a"],
-    ["Otras", "652", 3, "#757684"],
-  ],
-  billingByBrand: [
-    ["Visa", "Q 568,662", 58],
-    ["Mastercard", "Q 313,744", 32],
-    ["American Express", "Q 68,631", 7],
-    ["Otras marcas", "Q 29,413", 3],
-  ],
-  topClients: [
-    {
-      initials: "DC",
-      client: "Distribuidora Central S.A.",
-      type: "Credito Empresarial",
-      card: "Visa **** 4381",
-      amount: "Q 64,820.00",
-      orders: "82 ordenes",
-    },
-    {
-      initials: "SA",
-      client: "Supertiendas Aurora",
-      type: "Credito Corporativo",
-      card: "Mastercard **** 1284",
-      amount: "Q 48,960.00",
-      orders: "63 ordenes",
-    },
-    {
-      initials: "FG",
-      client: "Farmacias del Golfo S.A.",
-      type: "Debito Inmediato",
-      card: "Visa **** 8831",
-      amount: "Q 21,450.00",
-      orders: "35 ordenes",
-    },
-  ],
-  tableRows: [
-    ["VISA", "Visa Clasica / Gold / Plat", "Terminal POS 8812 - BAC", "Credito", "3,650", "Q 410,625.00", "Q 112.50", "99.4%", "0.6% (22)"],
-    ["MC", "Mastercard Standard / Black", "Terminal POS 8812 - Visanet", "Credito", "1,927", "Q 216,863.00", "Q 112.54", "99.1%", "0.9% (17)"],
-    ["VISA", "Visa Electron Debito GT", "Multi-banco Nacional", "Debito", "2,915", "Q 158,037.00", "Q 54.22", "99.5%", "0.5% (14)"],
-    ["MC", "Mastercard Debito Directo", "Terminal POS 8814 - BI", "Debito", "1,885", "Q 96,881.00", "Q 51.40", "98.9%", "1.1% (21)"],
-    ["AMEX", "American Express Corporativa", "Terminal BAC Credomatic Direct", "Credito", "241", "Q 68,631.00", "Q 284.77", "99.2%", "0.8% (2)"],
-    ["OTRAS", "Club Promerica / Vales Locales", "Terminal Alterna Offline", "Debito", "652", "Q 29,413.00", "Q 45.11", "97.8%", "2.2% (14)"],
-  ],
-  tableSimple: [
-    ["Visa **** 4381", "Visa", "Credito", "Distribuidora Central S.A.", "82"],
-    ["Mastercard **** 1284", "Mastercard", "Credito", "Supertiendas Aurora", "63"],
-    ["Visa **** 8831", "Visa", "Debito", "Farmacias del Golfo S.A.", "35"],
-    ["Amex **** 0094", "American Express", "Credito", "Operadora de Hoteles Maya", "18"],
-  ],
-};
+import { pickLimitParams, pickListParams } from "../../../config/apiContract";
+import { mockTarjetas, settleOrMock } from "../../../data/mockData";
+import { apiRequest, getListPayload } from "../../../services/apiService";
+import {
+  colorAt,
+  firstValue,
+  formatCount,
+  formatCurrency,
+  initialsFromName,
+  toNumber,
+} from "../../../utils/dataFormat";
 
 export function getTarjetas(params) {
-  return apiRequest("/api/tarjetas", { params });
+  return apiRequest("/api/tarjetas", { params: pickListParams(params) });
 }
 
 export function getTarjetaById(idTarjeta) {
@@ -118,7 +19,7 @@ export function getTarjetaById(idTarjeta) {
 }
 
 export function getMarcas(params) {
-  return apiRequest("/api/marcas", { params });
+  return apiRequest("/api/marcas", { params: pickListParams(params) });
 }
 
 export function getMarcaById(idMarca) {
@@ -126,17 +27,104 @@ export function getMarcaById(idMarca) {
 }
 
 export function getTarjetasMasUtilizadas(params) {
-  return apiRequest("/api/tarjetas/mas-utilizadas", { params });
+  return apiRequest("/api/tarjetas/mas-utilizadas", { params: pickLimitParams(params, 10) });
 }
 
-export function getTarjetasCreditoVsDebito(params) {
-  return apiRequest("/api/tarjetas/credito-vs-debito", { params });
+export function getTarjetasCreditoVsDebito() {
+  return apiRequest("/api/tarjetas/credito-vs-debito");
 }
 
-export function getTarjetasPorMarca(params) {
-  return apiRequest("/api/tarjetas/por-marca", { params });
+export function getTarjetasPorMarca() {
+  return apiRequest("/api/tarjetas/por-marca");
 }
 
-export function getTarjetasData() {
-  return tarjetasData;
+function normalizeCreditDebit(records) {
+  return records.slice(0, 2).map((record, index) => [
+    firstValue(record, ["tipo", "tipo_tarjeta", "modalidad", "label"], index === 0 ? "Credito" : "Debito"),
+    toNumber(firstValue(record, ["porcentaje", "participacion", "share", "value"], 0)),
+    colorAt(index),
+  ]);
+}
+
+function normalizeMostUsedBrand(records) {
+  if (!records.length) return null;
+
+  const record = records[0];
+  const brand = firstValue(record, ["marca", "nombre_marca", "brand", "nombre"], "Marca");
+  const share = toNumber(firstValue(record, ["porcentaje", "participacion", "share", "value"], 0));
+  const transactions = firstValue(record, ["total", "cantidad", "transacciones"], null);
+  const volume = firstValue(record, ["monto_total", "total", "volumen", "amount"], null);
+  const approval = firstValue(record, ["aprobacion", "approval", "tasa_aprobacion"], null);
+
+  return {
+    brand,
+    share,
+    transactions: transactions === null ? "—" : formatCount(transactions),
+    volume: volume === null ? "—" : formatCurrency(volume),
+    approval: approval === null ? "—" : `${approval}%`,
+    detail: "Marca lider segun /api/tarjetas/por-marca o mas-utilizadas.",
+  };
+}
+
+function normalizeTopClientsByCard(records) {
+  return records
+    .map((record) => {
+      const client = firstValue(record, ["cliente", "nombre_cliente", "nombre", "name"], null);
+      const type = firstValue(record, ["tipo", "tipo_tarjeta", "modalidad"], null);
+      if (!client || !type) return null;
+
+      return {
+        initials: initialsFromName(client),
+        client,
+        type: String(type),
+        card: String(firstValue(record, ["tarjeta", "numero", "marca"], "")),
+        amount: formatCurrency(firstValue(record, ["monto_total", "total", "amount"], 0)),
+        orders: `${formatCount(firstValue(record, ["ordenes", "compras", "cantidad"], 0))} ordenes`,
+      };
+    })
+    .filter(Boolean);
+}
+
+export async function getTarjetasData() {
+  const mockFlags = [];
+
+  const [byBrandResult, creditDebitResult, mostUsedResult] = await Promise.all([
+    settleOrMock(getTarjetasPorMarca(), null, "tarjetas/por-marca", mockFlags),
+    settleOrMock(getTarjetasCreditoVsDebito(), null, "tarjetas/credito-vs-debito", mockFlags),
+    settleOrMock(getTarjetasMasUtilizadas({ limit: 10 }), null, "tarjetas/mas-utilizadas", mockFlags),
+  ]);
+
+  const mostUsedBrand = byBrandResult.usedMock
+    ? mockTarjetas.mostUsedBrand
+    : normalizeMostUsedBrand(getListPayload(byBrandResult.value)) ||
+      (mostUsedResult.usedMock
+        ? mockTarjetas.mostUsedBrand
+        : normalizeMostUsedBrand(getListPayload(mostUsedResult.value))) ||
+      mockTarjetas.mostUsedBrand;
+
+  if (!byBrandResult.usedMock && !normalizeMostUsedBrand(getListPayload(byBrandResult.value))) {
+    mockFlags.push("tarjetas/por-marca: sin marca usable, usando mock");
+  }
+
+  const creditDebit = creditDebitResult.usedMock
+    ? mockTarjetas.creditDebit
+    : normalizeCreditDebit(getListPayload(creditDebitResult.value));
+
+  let topClients = mostUsedResult.usedMock
+    ? mockTarjetas.topClients
+    : normalizeTopClientsByCard(getListPayload(mostUsedResult.value));
+
+  if (!mostUsedResult.usedMock && !topClients.length) {
+    topClients = mockTarjetas.topClients;
+    mockFlags.push("tarjetas/top-clientes: sin cliente+tipo, usando mock");
+  }
+
+  return {
+    mostUsedBrand,
+    creditDebit: creditDebit.length ? creditDebit : mockTarjetas.creditDebit,
+    topClients,
+    usingMock: mockFlags.length > 0,
+    mockReasons: mockFlags,
+    hasApiData: true,
+  };
 }

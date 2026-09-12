@@ -4,7 +4,7 @@ function TarjetasPorMarcaChart({ data }) {
       <div className="panel-title-row">
         <div>
           <h3>Tarjetas por Marca</h3>
-          <p>Emisores procesados en POS/Web</p>
+          <p>Emisores segun /api/tarjetas/por-marca</p>
         </div>
         <span className="material-symbols-outlined panel-icon" aria-hidden="true">
           credit_score
@@ -25,12 +25,6 @@ function TarjetasPorMarcaChart({ data }) {
             </div>
           </div>
         ))}
-      </div>
-      <div className="verified-note">
-        <span className="material-symbols-outlined" aria-hidden="true">
-          verified_user
-        </span>
-        Tasa de aprobacion POS: 99.1%
       </div>
     </section>
   );

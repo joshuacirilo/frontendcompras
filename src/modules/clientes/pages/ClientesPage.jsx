@@ -1,92 +1,77 @@
-import { useEffect, useState } from "react";
-import { ApiResultList, ApiSummaryCard } from "../../../components/ui/ApiResultViews";
-import {
-  getClienteMayorConsumo,
-  getClientes,
-  getClientesSinCompras,
-  getTopClientes,
-} from "../services/clientesService";
-
-const cardEndpoints = [
-  { id: "clientes", title: "Clientes", icon: "groups", load: () => getClientes({ limit: 10, offset: 0 }) },
-  {
-    id: "clientes-sin-compras",
-    title: "Clientes sin compras",
-    icon: "person_off",
-    load: () => getClientesSinCompras({ limit: 10 }),
-  },
-  {
-    id: "cliente-mayor-consumo",
-    title: "Cliente mayor consumo",
-    icon: "leaderboard",
-    load: getClienteMayorConsumo,
-  },
-];
-
-const listEndpoints = [
-  {
-    id: "clientes-top10",
-    title: "Clientes top 10",
-    load: () => getTopClientes({ limit: 10 }),
-  },
-];
-
-function buildInitialState(items) {
-  return items.map((item) => ({ ...item, payload: null, status: "loading" }));
-}
-
-async function loadItem(item) {
-  try {
-    return { ...item, payload: await item.load(), status: "available" };
-  } catch (error) {
-    return { ...item, error: error.message, payload: null, status: "error" };
-  }
-}
+import { useCallback, useState } from "react";
+import FilterBar from "../../../components/filters/FilterBar";
+import EmptyBlock from "../../../components/ui/EmptyBlock";
+import ApiStatusDot from "../../../components/ui/ApiStatusDot";
+import { EMPTY_FILTERS } from "../../../config/apiContract";
+import { useData } from "../../../hooks/useData";
+import ClientesPorGenero from "../components/ClientesPorGenero";
+import ClientesSinCompras from "../components/ClientesSinCompras";
+import TopClientesPorCompras from "../components/TopClientesPorCompras";
+import TopClientesPorMonto from "../components/TopClientesPorMonto";
+import { getClientesData } from "../services/clientesService";
+import "../../dashboard/styles/dashboard.css";
 
 function ClientesPage({ onBackToDashboard }) {
-  const [cards, setCards] = useState(() => buildInitialState(cardEndpoints));
-  const [lists, setLists] = useState(() => buildInitialState(listEndpoints));
+  const [draftFilters, setDraftFilters] = useState(EMPTY_FILTERS);
+  const [appliedFilters, setAppliedFilters] = useState(EMPTY_FILTERS);
 
-  async function loadClientes() {
-    setCards(buildInitialState(cardEndpoints));
-    setLists(buildInitialState(listEndpoints));
-    setCards(await Promise.all(cardEndpoints.map(loadItem)));
-    setLists(await Promise.all(listEndpoints.map(loadItem)));
-  }
-
-  useEffect(() => {
-    loadClientes();
-  }, []);
+  const loader = useCallback((params) => getClientesData(params), []);
+  const { data, error, isLoading, refetch } = useData(loader, { params: appliedFilters });
 
   return (
     <div className="clientes-page">
       <header className="clientes-heading">
         <nav aria-label="Ruta actual">
           <button type="button" onClick={onBackToDashboard}>
-            <span className="material-symbols-outlined" aria-hidden="true">dashboard</span>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              dashboard
+            </span>
             Dashboard
           </button>
-          <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+          <span className="material-symbols-outlined" aria-hidden="true">
+            chevron_right
+          </span>
           <strong>Clientes</strong>
         </nav>
         <div className="clientes-title-block">
           <div>
-            <h1>Clientes</h1>
+            <h1>
+              Clientes
+              <ApiStatusDot offline={Boolean(data?.usingMock)} />
+            </h1>
           </div>
         </div>
       </header>
 
-      <section className="api-summary-grid">
-        {cards.map((item) => (
-          <ApiSummaryCard item={item} key={item.id} />
-        ))}
-      </section>
+      <FilterBar
+        value={draftFilters}
+        onChange={setDraftFilters}
+        onApply={() => setAppliedFilters({ ...draftFilters })}
+        onReset={() => {
+          setDraftFilters(EMPTY_FILTERS);
+          setAppliedFilters(EMPTY_FILTERS);
+        }}
+      />
 
-      <section className="api-list-grid">
-        {lists.map((item) => (
-          <ApiResultList item={item} key={item.id} />
-        ))}
-      </section>
+      {isLoading && !data ? (
+        <EmptyBlock title="Cargando clientes" message="Consultando endpoints de clientes..." />
+      ) : null}
+      {error && !data ? <EmptyBlock title="Error al cargar clientes" message={error.message} /> : null}
+
+      {data ? (
+        <div className="clientes-analytics-grid">
+          <TopClientesPorMonto data={data.topByAmount} />
+          <TopClientesPorCompras data={data.topByPurchases} />
+          <ClientesSinCompras clients={data.inactiveClients} />
+          <ClientesPorGenero data={data.genderShare} />
+        </div>
+      ) : null}
+
+      {data && !isLoading ? (
+        <button className="ghost-button" type="button" onClick={() => refetch(appliedFilters)}>
+          Reintentar
+        </button>
+      ) : null}
     </div>
   );
 }

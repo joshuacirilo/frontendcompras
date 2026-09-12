@@ -1,60 +1,72 @@
-import { useEffect, useState } from "react";
-import { ApiResultList } from "../../../components/ui/ApiResultViews";
-import { getCategorias } from "../services/categoriasService";
+import { useCallback, useState } from "react";
+import FilterBar from "../../../components/filters/FilterBar";
+import EmptyBlock from "../../../components/ui/EmptyBlock";
+import ApiStatusDot from "../../../components/ui/ApiStatusDot";
+import { EMPTY_FILTERS } from "../../../config/apiContract";
+import { useData } from "../../../hooks/useData";
+import CategoriaMasConsumida from "../components/CategoriaMasConsumida";
+import CategoriaMenosConsumida from "../components/CategoriaMenosConsumida";
+import ParticipacionPorCategoria from "../components/ParticipacionPorCategoria";
+import { getCategoriasData } from "../services/categoriasService";
 import "../../dashboard/styles/dashboard.css";
 import "../styles/categorias.css";
 
-const listEndpoints = [
-  { id: "categorias", title: "Categorias", load: () => getCategorias({ limit: 10, offset: 0 }) },
-];
-
-function buildInitialState() {
-  return listEndpoints.map((item) => ({ ...item, payload: null, status: "loading" }));
-}
-
-async function loadItem(item) {
-  try {
-    return { ...item, payload: await item.load(), status: "available" };
-  } catch (error) {
-    return { ...item, error: error.message, payload: null, status: "error" };
-  }
-}
-
 function CategoriasPage({ onBackToDashboard }) {
-  const [lists, setLists] = useState(buildInitialState);
+  const [draftFilters, setDraftFilters] = useState(EMPTY_FILTERS);
+  const [appliedFilters, setAppliedFilters] = useState(EMPTY_FILTERS);
 
-  async function loadCategorias() {
-    setLists(buildInitialState());
-    setLists(await Promise.all(listEndpoints.map(loadItem)));
-  }
-
-  useEffect(() => {
-    loadCategorias();
-  }, []);
+  const loader = useCallback(() => getCategoriasData(), []);
+  const { data, error, isLoading, refetch } = useData(loader, { params: appliedFilters });
 
   return (
     <div className="categorias-page">
       <header className="categorias-heading">
-        <div>
-          <nav aria-label="Ruta actual">
-            <button type="button" onClick={onBackToDashboard}>
-              <span className="material-symbols-outlined" aria-hidden="true">dashboard</span>
-              Dashboard
-            </button>
-            <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
-            <strong>Categorias</strong>
-          </nav>
-          <div className="categorias-title-row">
-            <h1>Categorias</h1>
-          </div>
+        <nav aria-label="Ruta actual">
+          <button type="button" onClick={onBackToDashboard}>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              dashboard
+            </span>
+            Dashboard
+          </button>
+          <span className="material-symbols-outlined" aria-hidden="true">
+            chevron_right
+          </span>
+          <strong>Categorias</strong>
+        </nav>
+        <div className="categorias-title-block">
+          <h1>
+            Categorias
+            <ApiStatusDot offline={Boolean(data?.usingMock)} />
+          </h1>
         </div>
       </header>
 
-      <section className="api-list-grid">
-        {lists.map((item) => (
-          <ApiResultList item={item} key={item.id} />
-        ))}
-      </section>
+      <FilterBar
+        value={draftFilters}
+        onChange={setDraftFilters}
+        onApply={() => setAppliedFilters({ ...draftFilters })}
+        onReset={() => {
+          setDraftFilters(EMPTY_FILTERS);
+          setAppliedFilters(EMPTY_FILTERS);
+        }}
+      />
+
+      {isLoading && !data ? <EmptyBlock title="Cargando categorias" message="Consultando API..." /> : null}
+      {error && !data ? <EmptyBlock title="Error al cargar categorias" message={error.message} /> : null}
+
+      {data ? (
+        <div className="categorias-analytics-grid">
+          {data.mostConsumed ? <CategoriaMasConsumida category={data.mostConsumed} /> : null}
+          {data.leastConsumed ? <CategoriaMenosConsumida category={data.leastConsumed} /> : null}
+          {data.participation.length ? <ParticipacionPorCategoria data={data.participation} /> : null}
+        </div>
+      ) : null}
+
+      {data && !isLoading ? (
+        <button className="ghost-button" type="button" onClick={() => refetch(appliedFilters)}>
+          Reintentar
+        </button>
+      ) : null}
     </div>
   );
 }

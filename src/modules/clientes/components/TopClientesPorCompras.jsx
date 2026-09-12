@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import ChartCanvas from "../../dashboard/components/ChartCanvas";
 
 function TopClientesPorCompras({ data }) {
-  const max = Math.max(...data.map(([, value]) => value));
+  const max = data.length ? Math.max(...data.map(([, value]) => value)) : 0;
   const config = useMemo(
     () => ({
       type: "bar",
@@ -37,7 +37,9 @@ function TopClientesPorCompras({ data }) {
       <div className="clientes-panel-heading">
         <div>
           <h2>
-            <span className="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              receipt_long
+            </span>
             Top 10 clientes por cantidad de compras
           </h2>
           <p>Comparativo operativo por frecuencia transaccional.</p>

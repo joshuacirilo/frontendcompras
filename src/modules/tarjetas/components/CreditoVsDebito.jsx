@@ -1,6 +1,7 @@
 import ChartCanvas from "../../dashboard/components/ChartCanvas";
 
 function CreditoVsDebito({ data }) {
+  const leader = data[0];
   const config = {
     type: "doughnut",
     data: {
@@ -31,22 +32,22 @@ function CreditoVsDebito({ data }) {
       <div className="tarjetas-panel-heading">
         <div>
           <h2>
-            <span className="material-symbols-outlined" aria-hidden="true">donut_large</span>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              donut_large
+            </span>
             Credito vs Debito
           </h2>
           <p>Distribucion por modalidad de plastico.</p>
         </div>
       </div>
       <div className="tarjetas-donut-wrap">
-        <ChartCanvas
-          ariaLabel="Grafica de dona credito versus debito"
-          config={config}
-          fallback={<div className="donut-fallback payment-donut"><strong>64%</strong><span>Credito</span></div>}
-        />
-        <div className="tarjetas-donut-center" aria-hidden="true">
-          <strong>64%</strong>
-          <span>Credito</span>
-        </div>
+        <ChartCanvas ariaLabel="Grafica de dona credito versus debito" config={config} />
+        {leader ? (
+          <div className="tarjetas-donut-center" aria-hidden="true">
+            <strong>{leader[1]}%</strong>
+            <span>{leader[0]}</span>
+          </div>
+        ) : null}
       </div>
       <div className="tarjetas-legend">
         {data.map(([label, value, color]) => (

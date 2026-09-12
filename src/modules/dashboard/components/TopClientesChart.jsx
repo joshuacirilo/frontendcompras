@@ -8,7 +8,7 @@ function TopClientesChart({ data }) {
       datasets: [
         {
           label: "Monto comprado",
-          data: data.map(([, value]) => Number(value.replace(/[^\d.]/g, ""))),
+          data: data.map(([, value]) => Number(String(value).replace(/[^\d.]/g, ""))),
           backgroundColor: "#1e40af",
           borderRadius: 8,
         },
@@ -27,13 +27,8 @@ function TopClientesChart({ data }) {
       <div className="panel-title-row">
         <div>
           <h3>Top 10 Clientes por Consumo</h3>
-          <p>Distribucion de compras por cartera preferencial</p>
+          <p>Distribucion de compras segun /api/clientes/top10</p>
         </div>
-        <button className="icon-button" type="button" aria-label="Opciones de top clientes">
-          <span className="material-symbols-outlined" aria-hidden="true">
-            more_vert
-          </span>
-        </button>
       </div>
 
       <ChartCanvas
@@ -43,8 +38,7 @@ function TopClientesChart({ data }) {
       />
 
       <div className="panel-footer-link">
-        <span>Mostrando top 6 de 10 clientes auditados</span>
-        <a href="#">Ver lista completa</a>
+        <span>Mostrando {data.length} clientes de la API</span>
       </div>
     </section>
   );

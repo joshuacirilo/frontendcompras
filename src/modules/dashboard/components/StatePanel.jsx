@@ -30,7 +30,8 @@ function StatePanel({ message, type, onReset }) {
         </div>
         <h3>No se encontraron registros</h3>
         <p>
-          La API no devolvio informacion disponible para construir el resumen del dashboard.
+          {message ||
+            "La API no devolvio informacion disponible para construir el resumen del dashboard."}
         </p>
         <button className="ghost-button" onClick={onReset} type="button">
           <span className="material-symbols-outlined" aria-hidden="true">

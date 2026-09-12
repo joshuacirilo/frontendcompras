@@ -1,18 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
 
 export function useData(fetcher, options = {}) {
-  const { enabled = true, initialData = null, params } = options;
+  const { enabled = true, initialData = null, params = null } = options;
+  const paramsKey = JSON.stringify(params ?? null);
   const [data, setData] = useState(initialData);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(enabled);
 
   const refetch = useCallback(
-    async (nextParams = params) => {
+    async (nextParams) => {
       setIsLoading(true);
       setError(null);
 
       try {
-        const result = await fetcher(nextParams);
+        const resolvedParams =
+          nextParams === undefined ? (paramsKey ? JSON.parse(paramsKey) : null) : nextParams;
+        const result = await fetcher(resolvedParams || {});
         setData(result);
         return result;
       } catch (fetchError) {
@@ -22,11 +25,14 @@ export function useData(fetcher, options = {}) {
         setIsLoading(false);
       }
     },
-    [fetcher, params],
+    [fetcher, paramsKey],
   );
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      setIsLoading(false);
+      return;
+    }
 
     refetch().catch(() => {});
   }, [enabled, refetch]);
@@ -34,7 +40,7 @@ export function useData(fetcher, options = {}) {
   return {
     data,
     error,
-    isEmpty: Array.isArray(data) && data.length === 0,
+    isEmpty: data?.hasApiData === false,
     isLoading,
     refetch,
   };

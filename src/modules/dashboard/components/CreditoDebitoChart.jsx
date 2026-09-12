@@ -32,16 +32,7 @@ function CreditoDebitoChart({ data }) {
           account_balance_wallet
         </span>
       </div>
-      <ChartCanvas
-        ariaLabel="Grafica de dona de tarjetas de credito contra debito"
-        config={config}
-        fallback={
-          <div className="donut-fallback payment-donut" aria-hidden="true">
-            <strong>Credito</strong>
-            <span>Mayoria</span>
-          </div>
-        }
-      />
+      <ChartCanvas ariaLabel="Grafica de dona de tarjetas de credito contra debito" config={config} />
       <div className="payment-list">
         {data.map(([label, value, color]) => (
           <div key={label}>

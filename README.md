@@ -1,51 +1,49 @@
 # Frontend Compras
 
-Frontend para una plataforma de reporteria y analisis de compras.
+Frontend React (Vite) de reporteria de compras. Consume **solo** la API FastAPI
+en Azure conectada a Oracle. **No inventa KPIs ni rankings.**
 
-Este README funciona como contexto de continuidad para otro agente de IA o
-desarrollador que retome el trabajo.
+## Principio de datos
 
-## Estado Actual
+- Fuente: FastAPI Azure → Oracle.
+- Si la API falla o responde vacio: UI en `loading` / `empty` / `error`.
+- Sin mocks, sin fallback de cifras falsas.
+- Query params solo los del OpenAPI (`limit`, `offset`, `q`, `anio`, `mes`).
 
-El proyecto es una aplicacion React con JavaScript usando Vite.
+Documentacion de endpoints: [`endpoints.md`](endpoints.md).
 
-Ya existe una implementacion visual del Dashboard General, adaptada desde una
-referencia generada por Stitch. En la etapa mas reciente se simplifico el
-Dashboard General para mostrar un tablero honesto de endpoints reales de la API:
-cada card corresponde a un endpoint documentado, hace su propia consulta y
-muestra solo datos devueltos por FastAPI.
+## API activa
 
-Tambien existen pantallas mock para los modulos principales:
+```text
+https://python-api-g2dnemg4ewana3bb.westus3-01.azurewebsites.net
+```
 
-- Clientes
-- Productos
-- Categorias
-- Compras
-- Tarjetas
+Configuracion:
 
-Estos modulos ya tienen paginas, componentes y servicios locales con datos de
-presentacion. Clientes y Compras ya cargan datos desde la API con fallback
-inicial de mock mientras se resuelve la carga. Productos, Categorias y Tarjetas
-aun muestran datos mock en sus paginas, aunque sus servicios ya tienen funciones
-base para consumir endpoints. El Dashboard General ya no debe presentar KPIs,
-graficas ni tendencias de negocio inventadas.
+1. Copiar `.env.example` → `.env` (`.env` esta en `.gitignore`).
+2. Variables:
 
-## Tecnologias Instaladas
+```text
+VITE_API_BASE_URL=https://python-api-g2dnemg4ewana3bb.westus3-01.azurewebsites.net
+VITE_API_TIMEOUT_MS=30000
+```
 
-- React
-- React DOM
-- Vite
-- @vitejs/plugin-react
-- Chart.js
+`src/config/apiConfig.js` usa esas variables; el default tambien es Azure.
 
-No se agregaron librerias de UI ni manejo de estado externas como Axios, React
-Router, Tailwind CSS, Bootstrap, Material UI, Ant Design, Redux, Zustand,
-TanStack Query, Styled Components o Recharts.
+Nota: `/health` puede estar `ok` y aun asi `/api/...` devolver `503` si Oracle
+tiene la cuenta bloqueada (`ORA-28000`). Eso no se enmascara en el frontend.
+
+## Stack
+
+- React 19 + Vite
+- JavaScript
+- Chart.js (unica libreria de graficas)
+- CSS propio
+- `fetch` nativo (`src/services/apiService.js`)
+
+Sin React Router, Axios, Tailwind, ni librerias de estado externas.
 
 ## Comandos
-
-En PowerShell usar `npm.cmd`, porque `npm.ps1` puede estar bloqueado por la
-politica de ejecucion de Windows.
 
 ```bash
 npm.cmd install
@@ -53,430 +51,80 @@ npm.cmd run dev -- --host 127.0.0.1
 npm.cmd run build
 ```
 
-Servidor local esperado:
+UI local tipica: `http://127.0.0.1:5173/`
 
-```text
-http://127.0.0.1:5173/
-```
+Tras cambiar `.env`, reiniciar el dev server.
 
-Si el puerto `5173` esta ocupado, Vite puede levantar otro puerto, por ejemplo:
-
-```text
-http://127.0.0.1:5174/
-```
-
-## Estructura Principal
+## Estructura
 
 ```text
 src/
-  App.jsx
-  main.jsx
+  config/          apiConfig.js, apiContract.js
+  services/        apiService.js
+  hooks/           useData.js
   components/
-    feedback/
-    filters/
-    ui/
-  constants/
-  hooks/
+    filters/       FilterBar (anio, mes, q)
+    ui/            EmptyBlock, ApiResultViews
   layouts/
-    DashboardLayout.jsx
-    Header.jsx
-    MainContent.jsx
-    Sidebar.jsx
   modules/
-    dashboard/
-      components/
-      pages/
-      services/
-      styles/
-    categorias/
-      components/
-      pages/
-      services/
-      styles/
+    dashboard/     KPIs + 6 charts Chart.js
     clientes/
-      components/
-      pages/
-      services/
-    compras/
-      components/
-      pages/
-      services/
     productos/
-      components/
-      pages/
-      services/
+    categorias/
+    compras/
     tarjetas/
-      components/
-      pages/
-      services/
-      styles/
-  routes/
-  services/
-  utils/
 ```
 
 ## Navegacion
 
-La aplicacion no usa React Router todavia.
+`App.jsx` con `useState` (sin React Router). Sidebar cambia de modulo.
 
-`src/App.jsx` mantiene la pagina activa con `useState` y renderiza
-condicionalmente:
+## Que muestra cada modulo
 
-- Dashboard
-- Clientes
-- Productos
-- Categorias
-- Compras
-- Tarjetas
+| Modulo | Contenido (solo API) |
+|--------|----------------------|
+| Dashboard | Total compras, clientes con compras, monto vendido, ticket promedio; ventas/mes; top clientes/productos; por categoria; tarjetas por marca; credito vs debito |
+| Clientes | Top monto, top cantidad (si el JSON trae cantidad), sin compras, por genero (si hay campo) |
+| Productos | Top vendidos, nunca comprados, mayores ingresos (si hay monto) |
+| Categorias | Mas/menos consumida y % desde `/api/productos/por-categoria` |
+| Compras | Ventas mes/ano, mes pico (derivado), ticket promedio |
+| Tarjetas | Marca lider, credito vs debito, top por tipo (solo si el JSON trae cliente+tipo) |
 
-`src/layouts/Sidebar.jsx` dispara la navegacion con `onNavigate`. Las tarjetas
-de "Explorar Reportes Especializados" del dashboard tambien navegan usando la
-misma funcion. No hay rutas reales del navegador.
+Capa de agregacion: `get*Data` en cada `modules/*/services/*Service.js`.
+Fetching: `useData`.
 
-## Dashboard
+## Filtros
 
-Archivos principales:
+`FilterBar` envia solo params reales del backend:
 
-- `src/modules/dashboard/pages/DashboardPage.jsx`
-- `src/modules/dashboard/components/EndpointCard.jsx`
-- `src/modules/dashboard/services/dashboardEndpoints.js`
-- `src/modules/dashboard/services/dashboardService.js`
-- `src/modules/dashboard/styles/dashboard.css`
-- `src/layouts/DashboardLayout.jsx`
-- `src/layouts/Header.jsx`
-- `src/layouts/MainContent.jsx`
-- `src/layouts/Sidebar.jsx`
+- `anio` → `/api/compras/por-mes`, `/api/compras/promedio`
+- `mes` → `/api/compras/promedio`
+- `q` → listados que lo soportan
 
-Componentes del Dashboard:
+No hay filtros inventados por cliente/categoria/producto: el OpenAPI no los define.
 
-- `EndpointCard.jsx`
-- `StatePanel.jsx`
+## .gitignore
 
-Componentes historicos del dashboard visual original que aun pueden existir,
-pero ya no son el render principal del Dashboard General:
+Ignora secretos y tooling local:
 
-- `KpiCard.jsx`
-- `TotalComprasKpi.jsx`
-- `ClientesConComprasKpi.jsx`
-- `MontoTotalVendidoKpi.jsx`
-- `TicketPromedioKpi.jsx`
-- `ModuleAccessCard.jsx`
-- `ChartCanvas.jsx`
-- `VentasPorMesChart.jsx`
-- `TopClientesChart.jsx`
-- `TopProductosChart.jsx`
-- `ComprasPorCategoriaChart.jsx`
-- `TarjetasPorMarcaChart.jsx`
-- `CreditoDebitoChart.jsx`
+- `.env` / `.env.*` (excepto `.env.example`)
+- `node_modules/`, `dist/`
+- `.agents/`, `.codex/`
 
-## Estado De Integracion API Por Modulo
+**No** ignora `endpoints.md` ni `.env.example`: son documentacion/contrato versionable.
 
-La capa HTTP compartida esta en:
+## Decisiones
 
-```text
-src/config/apiConfig.js
-src/services/apiService.js
-src/hooks/useData.js
-```
+- Azure por defecto; local solo si se configura explicitamente.
+- Chart.js unico para visualizacion.
+- No TypeScript.
+- No inventar metricas ni reintroducir mocks.
 
-`apiConfig.js` usa `VITE_API_BASE_URL` y cae por defecto a:
-
-```text
-http://127.0.0.1:8000
-```
-
-En esta etapa se decidio no volver a apuntar al backend local para el trabajo
-actual. Existe `.env.local` con la base FastAPI de Azure:
-
-```text
-VITE_API_BASE_URL=https://python-api-g2dnemg4ewana3bb.westus3-01.azurewebsites.net
-```
-
-`DashboardPage.jsx` muestra la base activa de API en pantalla para evitar dudas
-durante debugging. Recordatorio: Vite lee `.env.local` al iniciar; si se cambia
-esta variable, reiniciar `npm.cmd run dev -- --host 127.0.0.1`.
-
-Modulos conectados en pagina:
-
-- Dashboard: `src/modules/dashboard/pages/DashboardPage.jsx`
-- Clientes: `src/modules/clientes/pages/ClientesPage.jsx`
-- Compras: `src/modules/compras/pages/ComprasPage.jsx`
-
-Modulos con funciones API en servicio, pero pagina aun mock/sin carga real:
-
-- Productos: `src/modules/productos/pages/ProductosPage.jsx`
-- Categorias: `src/modules/categorias/pages/CategoriasPage.jsx`
-- Tarjetas: `src/modules/tarjetas/pages/TarjetasPage.jsx`
-
-Endpoints que ya usa Dashboard General como cards:
-
-- `GET /api/clientes`
-- `GET /api/clientes/top10`
-- `GET /api/clientes/sin-compras`
-- `GET /api/clientes/mayor-consumo`
-- `GET /api/productos`
-- `GET /api/productos/top10`
-- `GET /api/productos/sin-ventas`
-- `GET /api/productos/por-categoria`
-- `GET /api/categorias`
-- `GET /api/compras`
-- `GET /api/compras/por-mes`
-- `GET /api/compras/por-anio`
-- `GET /api/compras/promedio`
-- `GET /api/tarjetas`
-- `GET /api/tarjetas/mas-utilizadas`
-- `GET /api/tarjetas/por-marca`
-- `GET /api/tarjetas/credito-vs-debito`
-- `GET /api/marcas`
-
-Todos esos endpoints fueron validados contra la base FastAPI de Azure. Durante
-la depuracion hubo error visual en `/api/clientes/top10`, `/api/tarjetas` y
-`/api/marcas`; se confirmo que los tres responden `200 OK` y se dejaron esas
-cards llamando exactamente la ruta documentada, sin parametros extra.
-
-Endpoints que ya usa Clientes:
-
-- `GET /api/clientes`
-- `GET /api/clientes/top10`
-- `GET /api/clientes/sin-compras`
-- `GET /api/clientes/mayor-consumo`
-
-Endpoints que ya usa Compras:
-
-- `GET /api/compras`
-- `GET /api/compras/por-mes`
-- `GET /api/compras/por-anio`
-- `GET /api/compras/promedio`
-
-Los servicios de Productos, Categorias y Tarjetas exportan funciones API, pero
-sus paginas aun llaman `getProductosData()`, `getCategoriasData()` y
-`getTarjetasData()` de forma sincrona.
-
-## Chart.js
-
-Chart.js esta instalado y se usa a traves de:
-
-```text
-src/modules/dashboard/components/ChartCanvas.jsx
-```
-
-Graficas relacionadas:
-
-- Ventas por mes: linea.
-- Top clientes: barras horizontales.
-- Top productos: barras horizontales.
-- Compras por categoria: dona.
-- Credito vs debito: dona.
-
-Algunos modulos tambien reutilizan `ChartCanvas` o visualizaciones CSS para
-mantener la estetica del dashboard.
-
-Nota actual: el Dashboard General ya no renderiza graficas. Chart.js queda como
-dependencia para pantallas internas y componentes historicos.
-
-## Datos Temporales Y Mocks
-
-Los datos mock siguen existiendo para presentacion y fallback inicial. Estan
-separados de la UI para facilitar su reemplazo por llamadas reales al backend.
-
-Servicios locales relevantes:
-
-- `src/modules/dashboard/services/dashboardService.js`
-- `src/modules/clientes/services/clientesService.js`
-- `src/modules/productos/services/productosService.js`
-- `src/modules/categorias/services/categoriasService.js`
-- `src/modules/compras/services/comprasService.js`
-- `src/modules/tarjetas/services/tarjetasService.js`
-
-El Dashboard General consume API como tablero de endpoints. Clientes y Compras
-consumen API desde sus pantallas. Productos, Categorias y Tarjetas son los
-siguientes pendientes si el usuario pide integracion por modulo.
-
-## Backend y Endpoints
-
-El backend esperado vive fuera de este frontend. La referencia de endpoints esta
-documentada en:
-
-```text
-endpoints.md
-```
-
-Bases documentadas:
-
-- Local: `http://127.0.0.1:8000`
-- Azure: `https://python-api-g2dnemg4ewana3bb.westus3-01.azurewebsites.net`
-
-Decision actual de la conversacion: usar la base Azure de FastAPI como fuente
-activa. No cambiar de vuelta a local salvo instruccion explicita del usuario.
-
-Stack backend esperado/documentado:
-
-- Python
-- FastAPI
-- Base de datos externa documentada por la API
-
-Antes de integrar mas pantallas, revisar `endpoints.md` y reutilizar
-`src/services/apiService.js` como capa compartida.
-
-`src/services/apiService.js` expone:
-
-- `apiRequest(path, options)`: request HTTP con timeout y errores HTTP.
-- `getListPayload(payload)`: normaliza respuestas tipo array, `items`, `data`,
-  `results` o `value`.
-- `buildApiUrl(path, params)`: arma la URL completa, usado para mostrar errores
-  diagnosticos en cards.
-
-## Filtros Y Controles Eliminados
-
-Se quitaron filtros visuales y controles demo que no ejecutaban una accion real
-contra la API. No volver a agregarlos salvo que el endpoint y la pantalla queden
-conectados de punta a punta.
-
-Se eliminaron:
-
-- `src/modules/dashboard/components/DashboardFilters.jsx`
-- `src/modules/categorias/components/CategoriasFilters.jsx`
-
-Tambien se retiraron barras de filtros, buscadores fake de tabla, tabs fake y
-selectores demo de estados visuales en las paginas principales. Los estados
-`loading`, `empty` y `error` siguen existiendo internamente y se activan por la
-carga real de API donde aplica.
-
-## Estilos
-
-El diseno actual usa CSS propio, principalmente en:
-
-```text
-src/modules/dashboard/styles/dashboard.css
-```
-
-Notas importantes:
-
-- No usar Tailwind salvo nueva instruccion del usuario.
-- No instalar librerias UI salvo nueva instruccion del usuario.
-- Mantener el lenguaje visual actual: paneles compactos, dashboard analitico,
-  iconografia Material Symbols, paleta azul/verde y tarjetas con radios bajos.
-- `dashboard.css` contiene estilos compartidos por varias superficies; tocarlo
-  con cuidado porque puede afectar mas de un modulo.
-
-## Decisiones Importantes
-
-- No se usa TypeScript.
-- No se usa React Router todavia.
-- No se instalo Axios ni otra libreria HTTP.
-- No se modifico backend ni base de datos desde este repo.
-- La navegacion del sidebar es manual por estado local.
-- No deben mostrarse filtros, buscadores o controles demo si no tienen efecto
-  real.
-- El Dashboard General no debe inventar metricas. Mostrar solo endpoints y datos
-  reales devueltos por la API.
-- Si una card falla, debe mostrar `Error` en esa card y la URL completa intentada
-  en el detalle diagnostico.
-- Los estados `loading`, `empty` y `error` existen internamente para responder a
-  la carga real de API.
-- El proyecto prioriza continuidad visual y cambios acotados por modulo.
-
-## Skills Locales
-
-Se instalaron skills locales para agentes en:
-
-```text
-.agents/
-.codex/
-```
-
-Estas carpetas estan ignoradas en `.gitignore` para no subirse al repositorio.
-
-Para preguntas de arquitectura o relaciones entre archivos, usar primero:
-
-```text
-.codex/skills/graphify
-graphify-out/
-```
-
-Para criterio de UI/estilo, se pueden consultar las skills en:
-
-```text
-.agents/skills/
-```
-
-Pero las recomendaciones de esas skills deben adaptarse a las restricciones de
-este proyecto. En particular, aunque `ui-styling` mencione shadcn/Tailwind, este
-repo actualmente debe mantenerse con CSS propio.
-
-## Contexto Para Agentes IA
-
-Antes de continuar el trabajo, cualquier agente debe revisar este README y el
-grafo del proyecto generado en:
-
-```text
-graphify-out/
-  graph.json
-  GRAPH_REPORT.md
-  graph.html
-```
-
-El grafo resume relaciones entre archivos, componentes, servicios, estilos,
-imports y comunidades funcionales del frontend. Debe usarse como mapa de
-contexto para responder preguntas de arquitectura, ubicar dependencias y decidir
-el alcance de cambios futuros.
-
-Si `graphify-out/graph.json` existe y la tarea es una pregunta sobre codigo o
-arquitectura, consultar primero el grafo antes de reconstruir contexto desde
-cero.
-
-Nota: el grafo actual fue generado con analisis estatico local mediante
-`scripts/generate-project-graph.mjs`, porque el entorno no tenia disponible un
-Python funcional ni el CLI oficial de `graphifyy`. Si mas adelante se instala
-`graphifyy`, puede regenerarse el grafo con la skill `.codex/skills/graphify`.
-
-## Verificacion Realizada
-
-En la ultima etapa se ejecuto correctamente:
+## Verificacion
 
 ```bash
 npm.cmd run build
 ```
 
-Tambien se validaron manualmente contra FastAPI Azure los endpoints del
-Dashboard General, incluyendo los tres que daban error visual:
-
-```text
-GET /api/clientes/top10
-GET /api/tarjetas
-GET /api/marcas
-```
-
-En una etapa previa tambien se inicio el servidor local con:
-
-```bash
-npm.cmd run dev -- --host 127.0.0.1
-```
-
-Si se hacen cambios nuevos, volver a ejecutar al menos:
-
-```bash
-npm.cmd run build
-```
-
-## Recomendacion Para El Siguiente Agente
-
-Antes de modificar codigo:
-
-1. Revisar `src/App.jsx` para entender la navegacion actual.
-2. Revisar `src/services/apiService.js` y `src/config/apiConfig.js`.
-3. Revisar `src/modules/dashboard/services/dashboardEndpoints.js` y
-   `src/modules/dashboard/components/EndpointCard.jsx` para entender el
-   Dashboard General actual.
-4. Revisar `src/modules/clientes/services/clientesService.js` y
-   `src/modules/compras/services/comprasService.js` como ejemplos por modulo.
-5. Para continuar integracion API, seguir con Productos, luego Tarjetas y por
-   ultimo Categorias.
-6. No reintroducir filtros, buscadores, KPIs, tendencias o graficas sin respaldo
-   directo de endpoints reales.
-7. Revisar `src/modules/dashboard/styles/dashboard.css` antes de tocar estilos,
-   porque contiene reglas compartidas por varias superficies.
-8. Consultar `graphify-out/GRAPH_REPORT.md` si la tarea afecta arquitectura.
-9. Mantener la base Azure FastAPI en `.env.local` salvo instruccion explicita del
-   usuario.
-10. Mantener las restricciones tecnologicas salvo nueva instruccion del usuario.
+Probar contra Azure con Oracle desbloqueado; si Oracle esta locked, la UI debe
+mostrar el `detail` del `503`, no cifras inventadas.

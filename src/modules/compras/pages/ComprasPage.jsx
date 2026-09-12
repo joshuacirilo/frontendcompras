@@ -1,79 +1,75 @@
-import { useEffect, useState } from "react";
-import { ApiResultList, ApiSummaryCard } from "../../../components/ui/ApiResultViews";
-import {
-  getCompras,
-  getDetalleCompras,
-  getComprasPorAnio,
-  getComprasPorMes,
-  getComprasPromedio,
-} from "../services/comprasService";
-
-const cardEndpoints = [
-  { id: "compras-por-anio", title: "Compras por anio", icon: "date_range", load: getComprasPorAnio },
-  { id: "compras-promedio", title: "Compras promedio", icon: "receipt_long", load: getComprasPromedio },
-];
-
-const listEndpoints = [
-  { id: "compras", title: "Compras", load: () => getCompras({ limit: 10, offset: 0 }) },
-  { id: "detalle-compras", title: "Detalle de compras", load: () => getDetalleCompras({ limit: 10, offset: 0 }) },
-  { id: "compras-por-mes", title: "Compras por mes", load: getComprasPorMes },
-];
-
-function buildInitialState(items) {
-  return items.map((item) => ({ ...item, payload: null, status: "loading" }));
-}
-
-async function loadItem(item) {
-  try {
-    return { ...item, payload: await item.load(), status: "available" };
-  } catch (error) {
-    return { ...item, error: error.message, payload: null, status: "error" };
-  }
-}
+import { useCallback, useState } from "react";
+import FilterBar from "../../../components/filters/FilterBar";
+import EmptyBlock from "../../../components/ui/EmptyBlock";
+import ApiStatusDot from "../../../components/ui/ApiStatusDot";
+import { EMPTY_FILTERS } from "../../../config/apiContract";
+import { useData } from "../../../hooks/useData";
+import MesMayorFacturacion from "../components/MesMayorFacturacion";
+import TicketPromedio from "../components/TicketPromedio";
+import VentasPorAnio from "../components/VentasPorAnio";
+import VentasPorMes from "../components/VentasPorMes";
+import { getComprasData } from "../services/comprasService";
+import "../../dashboard/styles/dashboard.css";
 
 function ComprasPage({ onBackToDashboard }) {
-  const [cards, setCards] = useState(() => buildInitialState(cardEndpoints));
-  const [lists, setLists] = useState(() => buildInitialState(listEndpoints));
+  const [draftFilters, setDraftFilters] = useState(EMPTY_FILTERS);
+  const [appliedFilters, setAppliedFilters] = useState(EMPTY_FILTERS);
 
-  async function loadCompras() {
-    setCards(buildInitialState(cardEndpoints));
-    setLists(buildInitialState(listEndpoints));
-    setCards(await Promise.all(cardEndpoints.map(loadItem)));
-    setLists(await Promise.all(listEndpoints.map(loadItem)));
-  }
-
-  useEffect(() => {
-    loadCompras();
-  }, []);
+  const loader = useCallback((params) => getComprasData(params), []);
+  const { data, error, isLoading, refetch } = useData(loader, { params: appliedFilters });
 
   return (
     <div className="compras-page">
       <header className="compras-heading">
         <nav aria-label="Ruta actual">
-          <button type="button" onClick={onBackToDashboard}>Dashboard</button>
-          <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+          <button type="button" onClick={onBackToDashboard}>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              dashboard
+            </span>
+            Dashboard
+          </button>
+          <span className="material-symbols-outlined" aria-hidden="true">
+            chevron_right
+          </span>
           <strong>Compras</strong>
         </nav>
-        <div className="compras-heading-main">
-          <div>
-            <div className="compras-title-row">
-              <h1>Compras</h1>
-            </div>
-          </div>
+        <div className="compras-title-block">
+          <h1>
+            Compras
+            <ApiStatusDot offline={Boolean(data?.usingMock)} />
+          </h1>
         </div>
       </header>
 
-      <section className="api-summary-grid">
-        {cards.map((item) => (
-          <ApiSummaryCard item={item} key={item.id} />
-        ))}
-      </section>
+      <FilterBar
+        value={draftFilters}
+        onChange={setDraftFilters}
+        onApply={() => setAppliedFilters({ ...draftFilters })}
+        onReset={() => {
+          setDraftFilters(EMPTY_FILTERS);
+          setAppliedFilters(EMPTY_FILTERS);
+        }}
+      />
 
-      <section className="api-list-grid">
-        {lists.map((item) => (
-          <ApiResultList item={item} key={item.id} />
-        ))}
-      </section>
+      {isLoading && !data ? <EmptyBlock title="Cargando compras" message="Consultando endpoints..." /> : null}
+      {error && !data ? <EmptyBlock title="Error al cargar compras" message={error.message} /> : null}
+
+      {data ? (
+        <>
+          <VentasPorMes data={data.monthlySales} />
+          <div className="compras-analytics-grid">
+            <VentasPorAnio data={data.yearlySales} />
+            <MesMayorFacturacion peakMonth={data.peakMonth} />
+          </div>
+          <TicketPromedio summary={data.ticketAverageSummary} />
+        </>
+      ) : null}
+
+      {data && !isLoading ? (
+        <button className="ghost-button" type="button" onClick={() => refetch(appliedFilters)}>
+          Reintentar
+        </button>
+      ) : null}
     </div>
   );
 }

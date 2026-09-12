@@ -41,10 +41,19 @@ export async function apiRequest(path, options = {}) {
     const data = await parseResponse(response);
 
     if (!response.ok) {
-      const message =
-        typeof data === "object" && data?.detail
-          ? data.detail
-          : `Error HTTP ${response.status}`;
+      let message = `Error HTTP ${response.status}`;
+
+      if (typeof data === "object" && data?.detail) {
+        if (typeof data.detail === "string") {
+          message = data.detail;
+        } else if (Array.isArray(data.detail)) {
+          message = data.detail
+            .map((item) => item?.msg || JSON.stringify(item))
+            .join("; ");
+        } else {
+          message = JSON.stringify(data.detail);
+        }
+      }
 
       throw new Error(message);
     }

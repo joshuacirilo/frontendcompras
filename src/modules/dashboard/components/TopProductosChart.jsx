@@ -8,7 +8,7 @@ function TopProductosChart({ data }) {
       datasets: [
         {
           label: "Unidades vendidas",
-          data: data.map(([, value]) => Number(value.split(" ")[0].replace(",", ""))),
+          data: data.map(([, value]) => Number(String(value).split(" ")[0].replace(/,/g, "")) || 0),
           backgroundColor: "#003d28",
           borderRadius: 8,
         },
@@ -27,13 +27,8 @@ function TopProductosChart({ data }) {
       <div className="panel-title-row">
         <div>
           <h3>Top 10 Productos por Ventas</h3>
-          <p>Mayor rotacion en volumen de unidades e ingreso</p>
+          <p>Mayor rotacion segun /api/productos/top10</p>
         </div>
-        <button className="icon-button" type="button" aria-label="Opciones de top productos">
-          <span className="material-symbols-outlined" aria-hidden="true">
-            more_vert
-          </span>
-        </button>
       </div>
 
       <ChartCanvas
@@ -43,8 +38,7 @@ function TopProductosChart({ data }) {
       />
 
       <div className="panel-footer-link">
-        <span>SKUs con 68% de rotacion global</span>
-        <a href="#">Ver inventario</a>
+        <span>Mostrando {data.length} productos de la API</span>
       </div>
     </section>
   );
